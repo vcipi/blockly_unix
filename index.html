@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blockly Data Processing Demo</title>
+    <script src="https://unpkg.com/blockly@latest/blockly_compressed.js"></script>
+    <script src="https://unpkg.com/blockly@latest/blocks_compressed.js"></script>
+    <script src="https://unpkg.com/blockly@latest/javascript_compressed.js"></script>
+	<script src="blocks_codegen.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+	<link rel="stylesheet" href="styles.css">
+
+</head>
+<body>
+
+<div id="buttonContainer">
+	<button id="resetButton" class="icon-button" title="Reset Workspace"><i class="fas fa-undo"></i></button> 
+    <button id="executeButton" class="icon-button" title="Execute"><i class="fas fa-play"></i></button> 
+</div>
+
+<div id="blocklyArea">
+    <div id="blocklyDiv"></div>
+</div>
+<div id="resultsWrapper">
+    <div id="resultsArea">Results will appear here...
+	    <button id="copyButton" style="position: absolute; right: 10px; top: 10px;">
+			<img src="img/copy_icon.png" alt="copy" />
+		</button>
+	</div>
+</div>
+
+
+<script>
+    var toolboxXML = `
+        <xml>
+			<block type="filename"></block>
+            <block type="head"></block>
+            <block type="uniq"></block>
+			<block type="sort"></block>
+        </xml>
+    `;
+    
+    var workspace = Blockly.inject('blocklyDiv', {
+        toolbox: toolboxXML,
+		trashcan: true
+    });
+</script>
+<script src="main.js"></script>
+</body>
+</html>

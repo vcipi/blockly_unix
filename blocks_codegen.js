@@ -1,0 +1,171 @@
+var filenameBlock = {
+  type: "filename",
+  message0: "Filename %1",
+  args0: [
+    {
+      type: "field_input",
+      name: "FILENAME",
+      text: "default.txt" // default text for the input
+    }
+  ],
+  output: "String",
+  colour: 230,
+  nextStatement: "Action",
+  tooltip: "Represents a filename.",
+  helpUrl: "" // URL to further information or documentation.
+};
+
+var headBlock = {
+  type: "head",
+  message0: "Head command",
+  message1: "metric %1",
+  args1: [
+    {
+      type: "field_dropdown",
+      name: "metric_type",
+      options: [
+        [ "bytes", "ITEM1" ],
+        [ "lines", "ITEM2" ]
+      ]
+    }
+  ],
+  message2: "number of %1",
+  args2: [
+    {
+      type: "field_number",
+      name: "METRIC",
+      value: 10, // default number of bytes
+    }
+  ],
+  message3: "Quiet %1",
+  args3: [
+    {
+      type: "field_checkbox",
+      name: "QUIET",
+      checked: false // by default it's disabled
+    }
+  ],
+  message4: "Verbose %1",
+  args4: [
+    {
+      type: "field_checkbox",
+      name: "VERBOSE",
+      checked: false // by default it's disabled
+    }
+  ],
+  
+  tooltip: "Output the first part of files",
+  previousStatement: "Action",
+  nextStatement: "Action",
+  colour: 160,
+  extensions: [
+    'head_validation',
+  ],
+  helpUrl: "" // URL to further information or documentation.
+};
+
+var uniqBlock = {
+  type: "uniq",
+  message0: "uniq",
+  message1: "parameter choice %1",
+  args1: [
+    {
+      type: "field_dropdown",
+      name: "uniq_parameter",
+      options: [
+        [ "none", "ITEM1" ],
+        [ "occurencies", "ITEM2" ],
+        [ "duplicates", "ITEM3" ],
+        [ "uniq", "ITEM4" ]
+      ]
+    }
+  ],
+
+  // output: "String",
+  colour: 220,
+  previousStatement: "Action",
+  nextStatement: "Action",
+  tooltip: "report or filter out repeated lines in a file",
+  helpUrl: "" // URL to further information or documentation.
+};
+
+var sortBlock = {
+  type: "sort",
+  message0: "sort",
+  message1: "descending order %1",
+  args1: [
+    {
+      type: "field_checkbox",
+      name: "desc",
+      checked: false // by default it's disabled
+    }
+  ],
+  message2: "based on %1",
+  args2: [
+    {
+      type: "field_dropdown",
+      name: "sort_parameter",
+      options: [
+        [ "characters sorting", "ITEM1" ],
+        [ "numeric sorting", "ITEM2" ]
+      ]
+    }
+  ],
+  message3: "delimeter %1",
+  args3: [
+    {
+      type: "field_input",
+      name: "sort_delimiter",
+      text: "insert file delimiter" // default text for the input
+    }
+  ],
+
+  message4: "column to sort %1",
+  args4: [
+    {
+      type: "field_number",
+      name: "sort_column",
+      value: 1, // default number of lines
+      min: 1, // minimum value
+      max: 1000, // it should be the maximum of the length of the files columns
+      precision: 1 // allow only integers
+    }
+  ],
+  message5: "unique elements output %1",
+  args5: [
+    {
+      type: "field_checkbox",
+      name: "uniq_elements",
+      checked: false // by default it's disabled
+    }
+  ],
+
+  // output: "String",
+  colour: 880,
+  previousStatement: "Action",
+  nextStatement: "Action",
+  tooltip: "report or filter out repeated lines in a file",
+  helpUrl: "" // URL to further information or documentation.
+};
+
+
+Blockly.defineBlocksWithJsonArray([
+filenameBlock,
+headBlock,
+uniqBlock,
+sortBlock]);
+
+Blockly.Extensions.register('head_validation', function() {
+  // Add custom validation.
+  // Validate the entire block whenever any part of it changes,
+  // and display a warning if the block cannot be made valid.
+  this.setOnChange(function(event) {
+    const metric = this.getFieldValue('METRIC');
+    const valid = Number.isInteger(metric);
+    this.setWarningText(valid
+      ? null
+      : `You must enter an integer`);
+
+  });
+});
+
