@@ -129,8 +129,8 @@ var sortBlock = {
       type: "field_dropdown",
       name: "sort_parameter",
       options: [
-        [ "characters sorting", "characters sorting" ],
-        [ "numeric sorting", "numeric sorting" ]
+        [ "characters sorting", "characters_sorting" ],
+        [ "numeric sorting", "numeric_sorting" ]
       ]
     }
   ],
