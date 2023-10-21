@@ -18,14 +18,21 @@ var filenameBlock = {
 var headBlock = {
   type: "head",
   message0: "Head command",
+  unix_description: [
+    {
+      bytes: "-c",
+      lines: "-n"
+
+    }
+  ],
   message1: "metric %1",
   args1: [
     {
       type: "field_dropdown",
       name: "metric_type",
       options: [
-        [ "bytes", "ITEM1" ],
-        [ "lines", "ITEM2" ]
+        [ "lines", "lines" ],
+        [ "bytes", "bytes" ]
       ]
     }
   ],
@@ -67,16 +74,24 @@ var headBlock = {
 var uniqBlock = {
   type: "uniq",
   message0: "uniq",
+  unix_description: [
+    {
+      occurencies: "-c",
+      duplicates: "-d",
+      uniq : '-u'
+
+    }
+  ],
   message1: "parameter choice %1",
   args1: [
     {
       type: "field_dropdown",
       name: "uniq_parameter",
       options: [
-        [ "none", "ITEM1" ],
-        [ "occurencies", "ITEM2" ],
-        [ "duplicates", "ITEM3" ],
-        [ "uniq", "ITEM4" ]
+        [ "none", "none" ],
+        [ "occurencies", "occurencies" ],
+        [ "duplicates", "duplicates" ],
+        [ "uniq", "uniq" ]
       ]
     }
   ],
@@ -92,6 +107,14 @@ var uniqBlock = {
 var sortBlock = {
   type: "sort",
   message0: "sort",
+  unix_description: [
+    {
+      desc: "-r",
+      characters_sorting: "-d",
+      numeric_sorting : '-n'
+
+    }
+  ],
   message1: "descending order %1",
   args1: [
     {
@@ -106,8 +129,8 @@ var sortBlock = {
       type: "field_dropdown",
       name: "sort_parameter",
       options: [
-        [ "characters sorting", "ITEM1" ],
-        [ "numeric sorting", "ITEM2" ]
+        [ "characters sorting", "characters sorting" ],
+        [ "numeric sorting", "numeric sorting" ]
       ]
     }
   ],
