@@ -15,6 +15,62 @@ var filenameBlock = {
   helpUrl: "" // URL to further information or documentation.
 };
 
+var tailBlock = {
+  type: "tail",
+  message0: "Tail command",
+  unix_description: [
+    {
+      bytes: "-c",
+      lines: "-n"
+
+    }
+  ],
+  message1: "metric %1",
+  args1: [
+    {
+      type: "field_dropdown",
+      name: "metric_type",
+      options: [
+        [ "lines from the end", "lines" ],
+        [ "bytes from the end", "bytes" ]
+      ]
+    }
+  ],
+  message2: "number of %1",
+  args2: [
+    {
+      type: "field_number",
+      name: "METRIC",
+      value: 10, // default number of bytes
+    }
+  ],
+  message3: "descending order %1",
+  args3: [
+    {
+      type: "field_checkbox",
+      name: "desc",
+      checked: false // by default it's disabled
+    }
+  ],
+  message4: "Show line numbers %1",
+  args4: [
+    {
+      type: "field_checkbox",
+      name: "show_line_nums",
+      checked: false // by default it's disabled
+    }
+  ],
+  
+  tooltip: "Output the last parts of files",
+  previousStatement: "Action",
+  nextStatement: "Action",
+  colour: 260,
+  extensions: [
+    'head_tail_validation',
+  ],
+  helpUrl: "" // URL to further information or documentation.
+};
+
 var headBlock = {
   type: "head",
   message0: "Head command",
@@ -66,7 +122,7 @@ var headBlock = {
   nextStatement: "Action",
   colour: 160,
   extensions: [
-    'head_validation',
+    'head_tail_validation',
   ],
   helpUrl: "" // URL to further information or documentation.
 };
@@ -174,11 +230,12 @@ var sortBlock = {
 
 Blockly.defineBlocksWithJsonArray([
 filenameBlock,
+tailBlock,
 headBlock,
 uniqBlock,
 sortBlock]);
 
-Blockly.Extensions.register('head_validation', function() {
+Blockly.Extensions.register('head_tail_validation', function() {
   // Add custom validation.
   // Validate the entire block whenever any part of it changes,
   // and display a warning if the block cannot be made valid.
