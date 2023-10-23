@@ -74,7 +74,7 @@ var tailBlock = {
 
 var headBlock = {
   type: "head",
-  message0: "Head command",
+  message0: "Head command %1",
   unix_description: [
     {
       bytes: "-c",
@@ -82,6 +82,11 @@ var headBlock = {
 
     }
   ],
+  args0: [{
+      type: "input_value",
+      name: "FILENAME",
+	  check: "String" 
+  }],
   message1: "metric %1",
   args1: [
     {

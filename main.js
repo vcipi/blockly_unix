@@ -2,18 +2,15 @@ Blockly.JavaScript = new Blockly.Generator('JavaScript');
 let csvContent = "";
 
 document.getElementById('executeButton').addEventListener('click', function onExecuteButtonClick() {
-    if (!csvContent) {
-        alert("Please upload a CSV file first.");
-        return;
-    }
 
-    var generatedCode = Blockly.JavaScript.workspaceToCode(workspace);
 
-    console.log("Generated code:", generatedCode);  // Log the generated code for debugging purposes
-    
-    console.log("Before executing generated code");
-    eval(generatedCode);
-    console.log("After executing generated code");
+	console.log("Top blocks:", workspace.getTopBlocks());
+    var generatedCommand = Blockly.JavaScript.workspaceToCode(workspace);
+
+    // Combine the constructed UNIX command and filename
+    document.getElementById('resultsArea').innerText = generatedCommand;
+
+    console.log("Generated command:", generatedCommand);
 });
 
 document.getElementById('resetButton').addEventListener('click', function() {
@@ -54,36 +51,58 @@ function copyToClipboard() {
 // Attach the function to the 'click' event of the button
 document.getElementById('copyButton').addEventListener('click', copyToClipboard);
 
+Blockly.JavaScript.forBlock['filename'] = function(block) {
+    var filename = block.getFieldValue('FILENAME');
+    return [JSON.stringify(filename), Blockly.JavaScript.ORDER_NONE];
+};
 
-Blockly.JavaScript['head'] = function(block) {
-  var file = block.getFieldValue('FILE');
-  
-  var bytesEnabled = block.getFieldValue('BYTES_ENABLE') === 'TRUE';
-  var bytes = block.getFieldValue('BYTES');
-  
-  var linesEnabled = block.getFieldValue('LINES_ENABLE') === 'TRUE';
-  var lines = block.getFieldValue('LINES');
-  
-  var quiet = block.getFieldValue('QUIET') === 'TRUE';
-  var verbose = block.getFieldValue('VERBOSE') === 'TRUE';
+Blockly.JavaScript.forBlock['head'] = function(block) {
+	
+	var blockType = block.type;  // Get the block's type (e.g., "head")
+    var blockDefinition = window[blockType + 'Block'];  // Construct the name of the block definition variable and access it
 
-  var options = [];
-  if (bytesEnabled) {
-    options.push(`bytes: ${bytes}`);
-  }
+    // Fetch values from the block
+    var metricType = block.getFieldValue('metric_type');
+    var metricValue = block.getFieldValue('METRIC');
+    var quiet = block.getFieldValue('QUIET') === 'TRUE';
+    var verbose = block.getFieldValue('VERBOSE') === 'TRUE';
+	
+	
+	// Fetch the attached filename block's value
+    // Check if there's a connected input block for FILENAME
+    var inputBlock = block.getInputTargetBlock('FILENAME');
 
-  if (linesEnabled) {
-    options.push(`lines: ${lines}`);
-  }
+    // If there's a connected block, and it's of type 'filename', get the field value
+    var filenameValue = (inputBlock && inputBlock.type === 'filename') 
+        ? JSON.stringify(inputBlock.getFieldValue('FILENAME')) 
+        : '"filename.txt"';
+	console.log("filenameValue:", filenameValue);
+	
+	
+    // Start constructing the UNIX command
+    var command = 'head ';
 
-  if (quiet) {
-    options.push('quiet: true');
-  }
+    // Add the metric type (lines or bytes)
+    var unixDescription = blockDefinition.unix_description[0][metricType];
+    if (metricType === 'lines') {
+        command += unixDescription + ' ' + metricValue + ' ';
+    } else if (metricType === 'bytes') {
+        command += unixDescription + ' ' + metricValue + ' ';
+    }
 
-  if (verbose) {
-    options.push('verbose: true');
-  }
+    // Add quiet or verbose flags if they're selected
+    if (quiet) {
+        command += '--quiet ';
+    }
 
-  var code = `head("${file}", { ${options.join(', ')} });\n`;
-  return [code, Blockly.JavaScript.ORDER_NONE];
+    if (verbose) {
+        command += '--verbose ';
+    }
+	
+	console.log("Head block code generation:", command);
+   
+    // Add the filename to the command
+    command += filenameValue;
+
+    return command
 };
