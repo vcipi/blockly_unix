@@ -5,7 +5,21 @@ document.getElementById('executeButton').addEventListener('click', function onEx
 
 
 	console.log("Top blocks:", workspace.getTopBlocks());
-    var generatedCommand = Blockly.JavaScript.workspaceToCode(workspace);
+    // Start from the first block
+    let currentBlock = workspace.getTopBlocks()[0];
+    let generatedCommand = '';
+
+    while (currentBlock) {
+        // Generate the command for the current block
+        if (Blockly.JavaScript.forBlock[currentBlock.type]) {
+            generatedCommand += (generatedCommand ? " | " : "") + Blockly.JavaScript.forBlock[currentBlock.type](currentBlock);
+        } else {
+            console.error("No code generation function defined for block type:", currentBlock.type);
+            break;
+        }
+        // Move to the next connected block
+        currentBlock = currentBlock.getNextBlock();
+    }
 
     // Combine the constructed UNIX command and filename
     document.getElementById('resultsArea').innerText = generatedCommand;
@@ -50,6 +64,14 @@ function copyToClipboard() {
 
 // Attach the function to the 'click' event of the button
 document.getElementById('copyButton').addEventListener('click', copyToClipboard);
+
+Blockly.JavaScript.getPreviousCommand = function(block) {
+    let previousBlock = block.getPreviousBlock();
+    if (previousBlock) {
+        return Blockly.JavaScript.forBlock[block.type](previousBlock);
+    }
+    return "";
+};
 
 Blockly.JavaScript.forBlock['filename'] = function(block) {
     var filename = block.getFieldValue('FILENAME');
@@ -103,6 +125,33 @@ Blockly.JavaScript.forBlock['head'] = function(block) {
    
     // Add the filename to the command
     command += filenameValue;
-
-    return command
+    
+    return command;
 };
+
+Blockly.JavaScript.forBlock['wc'] = function(block) {
+    // Initialize command with 'wc' since it's the base command for word count
+    let command = 'wc';
+
+    // Check each checkbox field and append the corresponding flag to the command
+    if (block.getFieldValue('line') === 'TRUE') {
+        command += ' -l';
+    }
+    if (block.getFieldValue('words') === 'TRUE') {
+        command += ' -w';
+    }
+    if (block.getFieldValue('bytes') === 'TRUE') {
+        command += ' -c';
+    }
+    if (block.getFieldValue('chars') === 'TRUE') {
+        command += ' -m';
+    }
+    if (block.getFieldValue('wc_all') !== 'TRUE') {
+        // If 'wc_all' is not checked, then use the individual flags
+        // Otherwise, we don't need to append any flags since 'wc' by default counts lines, words, and characters
+        command += ' -lwcm';
+    }
+
+    return command;
+};
+
