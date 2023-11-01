@@ -10,22 +10,28 @@ var filenameBlock = {
   ],
   output: "String",
   colour: 230,
-  nextStatement: "Action",
+  // nextStatement: "Action",
   tooltip: "Represents a filename.",
   helpUrl: "" // URL to further information or documentation.
 };
 
 var tailBlock = {
   type: "tail",
-  message0: "Tail command",
+  message0: "Tail command %1",
   unix_description: [
     {
       bytes: "-c",
       lines: "-n",
-      desc: "-r"
+      desc: "-r",
+	  show_line_nums: "??????"
 
     }
   ],
+  args0: [{
+      type: "input_value",
+      name: "FILENAME",
+	  check: "String" 
+  }],
   message1: "metric %1",
   args1: [
     {
@@ -78,7 +84,9 @@ var headBlock = {
   unix_description: [
     {
       bytes: "-c",
-      lines: "-n"
+      lines: "-n",
+	  QUIET: "--quiet",
+	  VERBOSE: "--verbose"
 
     }
   ],
@@ -135,7 +143,7 @@ var headBlock = {
 
 var wcBlock = {
   type: "wc",
-  message0: "word count",
+  message0: "word count %1",
   unix_description: [
     {
       lines: "-l",
@@ -145,11 +153,16 @@ var wcBlock = {
 
     }
   ],
+  args0: [{
+      type: "input_value",
+      name: "FILENAME",
+	  check: "String" 
+  }],
   message1: "line count %1",
   args1: [
     {
       type: "field_checkbox",
-      name: "line",
+      name: "lines",
       checked: false // by default it's disabled
     }
   ],
@@ -200,15 +213,21 @@ var wcBlock = {
 
 var uniqBlock = {
   type: "uniq",
-  message0: "uniq",
+  message0: "uniq %1\n",
   unix_description: [
     {
+	  none: "",
       occurencies: "-c",
       duplicates: "-d",
       uniq : '-u'
 
     }
   ],
+  args0: [{
+	  type: "input_value",
+      name: "FILENAME",
+	  check: "String" 
+  }],
   message1: "parameter choice %1",
   args1: [
     {

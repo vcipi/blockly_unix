@@ -97,20 +97,16 @@ Blockly.JavaScript.forBlock['head'] = function(block) {
     // If there's a connected block, and it's of type 'filename', get the field value
     var filenameValue = (inputBlock && inputBlock.type === 'filename') 
         ? JSON.stringify(inputBlock.getFieldValue('FILENAME')) 
-        : '"filename.txt"';
+        : '';
 	console.log("filenameValue:", filenameValue);
-	
 	
     // Start constructing the UNIX command
     var command = 'head ';
 
     // Add the metric type (lines or bytes)
     var unixDescription = blockDefinition.unix_description[0][metricType];
-    if (metricType === 'lines') {
-        command += unixDescription + ' ' + metricValue + ' ';
-    } else if (metricType === 'bytes') {
-        command += unixDescription + ' ' + metricValue + ' ';
-    }
+    
+	command += unixDescription + ' ' + metricValue + ' ';
 
     // Add quiet or verbose flags if they're selected
     if (quiet) {
@@ -129,28 +125,118 @@ Blockly.JavaScript.forBlock['head'] = function(block) {
     return command;
 };
 
+Blockly.JavaScript.forBlock['tail'] = function(block) {
+	
+	var blockType = block.type; 
+    var blockDefinition = window[blockType + 'Block'];  // Construct the name of the block definition variable and access it
+
+    // Fetch values from the block
+    var metricType = block.getFieldValue('metric_type');
+    var metricValue = block.getFieldValue('METRIC');
+    var desc = block.getFieldValue('desc') === 'TRUE';
+    var line_nums = block.getFieldValue('show_line_nums') === 'TRUE';
+	
+	
+	// Fetch the attached filename block's value
+    // Check if there's a connected input block for FILENAME
+    var inputBlock = block.getInputTargetBlock('FILENAME');
+
+    // If there's a connected block, and it's of type 'filename', get the field value
+    var filenameValue = (inputBlock && inputBlock.type === 'filename') 
+        ? JSON.stringify(inputBlock.getFieldValue('FILENAME')) 
+        : '';
+	console.log("filenameValue:", filenameValue);
+	
+	
+    // Start constructing the UNIX command
+    var command = 'tail ';
+
+    // Add the metric type (lines or bytes)
+    var unixDescription = blockDefinition.unix_description[0][metricType];
+
+    command += unixDescription + ' ' + metricValue + ' ';
+
+ 
+    if (desc) {
+        command += '-r ';
+    }
+
+    if (line_nums) {
+        command += '-????? ';
+    }
+	
+	console.log("Head block code generation:", command);
+   
+    // Add the filename to the command
+    command += filenameValue;
+    
+    return command;
+};
+
 Blockly.JavaScript.forBlock['wc'] = function(block) {
+	
+	// Fetch the attached filename block's value
+    // Check if there's a connected input block for FILENAME
+    var inputBlock = block.getInputTargetBlock('FILENAME');
+
+    // If there's a connected block, and it's of type 'filename', get the field value
+    var filenameValue = (inputBlock && inputBlock.type === 'filename') 
+        ? JSON.stringify(inputBlock.getFieldValue('FILENAME')) 
+        : '';
+	console.log("filenameValue:", filenameValue);
+	
     // Initialize command with 'wc' since it's the base command for word count
-    let command = 'wc';
+    let command = 'wc ';
 
     // Check each checkbox field and append the corresponding flag to the command
-    if (block.getFieldValue('line') === 'TRUE') {
-        command += ' -l';
+    if (block.getFieldValue('lines') === 'TRUE') {
+        command += '-l ';
     }
     if (block.getFieldValue('words') === 'TRUE') {
-        command += ' -w';
+        command += '-w ';
     }
     if (block.getFieldValue('bytes') === 'TRUE') {
-        command += ' -c';
+        command += '-c ';
     }
     if (block.getFieldValue('chars') === 'TRUE') {
-        command += ' -m';
+        command += '-m ';
     }
     if (block.getFieldValue('wc_all') !== 'TRUE') {
         // If 'wc_all' is not checked, then use the individual flags
         // Otherwise, we don't need to append any flags since 'wc' by default counts lines, words, and characters
-        command += ' -lwcm';
+        command += '-lwcm ';
     }
+	
+	// Add the filename to the command
+    command += filenameValue;
+
+    return command;
+};
+
+Blockly.JavaScript.forBlock['uniq'] = function(block) {
+	
+	var blockType = block.type;  
+    var blockDefinition = window[blockType + 'Block'];  // Construct the name of the block definition variable and access it
+
+    // Fetch values from the block
+	var uniqparam = block.getFieldValue('uniq_parameter');
+
+    // Fetch the attached filename block's value
+    var inputBlock = block.getInputTargetBlock('FILENAME');
+    var filenameValue = (inputBlock && inputBlock.type === 'filename') 
+        ? JSON.stringify(inputBlock.getFieldValue('FILENAME')) 
+        : '';
+    
+	// Start constructing the UNIX command
+    var command = 'uniq ';
+	
+	var unixDescription = blockDefinition.unix_description[0][uniqparam];
+
+    command += unixDescription + ' ';
+
+
+    // Add the filename to the command
+    command += filenameValue;
 
     return command;
 };
