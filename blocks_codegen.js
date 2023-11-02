@@ -15,6 +15,240 @@ var filenameBlock = {
   helpUrl: "" // URL to further information or documentation.
 };
 
+var grepBlock = {
+  type: "grep",
+  unix_description: [
+    {
+      regex: "-E",
+      case_ins: "-i",
+      whole_word: "-w",
+      count_lines: "-c",
+      inverted : "-v",
+      recursive : "-r",
+      show_line_nums : "-n",
+      multiple_patterns : "-e"
+    }
+  ],
+  message0: "Search in a file with a pattern\n For multiple patterns separate with space",
+  message1: "pattern to search %1",
+  args1: [
+    {
+      type: "field_input",
+      name: "pattern",
+      text: "'pattern'" // default text for the input
+    }
+  ],
+  message2: "in file %1",
+  args2: [{
+    type: "input_value",
+    name: "FILENAME",
+  check: "String" 
+  }],
+  message3: "regular expression %1",
+  args3: [
+    {
+      type: "field_checkbox",
+      name: "regex",
+      checked: false // by default it's disabled
+    }
+  ],
+  message4: "case insensitive %1",
+  args4: [
+    {
+      type: "field_checkbox",
+      name: "case_ins",
+      checked: false // by default it's disabled
+    }
+  ],
+  message5: "whole word search %1",
+  args5: [
+    {
+      type: "field_checkbox",
+      name: "whole_word",
+      checked: false // by default it's disabled
+    }
+  ],
+  message6: "count the matches %1",
+  args6: [
+    {
+      type: "field_checkbox",
+      name: "count_lines",
+      checked: false // by default it's disabled
+    }
+  ],
+  message7: "%1 show lines that don't match pattern",
+  args7: [
+    {
+      type: "field_checkbox",
+      name: "inverted",
+      checked: false // by default it's disabled
+    }
+  ],
+  message8: "Recursively in all subdirectories %1",
+  args8: [
+    {
+      type: "field_checkbox",
+      name: "recursive",
+      checked: false // by default it's disabled
+    }
+  ],
+  message9: "Display line numbers for matching lines %1",
+  args9: [
+    {
+      type: "field_checkbox",
+      name: "show_line_nums",
+      checked: false // by default it's disabled
+    }
+  ],
+
+  message10: "Search with multiple patterns%1",
+  args10: [
+    {
+      type: "field_checkbox",
+      name: "show_line_nums",
+      checked: false // by default it's disabled
+    }
+  ],
+  
+  colour: 646,
+  previousStatement: "Action",
+  nextStatement: "Action",
+  tooltip: "search in a file with a pattern",
+  helpUrl: "" // URL to further information or documentation.
+};
+
+var saveBlock = {
+  type: "save",
+  message0: "save result to %1",
+  args0: [
+    {
+      type: "field_input",
+      name: "save_filename",
+      text: "save.csv" // default file for saving
+    }
+  ],
+  colour: 10,
+  previousStatement: "Action",
+  tooltip: "Saves a file with spectified name and extension",
+  helpUrl: "" // URL to further information or documentation.
+};
+
+var mkdirBlock = {
+  type: "mkdir",
+  unix_description: [
+    {
+      parents: "-p",
+      verbose: "-v"
+    }
+  ],
+  message0: "create directory",
+  message1: "for multiple directories separate with space",
+  message2: "write directory or path %1",
+  args2: [{
+	  type: "field_input",
+    name: "directory",
+	  text: "............" 
+  }],
+  
+  message3: "create also parent directories %1",
+  args3: [
+    {
+      type: "field_checkbox",
+      name: "parents",
+      checked: false // by default it's disabled
+    }
+  ],
+  message4: "list directories created %1",
+  args4: [
+    {
+      type: "field_checkbox",
+      name: "verbose",
+      checked: false // by default it's disabled
+    }
+  ],
+
+  // output: "String",
+  colour: 250,
+  // previousStatement: "Action",
+  // nextStatement: "Action",
+  tooltip: "create directory",
+  helpUrl: "" // URL to further information or documentation.
+};
+
+var lsBlock = {
+  type: "ls",
+  message0: "list files & directories %1",
+  unix_description: [
+    {
+      detailed: "-l",
+      recursively: "-R",
+      hidden: "-a",
+      reverse: "-r"
+
+    }
+  ],
+  args0: [{
+	  type: "input_value",
+    name: "directory",
+	  check: "String" 
+  }],
+  message1: "show details %1",
+  args1: [
+    {
+      type: "field_checkbox",
+      name: "detailed",
+      checked: false // by default it's disabled
+    }
+  ],
+  message2: "%1 search in all subdirectories",
+  args2: [
+    {
+      type: "field_checkbox",
+      name: "recursively",
+      checked: false // by default it's disabled
+    }
+  ],
+  message3: "show hidden files %1",
+  args3: [
+    {
+      type: "field_checkbox",
+      name: "hidden",
+      checked: false // by default it's disabled
+    }
+  ],
+  message4: "%1 show in reverse order",
+  args4: [
+    {
+      type: "field_checkbox",
+      name: "reverse",
+      checked: false // by default it's disabled
+    }
+  ],
+
+  // output: "String",
+  colour: 480,
+  previousStatement: "Action",
+  nextStatement: "Action",
+  tooltip: "list directory contents",
+  helpUrl: "" // URL to further information or documentation.
+};
+
+var changeDirectoryBlock = {
+  type: "cd",
+  message0: "change directory to %1",
+  args0: [
+    {
+      type: "field_input",
+      name: "change_dir",
+      text: "............" // empty text for user to define path
+    }
+  ],
+  colour: 400,
+  // nextStatement: "Action",
+  tooltip: "change your directory",
+  helpUrl: "" // URL to further information or documentation.
+};
+
 var tailBlock = {
   type: "tail",
   message0: "Tail command %1",
@@ -22,8 +256,7 @@ var tailBlock = {
     {
       bytes: "-c",
       lines: "-n",
-      desc: "-r",
-	  show_line_nums: "??????"
+      desc: "-r"
 
     }
   ],
@@ -56,14 +289,6 @@ var tailBlock = {
     {
       type: "field_checkbox",
       name: "desc",
-      checked: false // by default it's disabled
-    }
-  ],
-  message4: "Show line numbers %1",
-  args4: [
-    {
-      type: "field_checkbox",
-      name: "show_line_nums",
       checked: false // by default it's disabled
     }
   ],
@@ -216,7 +441,7 @@ var uniqBlock = {
   message0: "uniq %1\n",
   unix_description: [
     {
-	  none: "",
+	    none: "",
       occurencies: "-c",
       duplicates: "-d",
       uniq : '-u'
@@ -225,7 +450,7 @@ var uniqBlock = {
   ],
   args0: [{
 	  type: "input_value",
-      name: "FILENAME",
+    name: "FILENAME",
 	  check: "String" 
   }],
   message1: "parameter choice %1",
@@ -319,12 +544,18 @@ var sortBlock = {
 
 
 Blockly.defineBlocksWithJsonArray([
-wcBlock,
 filenameBlock,
+grepBlock,
+saveBlock,
+mkdirBlock,
+lsBlock,
+changeDirectoryBlock,
 tailBlock,
 headBlock,
 uniqBlock,
-sortBlock]);
+wcBlock,
+sortBlock
+]);
 
 Blockly.Extensions.register('head_tail_validation', function() {
   // Add custom validation.
