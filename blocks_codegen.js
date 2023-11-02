@@ -441,7 +441,7 @@ var uniqBlock = {
   message0: "uniq %1\n",
   unix_description: [
     {
-	    none: "",
+	  none: "",
       occurencies: "-c",
       duplicates: "-d",
       uniq : '-u'
@@ -450,7 +450,7 @@ var uniqBlock = {
   ],
   args0: [{
 	  type: "input_value",
-    name: "FILENAME",
+      name: "FILENAME",
 	  check: "String" 
   }],
   message1: "parameter choice %1",
@@ -477,15 +477,22 @@ var uniqBlock = {
 
 var sortBlock = {
   type: "sort",
-  message0: "sort",
+  message0: "sort %1",
   unix_description: [
     {
       desc: "-r",
       characters_sorting: "-d",
-      numeric_sorting : '-n'
+      numeric_sorting : '-n',
+	  sort_delimiter : '-t',
+	  sort_column : '-k'
 
     }
   ],
+  args0: [{
+	  type: "input_value",
+      name: "FILENAME",
+	  check: "String" 
+  }],
   message1: "descending order %1",
   args1: [
     {

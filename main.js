@@ -241,3 +241,44 @@ Blockly.JavaScript.forBlock['uniq'] = function(block) {
     return command;
 };
 
+Blockly.JavaScript.forBlock['sort'] = function(block) {
+	
+	var blockType = block.type;  
+    var blockDefinition = window[blockType + 'Block'];  // Construct the name of the block definition variable and access it
+	
+	var sortParam = block.getFieldValue('sort_parameter');
+	var sortDelim = block.getFieldValue('sort_delimiter');
+    var colnum = block.getFieldValue('sort_column');
+	
+    // Fetch the attached filename block's value
+    var inputBlock = block.getInputTargetBlock('FILENAME');
+    // If there's a connected block, and it's of type 'filename', get the field value
+    var filenameValue = (inputBlock && inputBlock.type === 'filename')
+        ? JSON.stringify(inputBlock.getFieldValue('FILENAME'))
+        : '';
+    console.log("filenameValue:", filenameValue);
+
+    // Initialize command with 'sort' since it's the base command for sorting files
+    let command = 'sort ';
+	
+	var unixDescription = blockDefinition.unix_description[0][sortParam];
+    command += unixDescription + ' ';
+	
+	
+    command +=  '-k' + colnum + ' ';
+	command +=  '-t\'' + sortDelim + '\' ';
+
+    // Check each checkbox field and append the corresponding flag to the command
+    if (block.getFieldValue('desc') === 'TRUE') {
+        command += '-r ';
+    }
+    if (block.getFieldValue('uniq_elements') === 'TRUE') {
+        command += '-u ';
+    }
+
+    // Add the filename to the command
+    command += filenameValue;
+
+    return command;
+};
+
