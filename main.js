@@ -243,13 +243,16 @@ Blockly.JavaScript.forBlock['uniq'] = function(block) {
 
 Blockly.JavaScript.forBlock['sort'] = function(block) {
 	
-	var blockType = block.type;  
+	let command = handleBlock(block);
+
+    return command;
+};
+
+function handleBlock(block) {
+	
+    var blockType = block.type;  
     var blockDefinition = window[blockType + 'Block'];  // Construct the name of the block definition variable and access it
-	
-	var sortParam = block.getFieldValue('sort_parameter');
-	var sortDelim = block.getFieldValue('sort_delimiter');
-    var colnum = block.getFieldValue('sort_column');
-	
+  
     // Fetch the attached filename block's value
     var inputBlock = block.getInputTargetBlock('FILENAME');
     // If there's a connected block, and it's of type 'filename', get the field value
@@ -257,28 +260,49 @@ Blockly.JavaScript.forBlock['sort'] = function(block) {
         ? JSON.stringify(inputBlock.getFieldValue('FILENAME'))
         : '';
     console.log("filenameValue:", filenameValue);
+  
+    let commandParts = [];
 
-    // Initialize command with 'sort' since it's the base command for sorting files
-    let command = 'sort ';
+    // Iterate over all inputs and their fields
+    block.inputList.forEach((input) => {
+	  console.log("input:", input.name);
+	  input.fieldRow.forEach((field) => {
+		console.log("field:", field);
+	    let value;
+	  
+	    // Handle dropdowns
+	    if (field instanceof Blockly.FieldDropdown) {
+		  paramselected = field.getValue();
+		  value = blockDefinition.unix_description[0][paramselected];
+	    }
+	    // Handle checkboxes
+	    else if (field  instanceof Blockly.FieldCheckbox) {
+		  value = field.getValue() === 'TRUE'
+		  ? blockDefinition.unix_description[0][field.name]
+		  : '';
+	    }
+	    // Handle text inputs (including numbers)
+	    else if (field  instanceof Blockly.FieldTextInput || field instanceof Blockly.FieldNumber) {
+		  value = blockDefinition.unix_description[0][field.name] + field.getValue();
+	    } 
+
+	    // Add the processed value to the command parts
+	    commandParts.push(value);
+	  });
+    });
+
+
+    // Build the string command from parts
+	let commandString = blockType + ' '
+    commandString += commandParts.join(' ');
+    commandString += filenameValue;
 	
-	var unixDescription = blockDefinition.unix_description[0][sortParam];
-    command += unixDescription + ' ';
+	console.log("command built:", commandString);
 	
-	
-    command +=  '-k' + colnum + ' ';
-	command +=  '-t\'' + sortDelim + '\' ';
+    // Here you can add any custom logic for special cases
 
-    // Check each checkbox field and append the corresponding flag to the command
-    if (block.getFieldValue('desc') === 'TRUE') {
-        command += '-r ';
-    }
-    if (block.getFieldValue('uniq_elements') === 'TRUE') {
-        command += '-u ';
-    }
+    return commandString;
+}
 
-    // Add the filename to the command
-    command += filenameValue;
 
-    return command;
-};
 
