@@ -1,3 +1,216 @@
+var regPatternBlock = {
+  type: "regPattern",
+  unix_description: [
+    {
+      case_i: "-i",
+      global: "-g",
+      multi_line: "-m"
+    }
+  ],
+  message0: "Pattern %1",
+  args0: [
+    {
+      type: "field_input",
+      name: "regPattern",
+      text: "............"// default text for the input
+    }
+  ],
+  message1: "%1 case insensitive",
+  args1: [
+    {
+      type: "field_checkbox",
+      name: "case_i",
+      checked: false // by default it's disabled
+    }
+  ],
+  message2: "match all occurrences %1",
+  args2: [
+    {
+      type: "field_checkbox",
+      name: "global",
+      checked: false // by default it's disabled
+    }
+  ],
+  message3: "%1 multi-line matching",
+  args3: [
+    {
+      type: "field_checkbox",
+      name: "multi_line",
+      checked: false // by default it's disabled
+    }
+  ],
+  output: "String",
+  colour: 570,
+  // nextStatement: "Action",
+  tooltip: "Define a pattern to search",
+  helpUrl: "" // URL to further information or documentation.
+};
+
+var regAnchorBlock = {
+  type: "regAnchor",
+  unix_description: [
+    {
+      line_start: "^",
+      line_end: "?",
+      multi_line: "-m"
+    }
+  ],
+  message0: "pattern %1",
+  args0: [{
+    type: "input_value",
+    name: "pattern",
+  check: "String" 
+  }],
+  message1: "%1 start of a line",
+  args1: [
+    {
+      type: "field_checkbox",
+      name: "line_start",
+      checked: false // by default it's disabled
+    }
+  ],
+  message2: "end of a line %1",
+  args2: [
+    {
+      type: "field_checkbox",
+      name: "line_end",
+      checked: false // by default it's disabled
+    }
+  ],
+  colour: 610,
+  previousStatement: "Action",
+  nextStatement: "Action",
+  tooltip: "start and end of line anchors",
+  helpUrl: "" // URL to further information or documentation.
+};
+
+var regQuantBlock = {
+  type: "regQuant",
+  unix_description: [
+    {
+      zeroOne: "?",
+      oneMore: "+",
+      zeroMore: "*",
+      exactlyN: "{n}",
+      nMore : "{n,}",
+      betweenNM : "{n,m}",
+      anyCharExceptNewLine : "."
+    }
+  ],
+  message0: "Check pattern occurencies",
+  message1: "zero or one %1",
+  args1: [
+    {
+      type: "field_checkbox",
+      name: "zeroOne",
+      checked: false // by default it's disabled
+    }
+  ],
+  message2: "%1 one or more",
+  args2: [
+    {
+      type: "field_checkbox",
+      name: "oneMore",
+      checked: false // by default it's disabled
+    }
+  ],
+  message3: "%1 zero or more",
+  args3: [
+    {
+      type: "field_checkbox",
+      name: "zeroMore",
+      checked: false // by default it's disabled
+    }
+  ],
+  message4: "exactly N %1",
+  args4: [
+    {
+      type: "field_checkbox",
+      name: "exactlyN",
+      checked: false // by default it's disabled
+    }
+  ],
+  message5: "%1 N or more",
+  args5: [
+    {
+      type: "field_checkbox",
+      name: "nMore",
+      checked: false // by default it's disabled
+    }
+  ],
+  message6: "between N & M %1",
+  args6: [
+    {
+      type: "field_checkbox",
+      name: "betweenNM",
+      checked: false // by default it's disabled
+    }
+  ],
+  message7: "%1 any character except new line",
+  args7: [
+    {
+      type: "field_checkbox",
+      name: "anyCharExceptNewLine",
+      checked: false // by default it's disabled
+    }
+  ],
+  message8: "pattern %1",
+  args8: [{
+    type: "input_value",
+    name: "pattern",
+  check: "String" 
+  }],
+  colour: 120,
+  previousStatement: "Action",
+  nextStatement: "Action",
+  tooltip: "quantifiers of patterns",
+  helpUrl: "" // URL to further information or documentation.
+};
+
+var gzipBlock = {
+  type: "gzip", // TO DO. Finish gzip with rest of parameters!
+  unix_description: [
+    {
+      keep: "-k"
+    }
+  ],
+  message0: "File compress/decompress %1",
+  args0: [
+    {
+      type: "field_input",
+      name: "FILENAME",
+      text: "default.txt" // default text for the input
+    }
+  ],
+  message1: "keep original file %1",
+  args1: [
+    {
+      type: "field_checkbox",
+      name: "keep",
+      checked: false // by default it's disabled
+    }
+  ],
+  message2: "level of compression %1",
+  args2: [
+    {
+      type: "field_number",
+      name: "compress_level",
+      value: 6, // default number compression level
+      min: 1,
+      max: 9 
+
+    }
+  ],
+  output: "String",
+  colour: 270,  
+  extensions: [
+    'integer_validation_com',
+  ],
+  // nextStatement: "Action",
+  tooltip: "File compress/decompress",
+  helpUrl: "" // URL to further information or documentation.
+};
+
 var filenameBlock = {
   type: "filename",
   message0: "Filename %1",
@@ -298,7 +511,7 @@ var tailBlock = {
   nextStatement: "Action",
   colour: 260,
   extensions: [
-    'head_tail_validation',
+    'integer_validation',
   ],
   helpUrl: "" // URL to further information or documentation.
 };
@@ -361,7 +574,7 @@ var headBlock = {
   nextStatement: "Action",
   colour: 160,
   extensions: [
-    'head_tail_validation',
+    'integer_validation',
   ],
   helpUrl: "" // URL to further information or documentation.
 };
@@ -551,7 +764,11 @@ var sortBlock = {
 
 
 Blockly.defineBlocksWithJsonArray([
+  regPatternBlock,
 filenameBlock,
+regAnchorBlock,
+regQuantBlock,
+gzipBlock,
 grepBlock,
 saveBlock,
 mkdirBlock,
@@ -564,13 +781,27 @@ wcBlock,
 sortBlock
 ]);
 
-Blockly.Extensions.register('head_tail_validation', function() {
+Blockly.Extensions.register('integer_validation', function() {
   // Add custom validation.
   // Validate the entire block whenever any part of it changes,
   // and display a warning if the block cannot be made valid.
   this.setOnChange(function(event) {
-    const metric = this.getFieldValue('METRIC');
-    const valid = Number.isInteger(metric);
+    const value = this.getFieldValue('METRIC');
+    const valid = Number.isInteger((value));
+    this.setWarningText(valid
+      ? null
+      : `You must enter an integer`);
+
+  });
+});
+
+Blockly.Extensions.register('integer_validation_com', function() {
+  // Add custom validation.
+  // Validate the entire block whenever any part of it changes,
+  // and display a warning if the block cannot be made valid.
+  this.setOnChange(function(event) {
+    const value = this.getFieldValue('compress_level');
+    const valid = Number.isInteger((value));
     this.setWarningText(valid
       ? null
       : `You must enter an integer`);
