@@ -1,5 +1,6 @@
 var regPatternBlock = {
   type: "regPattern",
+  category: "Regular Expressions",
   unix_description: [
     {
       case_i: "-i",
@@ -48,18 +49,19 @@ var regPatternBlock = {
 
 var regAnchorBlock = {
   type: "regAnchor",
+  category: "Regular Expressions",
   unix_description: [
     {
       line_start: "^",
       line_end: "?",
-      multi_line: "-m"
+      //multi_line: "-m"
     }
   ],
   message0: "pattern %1",
   args0: [{
     type: "input_value",
     name: "pattern",
-  check: "String" 
+    check: "String" 
   }],
   message1: "%1 start of a line",
   args1: [
@@ -86,6 +88,7 @@ var regAnchorBlock = {
 
 var regQuantBlock = {
   type: "regQuant",
+  category: "Regular Expressions",
   unix_description: [
     {
       zeroOne: "?",
@@ -158,7 +161,7 @@ var regQuantBlock = {
   args8: [{
     type: "input_value",
     name: "pattern",
-  check: "String" 
+    check: "String" 
   }],
   colour: 120,
   previousStatement: "Action",
@@ -169,9 +172,11 @@ var regQuantBlock = {
 
 var gzipBlock = {
   type: "gzip", // TO DO. Finish gzip with rest of parameters!
+  category: "File and Directory Operations",
   unix_description: [
     {
-      keep: "-k"
+      keep: "-k",
+	  compress_level: "???" //add only before the level of compression the command requires a string eg. in sort the column requires -k (sort -k3 test.csv)
     }
   ],
   message0: "File compress/decompress %1",
@@ -197,7 +202,7 @@ var gzipBlock = {
       name: "compress_level",
       value: 6, // default number compression level
       min: 1,
-      max: 9 
+      max: 9,
 
     }
   ],
@@ -230,6 +235,7 @@ var filenameBlock = {
 
 var grepBlock = {
   type: "grep",
+  category: "File and Directory Operations",
   unix_description: [
     {
       regex: "-E",
@@ -242,7 +248,12 @@ var grepBlock = {
       multiple_patterns : "-e"
     }
   ],
-  message0: "Search in a file with a pattern\n For multiple patterns separate with space",
+  message0: "Search in a file with a pattern %1\n For multiple patterns separate with space",
+  args0: [{
+	  type: "input_value",
+      name: "FILENAME",
+	  check: "String" 
+  }],
   message1: "pattern to search %1",
   args1: [
     {
@@ -251,62 +262,56 @@ var grepBlock = {
       text: "'pattern'" // default text for the input
     }
   ],
-  message2: "in file %1",
-  args2: [{
-    type: "input_value",
-    name: "FILENAME",
-  check: "String" 
-  }],
-  message3: "regular expression %1",
-  args3: [
+  message2: "regular expression %1",
+  args2: [
     {
       type: "field_checkbox",
       name: "regex",
       checked: false // by default it's disabled
     }
   ],
-  message4: "case insensitive %1",
-  args4: [
+  message3: "case insensitive %1",
+  args3: [
     {
       type: "field_checkbox",
       name: "case_ins",
       checked: false // by default it's disabled
     }
   ],
-  message5: "whole word search %1",
-  args5: [
+  message4: "whole word search %1",
+  args4: [
     {
       type: "field_checkbox",
       name: "whole_word",
       checked: false // by default it's disabled
     }
   ],
-  message6: "count the matches %1",
-  args6: [
+  message5: "count the matches %1",
+  args5: [
     {
       type: "field_checkbox",
       name: "count_lines",
       checked: false // by default it's disabled
     }
   ],
-  message7: "%1 show lines that don't match pattern",
-  args7: [
+  message6: "show lines that don't match pattern %1",
+  args6: [
     {
       type: "field_checkbox",
       name: "inverted",
       checked: false // by default it's disabled
     }
   ],
-  message8: "Recursively in all subdirectories %1",
-  args8: [
+  message7: "Recursively in all subdirectories %1",
+  args7: [
     {
       type: "field_checkbox",
       name: "recursive",
       checked: false // by default it's disabled
     }
   ],
-  message9: "Display line numbers for matching lines %1",
-  args9: [
+  message8: "Display line numbers for matching lines %1",
+  args8: [
     {
       type: "field_checkbox",
       name: "show_line_nums",
@@ -314,8 +319,8 @@ var grepBlock = {
     }
   ],
 
-  message10: "Search with multiple patterns%1",
-  args10: [
+  message9: "Search with multiple patterns%1",
+  args9: [
     {
       type: "field_checkbox",
       name: "show_line_nums",
@@ -333,6 +338,12 @@ var grepBlock = {
 var saveBlock = {
   type: "save",
   message0: "save result to %1",
+  category: "I/O Redirection",
+  unix_description: [
+    {
+      save_filename : '> '
+    }
+  ],
   args0: [
     {
       type: "field_input",
@@ -342,12 +353,35 @@ var saveBlock = {
   ],
   colour: 10,
   previousStatement: "Action",
-  tooltip: "Saves a file with spectified name and extension",
+  tooltip: "Saves a file with spectified name and extension and overrides if already exists",
+  helpUrl: "" // URL to further information or documentation.
+};
+
+var appendBlock = {
+  type: "append",
+  message0: "append result to %1",
+  category: "I/O Redirection",  
+  unix_description: [
+    {
+      append_filename : '>> '
+    }
+  ],
+  args0: [
+    {
+      type: "field_input",
+      name: "append_filename",
+      text: "save.csv" // default file for saving
+    }
+  ],
+  colour: 10,
+  previousStatement: "Action",
+  tooltip: "Appends the result into an already existing file",
   helpUrl: "" // URL to further information or documentation.
 };
 
 var mkdirBlock = {
   type: "mkdir",
+  category: "File and Directory Operations",
   unix_description: [
     {
       parents: "-p",
@@ -359,7 +393,7 @@ var mkdirBlock = {
   message2: "write directory or path %1",
   args2: [{
 	  type: "field_input",
-    name: "directory",
+      name: "directory",
 	  text: "............" 
   }],
   
@@ -391,6 +425,7 @@ var mkdirBlock = {
 var lsBlock = {
   type: "ls",
   message0: "list files & directories %1",
+  category: "File and Directory Operations",
   unix_description: [
     {
       detailed: "-l",
@@ -402,7 +437,7 @@ var lsBlock = {
   ],
   args0: [{
 	  type: "input_value",
-    name: "directory",
+      name: "directory",
 	  check: "String" 
   }],
   message1: "show details %1",
@@ -449,6 +484,7 @@ var lsBlock = {
 var changeDirectoryBlock = {
   type: "cd",
   message0: "change directory to %1",
+  category: "File and Directory Operations",
   args0: [
     {
       type: "field_input",
@@ -465,6 +501,7 @@ var changeDirectoryBlock = {
 var tailBlock = {
   type: "tail",
   message0: "Tail command %1",
+  category: "Data Processing",
   unix_description: [
     {
       bytes: "-c",
@@ -519,6 +556,7 @@ var tailBlock = {
 var headBlock = {
   type: "head",
   message0: "Head command %1",
+  category: "Data Processing",
   unix_description: [
     {
       bytes: "-c",
@@ -582,12 +620,14 @@ var headBlock = {
 var wcBlock = {
   type: "wc",
   message0: "word count %1",
+  category: "Data Processing",
   unix_description: [
     {
       lines: "-l",
       words: "-w",
       bytes : "-c",
-      chars : "-m"
+      chars : "-m",
+	  wc_all : "-lwcm"
 
     }
   ],
@@ -652,6 +692,7 @@ var wcBlock = {
 var uniqBlock = {
   type: "uniq",
   message0: "uniq %1\n",
+  category: "Data Processing",
   unix_description: [
     {
 	  none: "",
@@ -691,13 +732,15 @@ var uniqBlock = {
 var sortBlock = {
   type: "sort",
   message0: "sort %1",
+  category: "Data Processing",
   unix_description: [
     {
       desc: "-r",
       characters_sorting: "-d",
       numeric_sorting : '-n',
 	  sort_delimiter : '-t',
-	  sort_column : '-k'
+	  sort_column : '-k',
+	  uniq_elements : '???'
 
     }
   ],
@@ -764,13 +807,14 @@ var sortBlock = {
 
 
 Blockly.defineBlocksWithJsonArray([
-  regPatternBlock,
+regPatternBlock,
 filenameBlock,
 regAnchorBlock,
 regQuantBlock,
 gzipBlock,
 grepBlock,
 saveBlock,
+appendBlock,
 mkdirBlock,
 lsBlock,
 changeDirectoryBlock,
@@ -808,4 +852,3 @@ Blockly.Extensions.register('integer_validation_com', function() {
 
   });
 });
-
