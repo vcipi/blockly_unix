@@ -395,6 +395,9 @@ var regQuantBlock = {
   previousStatement: "Action",
   nextStatement: "Action",
   tooltip: "quantifiers of patterns",
+  extensions: [
+    'integer_validation',
+  ],
   helpUrl: "" // URL to further information or documentation.
 };
 
@@ -437,7 +440,7 @@ var gzipBlock = {
   output: "String",
   colour: 270,  
   extensions: [
-    'integer_validation_com',
+    'integer_validation',
   ],
   // nextStatement: "Action",
   tooltip: "File compress/decompress",
@@ -1013,7 +1016,7 @@ var sortBlock = {
       value: 1, // default number of lines
       min: 1, // minimum value
       max: 1000, // it should be the maximum of the length of the files columns
-      precision: 1 // allow only integers
+      //precision: 1 // allow only integers
     }
   ],
   message5: "unique elements output %1",
@@ -1025,7 +1028,9 @@ var sortBlock = {
     }
   ],
 
-  // output: "String",
+  extensions: [
+    'integer_validation',
+  ],
   colour: 880,
   previousStatement: "Action",
   nextStatement: "Action",
@@ -1061,30 +1066,38 @@ wcBlock,
 sortBlock
 ]);
 
+
 Blockly.Extensions.register('integer_validation', function() {
-  // Add custom validation.
-  // Validate the entire block whenever any part of it changes,
-  // and display a warning if the block cannot be made valid.
-  this.setOnChange(function(event) {
-    const value = this.getFieldValue('METRIC');
-    const valid = Number.isInteger((value));
-    this.setWarningText(valid
-      ? null
-      : `You must enter an integer`);
+  var thisBlock = this;
 
+  // Initialize a property to store the last valid value.
+  this.lastValidValue = {};
+
+  // Automatically attach validators to all integer fields.
+  thisBlock.inputList.forEach(function(input) {
+    input.fieldRow.forEach(function(field) {
+      if (field instanceof Blockly.FieldNumber) {
+        // Store the initial value as the last valid value.
+        thisBlock.lastValidValue[field.name] = field.getValue();
+
+        field.setValidator(function(newValue) {
+          var intValue = Number(newValue);
+          if (Number.isInteger(intValue)) {
+            // Update last valid value to the new value.
+            thisBlock.lastValidValue[field.name] = newValue;
+            // Clear warning text since the value is valid.
+            field.sourceBlock_.setWarningText(null);
+            return newValue;
+          } else {
+            // Set warning text since the value is invalid.
+            field.sourceBlock_.setWarningText('You must enter an integer.');
+            // Revert to the last valid value.
+            return thisBlock.lastValidValue[field.name];
+          }
+        });
+      }
+    });
   });
 });
 
-Blockly.Extensions.register('integer_validation_com', function() {
-  // Add custom validation.
-  // Validate the entire block whenever any part of it changes,
-  // and display a warning if the block cannot be made valid.
-  this.setOnChange(function(event) {
-    const value = this.getFieldValue('compress_level');
-    const valid = Number.isInteger((value));
-    this.setWarningText(valid
-      ? null
-      : `You must enter an integer`);
 
-  });
-});
