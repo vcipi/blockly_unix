@@ -128,7 +128,7 @@ function handleBlock(block) {
     // Build the string command from parts
 	let commandString;
 	
-	if(blockCategory==="I/O Redirection"){
+	if(blockCategory==="I/O Redirection" || blockCategory === "Regular Expressions"){
 		commandString = commandParts.join(' ');
 	}
 	else{

@@ -1,13 +1,13 @@
 var regPatternBlock = {
   type: "regPattern",
   category: "Regular Expressions",
-  unix_description: [
-    {
-      case_i: "-i",
-      global: "-g",
-      multi_line: "-m"
-    }
-  ],
+  // unix_description: [
+  //   {
+  //     case_i: "-i",
+  //     global: "-g",
+  //     multi_line: "-m"
+  //   }
+  // ],
   message0: "Pattern %1",
   args0: [
     {
@@ -16,30 +16,30 @@ var regPatternBlock = {
       text: "............"// default text for the input
     }
   ],
-  message1: "%1 case insensitive",
-  args1: [
-    {
-      type: "field_checkbox",
-      name: "case_i",
-      checked: false // by default it's disabled
-    }
-  ],
-  message2: "match all occurrences %1",
-  args2: [
-    {
-      type: "field_checkbox",
-      name: "global",
-      checked: false // by default it's disabled
-    }
-  ],
-  message3: "%1 multi-line matching",
-  args3: [
-    {
-      type: "field_checkbox",
-      name: "multi_line",
-      checked: false // by default it's disabled
-    }
-  ],
+  // message1: "%1 case insensitive",
+  // args1: [
+  //   {
+  //     type: "field_checkbox",
+  //     name: "case_i",
+  //     checked: false // by default it's disabled
+  //   }
+  // ],
+  // message2: "match all occurrences %1",
+  // args2: [
+  //   {
+  //     type: "field_checkbox",
+  //     name: "global",
+  //     checked: false // by default it's disabled
+  //   }
+  // ],
+  // message3: "%1 multi-line matching",
+  // args3: [
+  //   {
+  //     type: "field_checkbox",
+  //     name: "multi_line",
+  //     checked: false // by default it's disabled
+  //   }
+  // ],
   output: "String",
   colour: 570,
   // nextStatement: "Action",
@@ -53,30 +53,26 @@ var regAnchorBlock = {
   unix_description: [
     {
       line_start: "^",
-      line_end: "?",
+      line_end: "$",
       //multi_line: "-m"
     }
   ],
-  message0: "pattern %1",
-  args0: [{
+  message0: "Define start and end anchors \n",
+  message1: "pattern %1\n",
+  args1: [{
     type: "input_value",
     name: "pattern",
     check: "String" 
   }],
-  message1: "%1 start of a line",
-  args1: [
-    {
-      type: "field_checkbox",
-      name: "line_start",
-      checked: false // by default it's disabled
-    }
-  ],
-  message2: "end of a line %1",
+  message2: "%1",
   args2: [
     {
-      type: "field_checkbox",
-      name: "line_end",
-      checked: false // by default it's disabled
+      type: "field_dropdown",
+      name: "reg_anchors",
+      options: [
+        [ "start of a line", "line_start" ],
+        [ "end of a line", "line_end" ]
+      ]
     }
   ],
   colour: 610,
@@ -84,6 +80,246 @@ var regAnchorBlock = {
   nextStatement: "Action",
   tooltip: "start and end of line anchors",
   helpUrl: "" // URL to further information or documentation.
+};
+
+var regExactBlock = {
+  type: "regExact",
+  unix_description: [
+    {
+      exactlyN: "{n}"
+    }
+  ],
+  category: "Regular Expressions",
+  message0: "match the previous \n exactly %1 times",
+  args0:  [
+    {
+      type: "field_number",
+      name: "METRIC",
+      value: 1
+    }
+  ],
+  tooltip: "Match the previous expression exact N times",
+  previousStatement: "Action",
+  nextStatement: "Action",
+  colour: 290,
+  extensions: [
+    'integer_validation',
+  ],
+  helpUrl: "" // URL to further information or documentation.
+
+};
+
+var regDigitBlock = {
+  type: "regDigit",
+  unix_description: [
+    {
+      digit: "\\d",
+      nonDigit: "\\D"
+    }
+  ],
+  category: "Regular Expressions",
+  message0: "Match a digit %1",
+  args0:  [
+    {
+      type: "field_checkbox",
+      name: "digit",
+      checked: false
+    }
+  ],
+  message1: "Match Non digit %1",
+  args1:  [
+    {
+      type: "field_checkbox",
+      name: "nonDigit",
+      checked: false
+    }
+  ],
+  tooltip: "Match any digit",
+  previousStatement: "Action",
+  nextStatement: "Action",
+  colour: 510,
+  helpUrl: "" // URL to further information or documentation.
+
+};
+
+var regWordCharBlock = {
+  type: "regWordChar",
+  unix_description: [
+    {
+      wordChar: "\\w",
+      nonWordChar: "\\W"
+    }
+  ],
+  category: "Regular Expressions",
+  message0: "Match a word character %1",
+  args0:  [
+    {
+      type: "field_checkbox",
+      name: "wordChar",
+      checked: false
+    }
+  ],
+  message1: "Match Non word character %1",
+  args1:  [
+    {
+      type: "field_checkbox",
+      name: "nonWordChar",
+      checked: false
+    }
+  ],
+  tooltip: "Match any word character",
+  previousStatement: "Action",
+  nextStatement: "Action",
+  colour: 550,
+  helpUrl: "" // URL to further information or documentation.
+
+};
+
+var regWhitespaceBlock = {
+  type: "regWhitespace",
+  unix_description: [
+    {
+      whitespace: "\\s",
+      nonWhitespace: "\\S"
+    }
+  ],
+  category: "Regular Expressions",
+  message0: "Match a whitespace %1",
+  args0:  [
+    {
+      type: "field_checkbox",
+      name: "whitespace",
+      checked: false
+    }
+  ],
+  message1: "Match Non whitespace %1",
+  args1:  [
+    {
+      type: "field_checkbox",
+      name: "nonWhitespace",
+      checked: false
+    }
+  ],
+  tooltip: "Match any whitespace",
+  previousStatement: "Action",
+  nextStatement: "Action",
+  colour: 590,
+  helpUrl: "" // URL to further information or documentation.
+
+};
+
+var regCapturingGroupBlock = {
+  type: "regCapturingGroup",
+  unix_description: [
+    {
+      patternGroup: "()"
+    }
+  ],
+  category: "Regular Expressions",
+  message0: "Group the pattern %1\n",
+  args0: [{
+    type: "input_value",
+    name: "pattern",
+    check: "String" 
+  }],
+  tooltip: "Define a pattern group",
+  previousStatement: "Action",
+  nextStatement: "Action",
+  colour: 420,
+  helpUrl: "" // URL to further information or documentation.
+
+};
+
+var regAnyOneBlock = {
+  type: "regAnyOne",
+  unix_description: [
+    {
+      anyOne: "[]",
+      notMatch: "^"
+    }
+  ],
+  category: "Regular Expressions",
+  message0: "match any of %1 characters",
+  args0:  [
+    {
+      type: "field_input",
+      name: "FILENAME",
+      text: "abc" 
+    }
+  ],
+  message1: "Not %1",
+  args1:  [
+    {
+      type: "field_checkbox",
+      name: "notMatch",
+      checked: false
+    }
+  ],
+  tooltip: "Match any one of the defined characters",
+  previousStatement: "Action",
+  nextStatement: "Action",
+  colour: 340,
+  helpUrl: "" // URL to further information or documentation.
+
+};
+
+var regMoreThanBlock = {
+  type: "regMoreThan",
+  unix_description: [
+    {
+      nMore: "{n,}"
+    }
+  ],
+  category: "Regular Expressions",
+  message0: "match the previous \n more than %1 times",
+  args0:  [
+    {
+      type: "field_number",
+      name: "METRIC",
+      value: 1
+    }
+  ],
+  tooltip: "Match the previous expression more than N times",
+  previousStatement: "Action",
+  nextStatement: "Action",
+  colour: 270,
+  extensions: [
+    'integer_validation',
+  ],
+  helpUrl: "" // URL to further information or documentation.
+
+};
+
+var regBetweenBlock = {
+  type: "regBetween",
+  unix_description: [
+    {
+      betweenNM : "{n,m}",
+    }
+  ],
+  category: "Regular Expressions",
+  message0: "match the previous \n between %1 \n and %2 times",
+  args0:  [
+    {
+      type: "field_number",
+      name: "METRIC",
+      value: 1
+    },
+    {
+      type: "field_number",
+      name: "METRIC",
+      value: 3
+    }
+  ],
+  tooltip: "Match the previous expression between N and M times",
+  previousStatement: "Action",
+  nextStatement: "Action",
+  colour: 280,
+  extensions: [
+    'integer_validation',
+  ],
+  helpUrl: "" // URL to further information or documentation.
+
 };
 
 var regQuantBlock = {
@@ -100,65 +336,57 @@ var regQuantBlock = {
       anyCharExceptNewLine : "."
     }
   ],
-  message0: "Check pattern occurencies",
-  message1: "zero or one %1",
-  args1: [
+  message0: "Check pattern occurencies \n",
+  message1: "%1",
+  args1:   [
     {
-      type: "field_checkbox",
-      name: "zeroOne",
-      checked: false // by default it's disabled
+      type: "field_dropdown",
+      name: "reg_quant",
+      options: [
+        [ "zero or one", "zeroOne" ],
+        [ "one or more", "oneMore" ],
+        [ "zero or more", "zeroMore" ]
+      ]
     }
   ],
-  message2: "%1 one or more",
-  args2: [
+  message2: "exactly %1",
+  args2:  [
     {
-      type: "field_checkbox",
-      name: "oneMore",
-      checked: false // by default it's disabled
+      type: "field_number",
+      name: "METRIC"
     }
   ],
-  message3: "%1 zero or more",
+  message3: "%1 or more",
   args3: [
     {
-      type: "field_checkbox",
-      name: "zeroMore",
-      checked: false // by default it's disabled
+      type: "field_number",
+      name: "METRIC",
+      value: 10
     }
   ],
-  message4: "exactly N %1",
+  message4: "between %1 & %2",
   args4: [
     {
-      type: "field_checkbox",
-      name: "exactlyN",
-      checked: false // by default it's disabled
+      type: "field_number",
+      name: "METRIC",
+      value: 0
+    },
+    {
+      type: "field_number",
+      name: "METRIC",
+      value: 10
     }
   ],
-  message5: "%1 N or more",
+  message5: "%1 any character except new line",
   args5: [
-    {
-      type: "field_checkbox",
-      name: "nMore",
-      checked: false // by default it's disabled
-    }
-  ],
-  message6: "between N & M %1",
-  args6: [
-    {
-      type: "field_checkbox",
-      name: "betweenNM",
-      checked: false // by default it's disabled
-    }
-  ],
-  message7: "%1 any character except new line",
-  args7: [
     {
       type: "field_checkbox",
       name: "anyCharExceptNewLine",
       checked: false // by default it's disabled
     }
   ],
-  message8: "pattern %1",
-  args8: [{
+  message6: "pattern %1",
+  args6: [{
     type: "input_value",
     name: "pattern",
     check: "String" 
@@ -437,7 +665,7 @@ var lsBlock = {
   ],
   args0: [{
 	  type: "input_value",
-      name: "directory",
+      name: "FILENAME", // we should put FILENAME or directory. Go in main 88-93 rows. To discuss with Vag
 	  check: "String" 
   }],
   message1: "show details %1",
@@ -808,6 +1036,14 @@ var sortBlock = {
 
 Blockly.defineBlocksWithJsonArray([
 regPatternBlock,
+regExactBlock,
+regMoreThanBlock,
+regBetweenBlock,
+regAnyOneBlock,
+regCapturingGroupBlock,
+regDigitBlock,
+regWordCharBlock,
+regWhitespaceBlock,
 filenameBlock,
 regAnchorBlock,
 regQuantBlock,
