@@ -14,7 +14,7 @@ document.getElementById('executeButton').addEventListener('click', function onEx
         // Generate the command for the current block
         try {
             //generatedCommand += (generatedCommand ? " | " : "") + Blockly.JavaScript.forBlock[currentBlock.type](currentBlock);
-			if(blockDef.category === "I/O Redirection"){
+			if(blockDef.category === "I/O Redirection"|| blockDef.category === "Regular Expressions"){
 				generatedCommand += handleBlock(currentBlock);
 			}else{
 				generatedCommand += (generatedCommand ? " | " : "") + handleBlock(currentBlock);
@@ -82,7 +82,7 @@ function handleBlock(block) {
     var blockType = block.type;
     var blockDefinition = window[blockType + 'Block'];  // Construct the name of the block definition variable and access it
 	var blockCategory = blockDefinition.category;
-	console.log("filenameValue:", blockCategory);
+	console.log("Block Category:", blockCategory);
   
     // Fetch the attached filename block's value
     var inputBlock = block.getInputTargetBlock('FILENAME');
@@ -91,38 +91,73 @@ function handleBlock(block) {
         ? JSON.stringify(inputBlock.getFieldValue('FILENAME'))
         : '';
     console.log("filenameValue:", filenameValue);
+	
+	// Fetch the attached regex block
+    var inputPatternBlock = block.getInputTargetBlock('regPattern');
+    // If there's a connected block, and it's of type 'Regex', get the field value
+    var patternValue = (inputPatternBlock && inputPatternBlock.type === 'regPattern')
+        ? JSON.stringify(inputPatternBlock.getFieldValue('regPattern'))
+        : '';
+	console.log("patternValue:", patternValue);
+		
+	//get all the children of the top block
+	var regexBlocks = getRegexChildenBlocks(block);
+	console.log("regexBlocks[] length:", regexBlocks.length);
+
+	var regexStringValue = (regexBlocks.length > 0)
+		? generateRegexString(regexBlocks)
+		:'';
+	
+    console.log("Regex String value:", regexStringValue);
   
     let commandParts = [];
 
     // Iterate over all inputs and their fields
-    block.inputList.forEach((input) => {
-	  console.log("input:", input.name);
-	  input.fieldRow.forEach((field) => {
-		console.log("field:", field);
-	    let value;
-	  
-	    // Handle dropdowns
-	    if (field instanceof Blockly.FieldDropdown) {
-		  paramselected = field.getValue();
-		  value = blockDefinition.unix_description[0][paramselected];
-	    }
-	    // Handle checkboxes
-	    else if (field  instanceof Blockly.FieldCheckbox) {
-		  value = field.getValue() === 'TRUE'
-		  ? blockDefinition.unix_description[0][field.name]
-		  : '';
-	    }
-	    // Handle text inputs (including numbers)
-	    else if (field  instanceof Blockly.FieldTextInput || field instanceof Blockly.FieldNumber) {
-		  value = (blockDefinition.unix_description[0][field.name]== null)
-				? field.getValue()
-				: blockDefinition.unix_description[0][field.name] + field.getValue();
-	    } 
+	
+	if (blockCategory === "Regular Expressions"){
+		block.inputList.forEach((input) => {
+		  console.log("input:", input.name);
+		  input.fieldRow.forEach((field) => {
+			console.log("field:", field);
+			let value;
+			
+			//ifs to add
+			
+			// Add the processed value to the command parts
+			commandParts.push(value);
+		  });
+		});
+	}
+	else{
+		block.inputList.forEach((input) => {
+		  console.log("input:", input.name);
+		  input.fieldRow.forEach((field) => {
+			console.log("field:", field);
+			let value;
+		  
+			// Handle dropdowns
+			if (field instanceof Blockly.FieldDropdown) {
+			  paramselected = field.getValue();
+			  value = blockDefinition.unix_description[0][paramselected];
+			}
+			// Handle checkboxes
+			else if (field  instanceof Blockly.FieldCheckbox) {
+			  value = field.getValue() === 'TRUE'
+			  ? blockDefinition.unix_description[0][field.name]
+			  : '';
+			}
+			// Handle text inputs (including numbers)
+			else if (field  instanceof Blockly.FieldTextInput || field instanceof Blockly.FieldNumber) {
+			  value = (blockDefinition.unix_description[0][field.name]== null)
+					? field.getValue()
+					: blockDefinition.unix_description[0][field.name] + field.getValue();
+			} 
 
-	    // Add the processed value to the command parts
-	    commandParts.push(value);
-	  });
-    });
+			// Add the processed value to the command parts
+			commandParts.push(value);
+		  });
+		});
+	}
 
 
     // Build the string command from parts
@@ -132,7 +167,7 @@ function handleBlock(block) {
 		commandString = commandParts.join(' ');
 	}
 	else{
-		commandString = blockType + ' ' + commandParts.join(' ') + ' ' + filenameValue;
+		commandString = blockType + ' ' + commandParts.join(' ') + ' ' + regexStringValue + ' ' + filenameValue;
 	}
 
 	
@@ -142,6 +177,66 @@ function handleBlock(block) {
 
     return commandString;
 }
+
+function generateRegexString(regexBlocksList){
+	let regexStringCommand = '';
+
+    for (let block of regexBlocksList) {
+		console.log(block.type);
+		
+		var blockDef = window[block.type + 'Block'];
+        // Generate the command for the current block
+        try {
+			//will add main code here
+        }catch(error){
+            console.error('An error occurred:', error.message);
+            break;
+        }
+    }
+
+    console.log("Generated regex:", regexStringCommand);
+	
+	return regexStringCommand;
+}
+
+function getRegexChildenBlocks(startBlock) {
+    var allBlocks = [];
+
+    // Helper function to recursively add child blocks
+    function addBlocks(block) {
+        if (block) {
+			var blockDefinition = window[block.type + 'Block'];
+            // Check if the block's category is 'Regular Expressions'
+            if (blockDefinition.category === 'Regular Expressions') {
+                allBlocks.push(block);
+            }
+
+            // Add next connected block
+            if (block.nextConnection && block.nextConnection.targetBlock()) {
+                addBlocks(block.nextConnection.targetBlock());
+            }
+
+            // Add blocks connected to inputs
+            block.inputList.forEach(function(input) {
+                if (input.connection && input.connection.targetBlock()) {
+                    addBlocks(input.connection.targetBlock());
+                }
+            });
+        }
+    }
+
+    // Start with the first child block connected to an input, if it exists
+    startBlock.inputList.forEach(function(input) {
+        if (input.connection && input.connection.targetBlock()) {
+            addBlocks(input.connection.targetBlock());
+        }
+    });
+
+    return allBlocks;
+}
+
+
+
 
 
 
