@@ -139,7 +139,7 @@ function handleBlock(block) {
 			else if (field instanceof Blockly.FieldNumber) {
 			  value = (blockDefinition.unix_description[0][field.name]== null)
 					? field.getValue()
-					: blockDefinition.unix_description[0][field.name].replace("n" , field.getValue());
+					: blockDefinition.unix_description[0][field.name].replace("n" , field.getValue()).replace("m", field.getValue());
 			}
 			
 			
