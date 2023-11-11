@@ -94,9 +94,10 @@ function handleBlock(block) {
 	
 	// Fetch the attached regex block
     var inputPatternBlock = block.getInputTargetBlock('regPattern');
+	//console.log("inputPatternBlock:", inputPatternBlock.type);
     // If there's a connected block, and it's of type 'Regex', get the field value
     var patternValue = (inputPatternBlock && inputPatternBlock.type === 'regPattern')
-        ? JSON.stringify(inputPatternBlock.getFieldValue('regPattern'))
+        ? inputPatternBlock.getFieldValue('regPattern')
         : '';
 	console.log("patternValue:", patternValue);
 		
@@ -121,7 +122,26 @@ function handleBlock(block) {
 			console.log("field:", field);
 			let value;
 			
-			//ifs to add
+			// Handle dropdowns
+			if (field instanceof Blockly.FieldDropdown) {
+			  paramselected = field.getValue();
+			  console.log("paramselected:", paramselected);
+			  value = blockDefinition.unix_description[0][paramselected];
+			  
+			  value = value.replace("patt",patternValue);
+			  console.log("value:", value);
+			}
+			else if (field  instanceof Blockly.FieldCheckbox) {
+			  value = field.getValue() === 'TRUE'
+			  ? blockDefinition.unix_description[0][field.name]
+			  : '';
+			}
+			else if (field instanceof Blockly.FieldNumber) {
+			  value = (blockDefinition.unix_description[0][field.name]== null)
+					? field.getValue()
+					: blockDefinition.unix_description[0][field.name].replace("n" , field.getValue());
+			}
+			
 			
 			// Add the processed value to the command parts
 			commandParts.push(value);
