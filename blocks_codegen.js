@@ -12,7 +12,43 @@ var regOutputBlock = {
   output: "String",
   "nextStatement": null,
   "colour": 120
-}
+};
+
+var regRangeBlock = {
+  type: "regRange",
+  category: "Regular Expressions",
+  unix_description: [
+    {
+      upper: "[A-Z]",
+      lower: "[a-z]",
+      letters: "[A-Za-z]",
+      digit: "[0-9]",
+      alphanumeric: "[A-Za-z0-9]",
+      custom: "[symbol1-symbol2]" // to discuss with Vag
+
+    }
+  ],
+  message0: "Range matching %1",
+  args0: [
+    {
+      type: "field_dropdown",
+      name: "reg_Range",
+      options: [
+        [ "Uppercase letters", "upper" ],
+        [ "Lowercase letters", "lower" ],
+        [ "Letters", "letters" ],
+        [ "Digits", "digit" ],
+        [ "alphanumeric chars", "alphanumeric" ],
+        [ "Custom Range", "custom" ]
+      ]
+    }
+  ],
+  colour: 510,
+  previousStatement: "Action",
+  nextStatement: "Action",
+  tooltip: "Match in the file the designated range of characters",
+  helpUrl: "" // URL to further information or documentation.
+};
 
 var regPatternBlock = {
   type: "regPattern",
@@ -488,8 +524,9 @@ var sedBlock = {
   category: "File and Directory Operations",
   unix_description: [
     {
-      sub: "'s/{old_pattern}/{new_text}'",
-      regex: '-E'
+      sub: "'s/patt/new_text'",
+      regex: '-E',
+      globally: "g"
     }
   ],
   message0: "Stream edit in a file\n",
@@ -511,11 +548,17 @@ var sedBlock = {
     name: "grepChangeText",
     text: "changeText" // default text for the input
 }],
-  message3: "in file %1",
+  message3: "in file %1\n",
   args3: [{
     type: "input_value",
     name: "FILENAME",
   check: "String" 
+}],
+message4: "in all occurencies of the pattern %1",
+args4: [{
+  type: "field_checkbox",
+  name: "globally",
+  checked: false // by default it's disabled
 }],
 
 };
@@ -1089,6 +1132,7 @@ var sortBlock = {
 Blockly.defineBlocksWithJsonArray([
 regOutputBlock,
 regWordMatchingBlock,
+regRangeBlock,
 regPatternBlock,
 regAlternationBlock,
 regExactBlock,
