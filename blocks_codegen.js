@@ -1,3 +1,19 @@
+var regOutputBlock = {
+  type: "regOutput",
+  category: "Regular Expressions",
+  message0: "Put Regex",
+  message1: "%1",
+  args1: [
+    {
+      type: "input_statement", 
+      name: "DO"
+    }
+  ],
+  output: "String",
+  "nextStatement": null,
+  "colour": 120
+}
+
 var regPatternBlock = {
   type: "regPattern",
   category: "Regular Expressions",
@@ -44,6 +60,62 @@ var regPatternBlock = {
   colour: 570,
   nextStatement: "Action",
   tooltip: "Define a pattern to search",
+  helpUrl: "" // URL to further information or documentation.
+};
+
+var regWordMatchingBlock = {
+  type: "regWordMatching",
+  category: "Regular Expressions",
+  unix_description: [
+    {
+      asWord: "\\b{word}\\b"
+    }
+  ],
+  message0: "Match  %1 as a whole word %2 \n",
+  args0: [
+    {
+      type: "input_value",
+      name: "pattern",
+      check: "String" 
+    },
+    {
+      type: "field_checkbox",
+      name: "asWord",
+      checked: false // by default it's disabled
+    }
+  ],
+  colour: 220,
+  previousStatement: "Action",
+  nextStatement: "Action",
+  tooltip: "Match in the file the characters as a whole word",
+  helpUrl: "" // URL to further information or documentation.
+};
+
+var regAlternationBlock = {
+  type: "regAlternation",
+  category: "Regular Expressions",
+  unix_description: [
+    {
+      alternation: "|"
+    }
+  ],
+  message0: "Match  %1 or %2 \n",
+  args0: [
+    {
+      type: "input_value",
+      name: "pattern",
+      check: "String" 
+    },
+    {
+      type: "input_value",
+      name: "pattern",
+      check: "String" 
+    }
+  ],
+  colour: 240,
+  previousStatement: "Action",
+  nextStatement: "Action",
+  tooltip: "Match in the file the first pattern or the second",
   helpUrl: "" // URL to further information or documentation.
 };
 
@@ -412,6 +484,43 @@ var filenameBlock = {
   helpUrl: "" // URL to further information or documentation.
 };
 
+var sedBlock = {
+  type: "sed",
+  category: "File and Directory Operations",
+  unix_description: [
+    {
+      sub: "'s/{old_pattern}/{new_text}'",
+      regex: '-E'
+    }
+  ],
+  message0: "Stream edit in a file\n",
+  message1: "search pattern %1 is Regex %2\n",
+  args1: [{
+    type: "input_value",
+    name: "regPattern",
+    check: "String" 
+},
+{
+  type: "field_checkbox",
+  name: "regex",
+  checked: false // by default it's disabled
+}
+],
+  message2: "text to change %1\n",
+  args2: [{
+    type: "field_input",
+    name: "grepChangeText",
+    text: "changeText" // default text for the input
+}],
+  message3: "in file %1",
+  args3: [{
+    type: "input_value",
+    name: "FILENAME",
+  check: "String" 
+}],
+
+};
+
 var grepBlock = {
   type: "grep",
   category: "File and Directory Operations",
@@ -432,7 +541,7 @@ var grepBlock = {
   args1:   [{
 
 	  type: "input_value",
-      name: "FILENAME",
+    name: "regPattern",
 	  check: "String" 
   }],
   // [
@@ -979,7 +1088,10 @@ var sortBlock = {
 
 
 Blockly.defineBlocksWithJsonArray([
+regOutputBlock,
+regWordMatchingBlock,
 regPatternBlock,
+regAlternationBlock,
 regExactBlock,
 regMoreThanBlock,
 regBetweenBlock,
@@ -1002,7 +1114,8 @@ tailBlock,
 headBlock,
 uniqBlock,
 wcBlock,
-sortBlock
+sortBlock,
+sedBlock
 ]);
 
 
