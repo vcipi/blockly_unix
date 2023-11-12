@@ -42,10 +42,11 @@ var regPatternBlock = {
   // ],
   output: "String",
   colour: 570,
-  // nextStatement: "Action",
+  nextStatement: "Action",
   tooltip: "Define a pattern to search",
   helpUrl: "" // URL to further information or documentation.
 };
+
 
 var regAnchorBlock = {
   type: "regAnchor",
@@ -118,23 +119,18 @@ var regDigitBlock = {
     }
   ],
   category: "Regular Expressions",
-  message0: "Match a digit %1",
-  args0:  [
+  message0: "Digit matching \n %1",
+  args0: [
     {
-      type: "field_checkbox",
-      name: "digit",
-      checked: false
+      type: "field_dropdown",
+      name: "digit_match",
+      options: [
+        [ "Match a digit ", "digit" ],
+        [ "Match Non digit", "nonDigit" ]
+      ]
     }
   ],
-  message1: "Match Non digit %1",
-  args1:  [
-    {
-      type: "field_checkbox",
-      name: "nonDigit",
-      checked: false
-    }
-  ],
-  tooltip: "Match any digit",
+  tooltip: "Match any digit or match all except a digit",
   previousStatement: "Action",
   nextStatement: "Action",
   colour: 510,
@@ -151,23 +147,18 @@ var regWordCharBlock = {
     }
   ],
   category: "Regular Expressions",
-  message0: "Match a word character %1",
-  args0:  [
+  message0: "Word character matcthing \n %1",
+  args0: [
     {
-      type: "field_checkbox",
-      name: "wordChar",
-      checked: false
-    }
-  ],
-  message1: "Match Non word character %1",
-  args1:  [
-    {
-      type: "field_checkbox",
-      name: "nonWordChar",
-      checked: false
-    }
-  ],
-  tooltip: "Match any word character",
+    type: "field_dropdown",
+    name: "char_match",
+    options: [
+      [ "Match a word char ", "wordChar" ],
+      [ "Match Non word chars", "nonWordChar" ]
+    ]
+  }
+],
+  tooltip: "Match any word character or match all except word characters",
   previousStatement: "Action",
   nextStatement: "Action",
   colour: 550,
@@ -184,23 +175,18 @@ var regWhitespaceBlock = {
     }
   ],
   category: "Regular Expressions",
-  message0: "Match a whitespace %1",
+  message0: "Whitespace matching\n %1",
   args0:  [
     {
-      type: "field_checkbox",
-      name: "whitespace",
-      checked: false
-    }
-  ],
-  message1: "Match Non whitespace %1",
-  args1:  [
-    {
-      type: "field_checkbox",
-      name: "nonWhitespace",
-      checked: false
-    }
-  ],
-  tooltip: "Match any whitespace",
+    type: "field_dropdown",
+    name: "char_match",
+    options: [
+      [ "Match a whitespace ", "whitespace" ],
+      [ "Match Non whitespaces", "nonWhitespace" ]
+    ]
+  }
+],
+  tooltip: "Match any whitespace or all except whitespaces",
   previousStatement: "Action",
   nextStatement: "Action",
   colour: 590,
@@ -330,9 +316,6 @@ var regQuantBlock = {
       zeroOne: "?",
       oneMore: "+",
       zeroMore: "*",
-      exactlyN: "{n}",
-      nMore : "{n,}",
-      betweenNM : "{n,m}",
       anyCharExceptNewLine : "."
     }
   ],
@@ -345,48 +328,13 @@ var regQuantBlock = {
       options: [
         [ "zero or one", "zeroOne" ],
         [ "one or more", "oneMore" ],
-        [ "zero or more", "zeroMore" ]
+        [ "zero or more", "zeroMore" ],
+        [ "any char except new line", "anyCharExceptNewLine"]
       ]
     }
   ],
-  message2: "exactly %1",
-  args2:  [
-    {
-      type: "field_number",
-      name: "METRIC"
-    }
-  ],
-  message3: "%1 or more",
-  args3: [
-    {
-      type: "field_number",
-      name: "METRIC",
-      value: 10
-    }
-  ],
-  message4: "between %1 & %2",
-  args4: [
-    {
-      type: "field_number",
-      name: "METRIC",
-      value: 0
-    },
-    {
-      type: "field_number",
-      name: "METRIC",
-      value: 10
-    }
-  ],
-  message5: "%1 any character except new line",
-  args5: [
-    {
-      type: "field_checkbox",
-      name: "anyCharExceptNewLine",
-      checked: false // by default it's disabled
-    }
-  ],
-  message6: "pattern %1",
-  args6: [{
+  message2: "pattern %1",
+  args2: [{
     type: "input_value",
     name: "pattern",
     check: "String" 
@@ -479,20 +427,21 @@ var grepBlock = {
       multiple_patterns : "-e"
     }
   ],
-  message0: "Search in a file with a pattern %1\n For multiple patterns separate with space",
-  args0: [{
+  message0: "Search in a file with a pattern \n For multiple patterns separate with space",
+  message1: "pattern to search %1",
+  args1:   [{
+
 	  type: "input_value",
       name: "FILENAME",
 	  check: "String" 
   }],
-  message1: "pattern to search %1",
-  args1: [
-    {
-      type: "field_input",
-      name: "pattern",
-      text: "'pattern'" // default text for the input
-    }
-  ],
+  // [
+  //   {
+  //     type: "field_input",
+  //     name: "pattern",
+  //     text: "'pattern'" // default text for the input
+  //   }
+  // ],
   message2: "regular expression %1",
   args2: [
     {
@@ -857,8 +806,7 @@ var wcBlock = {
       lines: "-l",
       words: "-w",
       bytes : "-c",
-      chars : "-m",
-	  wc_all : "-lwcm"
+      chars : "-m"
 
     }
   ],
@@ -900,15 +848,6 @@ var wcBlock = {
       type: "field_checkbox",
       name: "chars",
       checked: false // by default it's disabled
-    }
-  ],
-
-  message5: "count all parameters %1",
-  args5: [
-    {
-      type: "field_checkbox",
-      name: "wc_all",
-      checked: true // by default it's enabled
     }
   ],
 
