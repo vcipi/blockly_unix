@@ -17,13 +17,11 @@ var regOutputBlock = {
 var regPatternBlock = {
   type: "regPattern",
   category: "Regular Expressions",
-  // unix_description: [
-  //   {
-  //     case_i: "-i",
-  //     global: "-g",
-  //     multi_line: "-m"
-  //   }
-  // ],
+  unix_description: [
+    {
+
+    }
+  ],
   message0: "Pattern %1",
   args0: [
     {
@@ -75,7 +73,7 @@ var regWordMatchingBlock = {
   args0: [
     {
       type: "input_value",
-      name: "pattern",
+      name: "regPattern",
       check: "String" 
     },
     {
@@ -103,12 +101,12 @@ var regAlternationBlock = {
   args0: [
     {
       type: "input_value",
-      name: "pattern",
+      name: "regPattern",
       check: "String" 
     },
     {
       type: "input_value",
-      name: "pattern",
+      name: "regPattern",
       check: "String" 
     }
   ],
@@ -125,8 +123,8 @@ var regAnchorBlock = {
   category: "Regular Expressions",
   unix_description: [
     {
-      line_start: "^",
-      line_end: "$",
+      line_start: "^patt",
+      line_end: "patt$",
       //multi_line: "-m"
     }
   ],
@@ -134,7 +132,7 @@ var regAnchorBlock = {
   message1: "pattern %1\n",
   args1: [{
     type: "input_value",
-    name: "pattern",
+    name: "regPattern",
     check: "String" 
   }],
   message2: "%1",
@@ -167,7 +165,7 @@ var regExactBlock = {
   args0:  [
     {
       type: "field_number",
-      name: "METRIC",
+      name: "exactlyN",
       value: 1
     }
   ],
@@ -270,14 +268,14 @@ var regCapturingGroupBlock = {
   type: "regCapturingGroup",
   unix_description: [
     {
-      patternGroup: "()"
+      regPattern: "(patt)"
     }
   ],
   category: "Regular Expressions",
   message0: "Group the pattern %1\n",
   args0: [{
     type: "input_value",
-    name: "pattern",
+    name: "regPattern",
     check: "String" 
   }],
   tooltip: "Define a pattern group",
@@ -333,7 +331,7 @@ var regMoreThanBlock = {
   args0:  [
     {
       type: "field_number",
-      name: "METRIC",
+      name: "nMore",
       value: 1
     }
   ],
@@ -352,7 +350,8 @@ var regBetweenBlock = {
   type: "regBetween",
   unix_description: [
     {
-      betweenNM : "{n,m}",
+      fromN : "patt{n",
+      toM : ",m}",
     }
   ],
   category: "Regular Expressions",
@@ -360,12 +359,12 @@ var regBetweenBlock = {
   args0:  [
     {
       type: "field_number",
-      name: "METRIC",
+      name: "fromN",
       value: 1
     },
     {
       type: "field_number",
-      name: "METRIC",
+      name: "toM",
       value: 3
     }
   ],
@@ -408,7 +407,7 @@ var regQuantBlock = {
   message2: "pattern %1",
   args2: [{
     type: "input_value",
-    name: "pattern",
+    name: "regPattern",
     check: "String" 
   }],
   colour: 120,
@@ -541,7 +540,7 @@ var grepBlock = {
   args1:   [{
 
 	  type: "input_value",
-    name: "regPattern",
+      name: "regPattern",
 	  check: "String" 
   }],
   // [

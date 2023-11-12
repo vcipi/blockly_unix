@@ -128,7 +128,9 @@ function handleBlock(block) {
 			  console.log("paramselected:", paramselected);
 			  value = blockDefinition.unix_description[0][paramselected];
 			  
-			  value = value.replace("patt",patternValue);
+			  value = (patternValue)
+					? value.replace("patt",patternValue)
+					: value.replace("patt",'');
 			  console.log("value:", value);
 			}
 			else if (field  instanceof Blockly.FieldCheckbox) {
@@ -136,10 +138,17 @@ function handleBlock(block) {
 			  ? blockDefinition.unix_description[0][field.name]
 			  : '';
 			}
-			else if (field instanceof Blockly.FieldNumber) {
+			else if (field  instanceof Blockly.FieldTextInput || field instanceof Blockly.FieldNumber ) {
 			  value = (blockDefinition.unix_description[0][field.name]== null)
 					? field.getValue()
-					: blockDefinition.unix_description[0][field.name].replace("n" , field.getValue()).replace("m", field.getValue());
+					: (patternValue)
+						? blockDefinition.unix_description[0][field.name].replace("n" , field.getValue()).replace("m", field.getValue()).replace("patt",patternValue)
+						: blockDefinition.unix_description[0][field.name].replace("n" , field.getValue()).replace("m", field.getValue()).replace("patt",'');
+			}
+			else if (input.type === Blockly.INPUT_VALUE ){
+			  value =  (blockDefinition.unix_description[0][input.name])
+					? blockDefinition.unix_description[0][input.name].replace("patt",patternValue)
+					: '';
 			}
 			
 			
