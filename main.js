@@ -13,7 +13,6 @@ document.getElementById('executeButton').addEventListener('click', function onEx
 		var blockDef = window[currentBlock.type + 'Block'];
         // Generate the command for the current block
         try {
-            //generatedCommand += (generatedCommand ? " | " : "") + Blockly.JavaScript.forBlock[currentBlock.type](currentBlock);
 			if(blockDef.category === "I/O Redirection"|| blockDef.category === "Regular Expressions"){
 				generatedCommand += handleBlock(currentBlock);
 			}else{
@@ -192,8 +191,10 @@ function handleBlock(block) {
     // Build the string command from parts
 	let commandString;
 	
-	if(blockCategory==="I/O Redirection" || blockCategory === "Regular Expressions"){
+	if(blockCategory==="I/O Redirection" ){
 		commandString = commandParts.join(' ');
+	}else if(blockCategory === "Regular Expressions") {
+		commandString = commandParts.join('');
 	}
 	else{
 		commandString = blockType + ' ' + commandParts.join(' ') + ' ' + regexStringValue + ' ' + filenameValue;
