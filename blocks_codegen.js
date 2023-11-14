@@ -19,13 +19,19 @@ var regRangeBlock = {
   category: "Regular Expressions",
   unix_description: [
     {
-      upper: "[A-Z]",
-      lower: "[a-z]",
-      letters: "[A-Za-z]",
-      digit: "[0-9]",
-      alphanumeric: "[A-Za-z0-9]",
+      upper: "[[:upper:]]",
+      lower: "[[:lower:]]",
+      letters: "[[:alpha:]]",
+      digit: "[[:digit:]]",
+      alphanumeric: "[[:alnum:]]",
+      punctuation: "[[:punct:]]",
+      whitespace: "[[:space:]]",
+      blanks: "[[:blank:]]",
+      printable: "[[:print:]]",
+      non_printable: "[[:cntrl:]]",
+      graphical: "[[:graph:]]",
+      hexadecimal: "[[:xdigit:]]",
       custom: "[symbol1-symbol2]" // to discuss with Vag
-
     }
   ],
   message0: "Range matching %1",
@@ -38,7 +44,14 @@ var regRangeBlock = {
         [ "Lowercase letters", "lower" ],
         [ "Letters", "letters" ],
         [ "Digits", "digit" ],
-        [ "alphanumeric chars", "alphanumeric" ],
+        [ "alphanumeric", "alphanumeric" ],
+        [ "punctuation", "punctuation" ],
+        [ "whitespace", "whitespace" ],
+        [ "blanks", "blanks" ],
+        [ "printable", "printable" ],
+        [ "non printable", "non_printable" ],
+        [ "graphical", "graphical" ],
+        [ "hexadecimal", "hexadecimal" ],
         [ "Custom Range", "custom" ]
       ]
     }
@@ -153,7 +166,6 @@ var regAlternationBlock = {
   helpUrl: "" // URL to further information or documentation.
 };
 
-
 var regAnchorBlock = {
   type: "regAnchor",
   category: "Regular Expressions",
@@ -183,6 +195,68 @@ var regAnchorBlock = {
     }
   ],
   colour: 610,
+  previousStatement: "Action",
+  nextStatement: "Action",
+  tooltip: "start and end of line anchors",
+  helpUrl: "" // URL to further information or documentation.
+};
+
+var regStartBlock = {
+  type: "regStart",
+  category: "Regular Expressions",
+  unix_description: [
+    {
+      line_start: "^patt"
+    }
+  ],
+  message0: "Start of line %1\n",
+  args0: [
+    {
+      type: "field_checkbox",
+      name: "line_start",
+      checked: false
+
+    }
+  ],
+  message1: "pattern %1\n",
+  args1: [{
+    type: "input_value",
+    name: "regPattern",
+    check: "String" 
+  }],
+
+  colour: 610,
+  previousStatement: "Action",
+  nextStatement: "Action",
+  tooltip: "start and end of line anchors",
+  helpUrl: "" // URL to further information or documentation.
+};
+
+var regEndBlock = {
+  type: "regEnd",
+  category: "Regular Expressions",
+  unix_description: [
+    {
+      line_end: "patt$"
+    }
+  ],
+  message0: "End of line %1\n",
+  args0: [
+    {
+      type: "field_checkbox",
+      name: "line_end",
+      checked: false
+
+    }
+  ],
+  message1: "pattern %1\n",
+  args1: [{
+    type: "input_value",
+    name: "regPattern",
+    check: "String" 
+  }],
+
+  colour: 710,
   previousStatement: "Action",
   nextStatement: "Action",
   tooltip: "start and end of line anchors",
@@ -415,6 +489,39 @@ var regBetweenBlock = {
 
 };
 
+var regOccursBlock = { // not applied yet
+  type: "regOccurs",
+  unix_description: [
+    {
+      fromN : "patt{n",
+      toM : ",m}",
+    }
+  ],
+  category: "Regular Expressions",
+  message0: "match the pattern \n from %1 \n to %2 times",
+  args0:  [
+    {
+      type: "field_number",
+      name: "fromN",
+      value: 1
+    },
+    {
+      type: "field_number",
+      name: "toM",
+      value: 3
+    }
+  ],
+  tooltip: "Match the previous expression between N and M times",
+  previousStatement: "Action",
+  nextStatement: "Action",
+  colour: 280,
+  extensions: [
+    'integer_validation',
+  ],
+  helpUrl: "" // URL to further information or documentation.
+
+};
+
 var regQuantBlock = {
   type: "regQuant",
   category: "Regular Expressions",
@@ -518,6 +625,47 @@ var filenameBlock = {
   tooltip: "Represents a filename.",
   helpUrl: "" // URL to further information or documentation.
 };
+
+// var fileInputBlock = {
+//   type: "fileInput",
+//   unix_description: [
+//     {
+//       anyChars: "*",
+//       singleChar: "?",
+//       singleInSet: "[]",
+//       negation: "[^]",
+//       combinations: "{}"
+//     }
+//   ],
+//   message0: "File input %1",
+//   args0: [
+//     {
+//       type: "field_input",
+//       name: "file_input",
+//       text: "default.txt" // default text for the input
+//     }
+//   ],
+//   message1: "Wildcards %1",
+//   args1:  [
+//     {
+//       type: "field_dropdown",
+//       name: "file_Input",
+//       options: [
+//         [ "None", "None" ],
+//         [ "anyChars", "anyChars" ],
+//         [ "singleChar", "singleChar" ],
+//         [ "singleInSet", "singleInSet" ],
+//         [ "negation", "negation"],
+//         ["combinations","combinations"]
+//       ]
+//     }
+//   ],
+//   output: "String",
+//   colour: 290,
+//   //nextStatement: "Action",
+//   tooltip: "Represents a filename.",
+//   helpUrl: "" // URL to further information or documentation.
+// };
 
 var sedBlock = {
   type: "sed",
@@ -1012,14 +1160,14 @@ var wcBlock = {
 
 var uniqBlock = {
   type: "uniq",
-  message0: "uniq %1\n",
+  message0: "Remove duplicate lines %1\n",
   category: "Data Processing",
   unix_description: [
     {
 	  none: "",
-      occurencies: "-c",
-      duplicates: "-d",
-      uniq : '-u'
+      occurencies: "-c"//,
+      // duplicates: "-d",
+      // uniq : '-u'
 
     }
   ],
@@ -1028,25 +1176,78 @@ var uniqBlock = {
       name: "FILENAME",
 	  check: "String" 
   }],
-  message1: "parameter choice %1",
-  args1: [
-    {
-      type: "field_dropdown",
-      name: "uniq_parameter",
-      options: [
-        [ "none", "none" ],
-        [ "occurencies", "occurencies" ],
-        [ "duplicates", "duplicates" ],
-        [ "uniq", "uniq" ]
-      ]
-    }
-  ],
+  message1: "count the occurencies of \n duplicates lines removed %1",
+  args1: [{
+    type: "field_checkbox",
+    name: "occurencies",
+    checked: false // by default it's disabled
+  }
+],
+  // message1: "parameter choice %1",
+  // args1: [
+  //   {
+  //     type: "field_dropdown",
+  //     name: "uniq_parameter",
+  //     options: [
+  //       [ "none", "none" ],
+  //       [ "occurencies", "occurencies" ],
+  //       [ "duplicates", "duplicates" ],
+  //       [ "uniq", "uniq" ]
+  //     ]
+  //   }
+  // ],
 
   // output: "String",
   colour: 220,
   previousStatement: "Action",
   nextStatement: "Action",
   tooltip: "report or filter out repeated lines in a file",
+  helpUrl: "" // URL to further information or documentation.
+};
+
+var findDuplicatesBlock = { // to discuss with Vag for the type
+  type: "findDuplicates",
+  message0: "Find duplicates %1\n",
+  category: "Data Processing",
+  unix_description: [
+    {
+      duplicates: "-d"
+    }
+  ],
+  args0: [{
+	  type: "input_value",
+      name: "FILENAME",
+	  check: "String" 
+  }],
+
+  // output: "String",
+  colour: 240,
+  previousStatement: "Action",
+  nextStatement: "Action",
+  tooltip: "find duplicate lines in a file",
+  helpUrl: "" // URL to further information or documentation.
+};
+
+var showUniqsBlock = {// to discuss with Vag for the type
+  type: "showUniqs",
+  message0: "Show only the unique lines %1\n",
+  category: "Data Processing",
+  unix_description: [
+    {
+      uniq : '-u'
+    }
+  ],
+  args0: [{
+	  type: "input_value",
+      name: "FILENAME",
+	  check: "String" 
+  }],
+
+  // output: "String",
+  colour: 240,
+  previousStatement: "Action",
+  nextStatement: "Action",
+  tooltip: "find and show only unique lines in a file",
   helpUrl: "" // URL to further information or documentation.
 };
 
@@ -1057,11 +1258,11 @@ var sortBlock = {
   unix_description: [
     {
       desc: "-r",
-      characters_sorting: "-d",
+      // characters_sorting: "-d", Probably not needed. Same output as if left blank
       numeric_sorting : '-n',
-	  sort_delimiter : '-t',
+	  sort_delimiter : "-t", // if blank shouldn't display the -t. Vag
 	  sort_column : '-k',
-	  uniq_elements : '???'
+	  uniq_elements : '-u'
 
     }
   ],
@@ -1089,12 +1290,12 @@ var sortBlock = {
       ]
     }
   ],
-  message3: "delimeter %1",
+  message3: "delimeter in quotes %1",
   args3: [
     {
       type: "field_input",
       name: "sort_delimiter",
-      text: "insert file delimiter" // default text for the input
+      text: "" 
     }
   ],
 
@@ -1103,10 +1304,10 @@ var sortBlock = {
     {
       type: "field_number",
       name: "sort_column",
-      value: 1, // default number of lines
+      value: 1, // default number of column
       min: 1, // minimum value
-      max: 1000, // it should be the maximum of the length of the files columns
-      //precision: 1 // allow only integers
+      // max: 1000, // it should be the maximum of the length of the files columns
+      precision: 1 // allow only integers
     }
   ],
   message5: "unique elements output %1",
@@ -1129,6 +1330,8 @@ var sortBlock = {
 };
 
 
+
+
 Blockly.defineBlocksWithJsonArray([
 regOutputBlock,
 regWordMatchingBlock,
@@ -1143,9 +1346,12 @@ regCapturingGroupBlock,
 regDigitBlock,
 regWordCharBlock,
 regWhitespaceBlock,
-filenameBlock,
 regAnchorBlock,
+regStartBlock,
+regEndBlock,
 regQuantBlock,
+filenameBlock,
+// fileInputBlock,
 gzipBlock,
 grepBlock,
 saveBlock,
@@ -1156,6 +1362,8 @@ changeDirectoryBlock,
 tailBlock,
 headBlock,
 uniqBlock,
+findDuplicatesBlock,
+showUniqsBlock,
 wcBlock,
 sortBlock,
 sedBlock
