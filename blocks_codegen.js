@@ -14,6 +14,40 @@ var regOutputBlock = {
   "colour": 120
 };
 
+var regForBlock = {
+  type: "regFor",
+  category: "Regular Expressions",
+  message0: "Check from %1 to %2 of pattern matches or infinite %3",
+  args0: [
+    {
+      type: "field_number",
+      name: "FROM",
+      value: 0
+    },
+    {
+      type: "field_number",
+      name: "TO"
+    },
+	{
+      type: "field_checkbox",
+      name: "INFINITE",
+      checked: false
+    }
+  ],
+  message1: "%1",
+  args1: [
+    {
+      type: "input_statement",
+      name: "DO"
+    }
+  ],
+  previousStatement: null,
+  nextStatement: null,
+  colour: 120,
+  tooltip: "",
+  helpUrl: ""
+};
+
 var regRangeBlock = {
   type: "regRange",
   category: "Regular Expressions",
@@ -71,38 +105,14 @@ var regPatternBlock = {
 
     }
   ],
-  message0: "Pattern %1",
+  message0: "Pattern %1\n(for multiple patterns, separate by space between patterns)",
   args0: [
     {
       type: "field_input",
       name: "regPattern",
-      text: "............"// default text for the input
+      text: "type your pattern here..."// default text for the input
     }
   ],
-  // message1: "%1 case insensitive",
-  // args1: [
-  //   {
-  //     type: "field_checkbox",
-  //     name: "case_i",
-  //     checked: false // by default it's disabled
-  //   }
-  // ],
-  // message2: "match all occurrences %1",
-  // args2: [
-  //   {
-  //     type: "field_checkbox",
-  //     name: "global",
-  //     checked: false // by default it's disabled
-  //   }
-  // ],
-  // message3: "%1 multi-line matching",
-  // args3: [
-  //   {
-  //     type: "field_checkbox",
-  //     name: "multi_line",
-  //     checked: false // by default it's disabled
-  //   }
-  // ],
   output: "String",
   colour: 570,
   nextStatement: "Action",
@@ -143,7 +153,7 @@ var regAlternationBlock = {
   category: "Regular Expressions",
   unix_description: [
     {
-      alternation: "|"
+      regPattern: "patt"
     }
   ],
   message0: "OR  %1\n",
@@ -209,7 +219,7 @@ var regStartBlock = {
       regPattern: "^patt"
     }
   ],
-  message0: "start of a line %1\n",
+  message0: "Line starts with %1\n",
   args0: [{
     type: "input_value",
     name: "regPattern",
@@ -219,7 +229,7 @@ var regStartBlock = {
   colour: 610,
   previousStatement: "Action",
   nextStatement: "Action",
-  tooltip: "start and end of line anchors",
+  tooltip: "start of line",
   helpUrl: "" // URL to further information or documentation.
 };
 
@@ -228,20 +238,11 @@ var regEndBlock = {
   category: "Regular Expressions",
   unix_description: [
     {
-      line_end: "patt$"
+      regPattern: "patt$"
     }
   ],
-  message0: "End of line %1\n",
-  args0: [
-    {
-      type: "field_checkbox",
-      name: "line_end",
-      checked: false
-
-    }
-  ],
-  message1: "pattern %1\n",
-  args1: [{
+  message0: "Lines ends with %1\n",
+  args0: [{
     type: "input_value",
     name: "regPattern",
     check: "String" 
@@ -250,7 +251,7 @@ var regEndBlock = {
   colour: 710,
   previousStatement: "Action",
   nextStatement: "Action",
-  tooltip: "start and end of line anchors",
+  tooltip: "end of line",
   helpUrl: "" // URL to further information or documentation.
 };
 
@@ -602,7 +603,7 @@ var gzipBlock = {
 
 var filenameBlock = {
   type: "filename",
-  message0: "Filename %1",
+  message0: "Filename %1\n(in case of multiple files, separate by space between files)",
   args0: [
     {
       type: "field_input",
@@ -1276,7 +1277,7 @@ var sortBlock = {
       type: "field_dropdown",
       name: "sort_parameter",
       options: [
-        [ "characters sorting", "characters_sorting" ],
+		[ "characters sorting", "characters_sorting" ],
         [ "numeric sorting", "numeric_sorting" ]
       ]
     }
@@ -1295,9 +1296,9 @@ var sortBlock = {
     {
       type: "field_number",
       name: "sort_column",
-      value: 1, // default number of column
-      min: 1, // minimum value
-      // max: 1000, // it should be the maximum of the length of the files columns
+      value: "", // default number of column
+      //min: 1, // minimum value
+      //max: 1000, // it should be the maximum of the length of the files columns
       precision: 1 // allow only integers
     }
   ],
@@ -1325,10 +1326,11 @@ var sortBlock = {
 
 Blockly.defineBlocksWithJsonArray([
 regOutputBlock,
+regForBlock,
 regWordMatchingBlock,
 regRangeBlock,
 regPatternBlock,
-regAlternationBlock,
+//regAlternationBlock,
 regExactBlock,
 regMoreThanBlock,
 regBetweenBlock,
@@ -1337,7 +1339,7 @@ regCapturingGroupBlock,
 regDigitBlock,
 regWordCharBlock,
 regWhitespaceBlock,
-regAnchorBlock,
+//regAnchorBlock,
 regStartBlock,
 regEndBlock,
 regQuantBlock,

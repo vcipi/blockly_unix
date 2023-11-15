@@ -1,6 +1,14 @@
 Blockly.JavaScript = new Blockly.Generator('JavaScript');
 let csvContent = "";
 
+
+// Global replacement map
+const replacementMap = {
+  "findDuplicates": "uniq -d",
+  "showUniqs": "uniq -u",
+  // Add more key-value pairs as needed
+};
+
 document.getElementById('executeButton').addEventListener('click', function onExecuteButtonClick() {
 
 	console.log("Top blocks:", workspace.getTopBlocks());
@@ -25,6 +33,8 @@ document.getElementById('executeButton').addEventListener('click', function onEx
         // Move to the next connected block
         currentBlock = currentBlock.getNextBlock();
     }
+
+	generatedCommand = replaceKeywords(generatedCommand);
 
     // Combine the constructed UNIX command and filename
     document.getElementById('resultsArea').innerText = generatedCommand;
@@ -87,7 +97,7 @@ function handleBlock(block) {
     var inputBlock = block.getInputTargetBlock('FILENAME');
     // If there's a connected block, and it's of type 'filename', get the field value
     var filenameValue = (inputBlock && inputBlock.type === 'filename')
-        ? JSON.stringify(inputBlock.getFieldValue('FILENAME'))
+        ? inputBlock.getFieldValue('FILENAME')
         : '';
     console.log("filenameValue:", filenameValue);
 	
@@ -96,7 +106,7 @@ function handleBlock(block) {
 	//console.log("inputPatternBlock:", inputPatternBlock.type);
     // If there's a connected block, and it's of type 'Regex', get the field value
     var patternValue = (inputPatternBlock && inputPatternBlock.type === 'regPattern')
-        ? inputPatternBlock.getFieldValue('regPattern')
+        ? inputPatternBlock.getFieldValue('regPattern').replace(new RegExp(" ", 'g'), "|")
         : '';
 	console.log("patternValue:", patternValue);
 		
@@ -175,9 +185,14 @@ function handleBlock(block) {
 			  : '';
 			}
 			// Handle text inputs (including numbers)
-			else if (field  instanceof Blockly.FieldTextInput || field instanceof Blockly.FieldNumber) {
-			  value = (blockDefinition.unix_description[0][field.name]== null)
+			else if (field  instanceof Blockly.FieldTextInput) {
+			  value = (blockDefinition.unix_description[0][field.name]== null || field.getValue() == '')
 					? field.getValue()
+					: blockDefinition.unix_description[0][field.name] + field.getValue();
+			} 			
+			else if (field instanceof Blockly.FieldNumber) {
+			  value = (blockDefinition.unix_description[0][field.name]== null || field.getValue() == 0)
+					? ''
 					: blockDefinition.unix_description[0][field.name] + field.getValue();
 			} 
 
@@ -263,6 +278,15 @@ function getRegexChildenBlocks(startBlock) {
     });
 
     return allBlocks;
+}
+
+
+// Function to replace keywords in a command
+function replaceKeywords(command) {
+  Object.keys(replacementMap).forEach((key) => {
+    command = command.replace(new RegExp(key, 'g'), replacementMap[key]);
+  });
+  return command;
 }
 
 
