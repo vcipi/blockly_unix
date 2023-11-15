@@ -146,18 +146,18 @@ var regAlternationBlock = {
       alternation: "|"
     }
   ],
-  message0: "Match  %1 or %2 \n",
+  message0: "OR  %1\n",
   args0: [
     {
       type: "input_value",
       name: "regPattern",
       check: "String" 
-    },
-    {
-      type: "input_value",
-      name: "regPattern",
-      check: "String" 
-    }
+    }//,
+    // {
+    //   type: "input_value",
+    //   name: "regPattern",
+    //   check: "String" 
+    // }
   ],
   colour: 240,
   previousStatement: "Action",
@@ -206,20 +206,11 @@ var regStartBlock = {
   category: "Regular Expressions",
   unix_description: [
     {
-      line_start: "^patt"
+      regPattern: "^patt"
     }
   ],
-  message0: "Start of line %1\n",
-  args0: [
-    {
-      type: "field_checkbox",
-      name: "line_start",
-      checked: false
-
-    }
-  ],
-  message1: "pattern %1\n",
-  args1: [{
+  message0: "start of a line %1\n",
+  args0: [{
     type: "input_value",
     name: "regPattern",
     check: "String" 
@@ -1205,13 +1196,13 @@ var uniqBlock = {
   helpUrl: "" // URL to further information or documentation.
 };
 
-var findDuplicatesBlock = { // to discuss with Vag for the type
+var findDuplicatesBlock = { 
   type: "findDuplicates",
   message0: "Find duplicates %1\n",
   category: "Data Processing",
   unix_description: [
     {
-      duplicates: "-d"
+      duplicates: "-d" // uniq -d
     }
   ],
   args0: [{
@@ -1228,13 +1219,13 @@ var findDuplicatesBlock = { // to discuss with Vag for the type
   helpUrl: "" // URL to further information or documentation.
 };
 
-var showUniqsBlock = {// to discuss with Vag for the type
+var showUniqsBlock = {
   type: "showUniqs",
   message0: "Show only the unique lines %1\n",
   category: "Data Processing",
   unix_description: [
     {
-      uniq : '-u'
+      uniq : '-u' // uniq -u
     }
   ],
   args0: [{
