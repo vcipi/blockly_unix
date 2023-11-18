@@ -91,7 +91,7 @@ function handleBlock(block) {
     var blockType = block.type;
     var blockDefinition = window[blockType + 'Block'];  // Construct the name of the block definition variable and access it
 	var blockCategory = blockDefinition.category;
-	console.log("Block Category:", blockCategory);
+	console.log("HANDLEBLOCK - Block Category:", blockCategory);
   
     // Fetch the attached filename block's value
     var inputBlock = block.getInputTargetBlock('FILENAME');
@@ -99,7 +99,7 @@ function handleBlock(block) {
     var filenameValue = (inputBlock && inputBlock.type === 'filename')
         ? inputBlock.getFieldValue('FILENAME')
         : '';
-    console.log("filenameValue:", filenameValue);
+    console.log("HANDLEBLOCK - filenameValue:", filenameValue);
 	
 	// Fetch the attached regex block
     var inputPatternBlock = block.getInputTargetBlock('regPattern');
@@ -108,17 +108,17 @@ function handleBlock(block) {
     var patternValue = (inputPatternBlock && inputPatternBlock.type === 'regPattern')
         ? inputPatternBlock.getFieldValue('regPattern').replace(new RegExp(" ", 'g'), "|")
         : '';
-	console.log("patternValue:", patternValue);
+	console.log("HANDLEBLOCK - patternValue:", patternValue);
 		
 	//get all the children of the top block
 	var regexBlocks = getRegexChildenBlocks(block);
-	console.log("regexBlocks[] length:", regexBlocks.length);
+	console.log("HANDLEBLOCK - regexBlocks[] length:", regexBlocks.length);
 
 	var regexStringValue = (regexBlocks.length > 0)
 		? generateRegexString(regexBlocks)
 		:'';
 	
-    console.log("Regex String value:", regexStringValue);
+    console.log("HANDLEBLOCK - Regex String value:", regexStringValue);
   
     let commandParts = [];
 
@@ -126,21 +126,21 @@ function handleBlock(block) {
 	
 	if (blockCategory === "Regular Expressions"){
 		block.inputList.forEach((input) => {
-		  console.log("input:", input.name);
+		  console.log("HANDLEBLOCK - input:", input.name);
 		  input.fieldRow.forEach((field) => {
-			console.log("field:", field);
+			console.log("HANDLEBLOCK - field:", field);
 			let value;
 			
 			// Handle dropdowns
 			if (field instanceof Blockly.FieldDropdown) {
 			  paramselected = field.getValue();
-			  console.log("paramselected:", paramselected);
+			  console.log("HANDLEBLOCK - paramselected:", paramselected);
 			  value = blockDefinition.unix_description[0][paramselected];
 			  
 			  value = (patternValue)
 					? value.replace("patt",patternValue)
 					: value.replace("patt",'');
-			  console.log("value:", value);
+			  //console.log("HANDLEBLOCK - value:", value);
 			}
 			else if (field  instanceof Blockly.FieldCheckbox) {
 			  value = field.getValue() === 'TRUE'
@@ -159,8 +159,11 @@ function handleBlock(block) {
 					? blockDefinition.unix_description[0][input.name].replace("patt",patternValue)
 					: '';
 			}
+			else if (input.type === Blockly.INPUT_STATEMENT ){
+			  value =  '';
+			}
 			
-			
+			console.log("HANDLEBLOCK - value:", value);
 			// Add the processed value to the command parts
 			commandParts.push(value);
 		  });
@@ -168,9 +171,9 @@ function handleBlock(block) {
 	}
 	else{
 		block.inputList.forEach((input) => {
-		  console.log("input:", input.name);
+		  console.log("HANDLEBLOCK - input:", input.name);
 		  input.fieldRow.forEach((field) => {
-			console.log("field:", field);
+			console.log("HANDLEBLOCK - field:", field);
 			let value;
 		  
 			// Handle dropdowns
@@ -191,11 +194,19 @@ function handleBlock(block) {
 					: blockDefinition.unix_description[0][field.name] + field.getValue();
 			} 			
 			else if (field instanceof Blockly.FieldNumber) {
-			  value = (blockDefinition.unix_description[0][field.name]== null || field.getValue() == 0)
-					? ''
-					: blockDefinition.unix_description[0][field.name] + field.getValue();
-			} 
+			  value = (blockDefinition.unix_description[0][field.name]== null && field.getValue() != 0)
+					? field.getValue()
+					: (field.getValue() == 0)
+						?''
+						: blockDefinition.unix_description[0][field.name] + field.getValue();
+			}
+			else if (input.type === Blockly.INPUT_VALUE ){
+			  value =  (blockDefinition.unix_description[0][input.name])
+					? blockDefinition.unix_description[0][input.name].replace("patt",patternValue)
+					: '';
+			}
 
+			console.log("HANDLEBLOCK - value:", value);
 			// Add the processed value to the command parts
 			commandParts.push(value);
 		  });
@@ -209,14 +220,14 @@ function handleBlock(block) {
 	if(blockCategory==="I/O Redirection" ){
 		commandString = commandParts.join(' ');
 	}else if(blockCategory === "Regular Expressions") {
-		commandString = commandParts.join('');
+		commandString = regexStringValue + commandParts.join('');
 	}
 	else{
 		commandString = blockType + ' ' + commandParts.join(' ') + ' ' + regexStringValue + ' ' + filenameValue;
 	}
 
 	
-	console.log("command built:", commandString);
+	console.log("HANDLEBLOCK - command built:", commandString);
 	
     // Here you can add any custom logic for special cases
 
@@ -227,19 +238,19 @@ function generateRegexString(regexBlocksList){
 	let regexStringCommand = '';
 
     for (let block of regexBlocksList) {
-		console.log(block.type);
+		console.log('generateRegexString - Block Type: ', block.type);
 		
 		var blockDef = window[block.type + 'Block'];
         // Generate the command for the current block
         try {
-			//will add main code here
+			regexStringCommand += handleBlock(block);
         }catch(error){
             console.error('An error occurred:', error.message);
             break;
         }
     }
 
-    console.log("Generated regex:", regexStringCommand);
+    console.log("generateRegexString - Generated regex:", regexStringCommand);
 	
 	return regexStringCommand;
 }
@@ -252,7 +263,7 @@ function getRegexChildenBlocks(startBlock) {
         if (block) {
 			var blockDefinition = window[block.type + 'Block'];
             // Check if the block's category is 'Regular Expressions'
-            if (blockDefinition.category === 'Regular Expressions') {
+            if (block.type != 'regPattern' && blockDefinition.category === 'Regular Expressions') {
                 allBlocks.push(block);
             }
 
@@ -262,11 +273,11 @@ function getRegexChildenBlocks(startBlock) {
             }
 
             // Add blocks connected to inputs
-            block.inputList.forEach(function(input) {
-                if (input.connection && input.connection.targetBlock()) {
-                    addBlocks(input.connection.targetBlock());
-                }
-            });
+            //block.inputList.forEach(function(input) {
+               // if (input.connection && input.connection.targetBlock()) {
+                  //  addBlocks(input.connection.targetBlock());
+                //}
+            //});
         }
     }
 

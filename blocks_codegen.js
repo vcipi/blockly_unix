@@ -18,6 +18,12 @@ var regForBlock = {
   type: "regFor",
   category: "Regular Expressions",
   message0: "Check from %1 to %2 of pattern matches or infinite %3",
+  unix_description: [
+    {
+      FROM : "patt{n",
+      TO : ",m}",
+    }
+  ],
   args0: [
     {
       type: "field_number",
@@ -715,10 +721,11 @@ var grepBlock = {
       inverted : "-v",
       recursive : "-r",
       show_line_nums : "-n",
-      multiple_patterns : "-e"
+      multiple_patterns : "-e",
+	  regPattern: 'patt'
     }
   ],
-  message0: "Search in a file with a pattern \n For multiple patterns separate with space",
+  message0: "Search in a file with a pattern",
   message1: "pattern to search %1",
   args1:   [{
 
