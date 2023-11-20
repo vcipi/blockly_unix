@@ -143,9 +143,15 @@ function handleBlock(block) {
 			  //console.log("HANDLEBLOCK - value:", value);
 			}
 			else if (field  instanceof Blockly.FieldCheckbox) {
-			  value = field.getValue() === 'TRUE'
-			  ? blockDefinition.unix_description[0][field.name]
-			  : '';
+			  value = (field.getValue() === 'TRUE')
+					? blockDefinition.unix_description[0][field.name]
+					: '';
+			
+			  console.log("HANDLEBLOCK - commandParts:", commandParts);
+			  if (field.name === 'INFINITE' && field.getValue() === 'TRUE'){
+				commandParts[commandParts.length - 2] = ', }';
+				console.log("HANDLEBLOCK - commandParts:", commandParts);
+			  }
 			}
 			else if (field  instanceof Blockly.FieldTextInput || field instanceof Blockly.FieldNumber ) {
 			  value = (blockDefinition.unix_description[0][field.name]== null)
@@ -153,6 +159,14 @@ function handleBlock(block) {
 					: (patternValue)
 						? blockDefinition.unix_description[0][field.name].replace("n" , field.getValue()).replace("m", field.getValue()).replace("patt",patternValue)
 						: blockDefinition.unix_description[0][field.name].replace("n" , field.getValue()).replace("m", field.getValue()).replace("patt",'');
+			  
+			  str = (commandParts[commandParts.length - 2]) ? commandParts[commandParts.length - 2] :'notValid';
+			  console.log("HANDLEBLOCK - str:", str[str.length - 1]);
+			  console.log("HANDLEBLOCK - str:", field.getValue());
+			  if(str[str.length - 1] == field.getValue()){
+					value = '}';
+			  }
+			
 			}
 			else if (input.type === Blockly.INPUT_VALUE ){
 			  value =  (blockDefinition.unix_description[0][input.name])

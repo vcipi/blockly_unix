@@ -17,7 +17,7 @@ var regOutputBlock = {
 var regForBlock = {
   type: "regFor",
   category: "Regular Expressions",
-  message0: "Check from %1 to %2 of pattern matches or infinite %3",
+  message0: "Match the pattern From %1\n To %2 times OR To infinite %3\n(for exactly n times 'From' and 'To' values must be equal)",
   unix_description: [
     {
       FROM : "patt{n",
