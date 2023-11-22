@@ -83,7 +83,12 @@
     
     var workspace = Blockly.inject('blocklyDiv', {
         toolbox: toolboxXML,
-		trashcan: true
+		trashcan: true,
+		move: {
+			scrollbars: true,  // Enables or disables scrollbars on the workspace
+			drag: true,        // Allows workspace to be moved (dragged) with the mouse
+			wheel: true        // Enables or disables scrolling with the mouse wheel
+		}
     });
 </script>
 <script src="main.js"></script>
