@@ -147,10 +147,11 @@ function handleBlock(block) {
 					? blockDefinition.unix_description[0][field.name]
 					: '';
 			
-			  console.log("HANDLEBLOCK - commandParts:", commandParts);
+			  //console.log("HANDLEBLOCK - commandParts:", commandParts);
+			  //specifically made for the regForBlock so value m is replaced with the infinity option(commandParts.length - 2 is used because the last part of the list is an object with an undefined value - don't know what)
 			  if (field.name === 'INFINITE' && field.getValue() === 'TRUE'){
 				commandParts[commandParts.length - 2] = ', }';
-				console.log("HANDLEBLOCK - commandParts:", commandParts);
+				//console.log("HANDLEBLOCK - commandParts:", commandParts);
 			  }
 			}
 			else if (field  instanceof Blockly.FieldTextInput || field instanceof Blockly.FieldNumber ) {
@@ -160,9 +161,11 @@ function handleBlock(block) {
 						? blockDefinition.unix_description[0][field.name].replace("n" , field.getValue()).replace("m", field.getValue()).replace("patt",patternValue)
 						: blockDefinition.unix_description[0][field.name].replace("n" , field.getValue()).replace("m", field.getValue()).replace("patt",'');
 			  
+			  //specifically made for the regForBlock in case n=m is replaced with the '}' option(commandParts.length - 2 is used because the last part of the list is an object with an undefined value - don't know what)
 			  str = (commandParts[commandParts.length - 2]) ? commandParts[commandParts.length - 2] :'notValid';
-			  console.log("HANDLEBLOCK - str:", str[str.length - 1]);
-			  console.log("HANDLEBLOCK - str:", field.getValue());
+			  //console.log("HANDLEBLOCK - str:", str[str.length - 1]);
+			  //console.log("HANDLEBLOCK - str:", field.getValue());
+			  //str.length - 1 is the n of the '{n' part of the command so far right before the m which is the current vlue that the user gives
 			  if(str[str.length - 1] == field.getValue()){
 					value = '}';
 			  }

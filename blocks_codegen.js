@@ -49,7 +49,7 @@ var regForBlock = {
   ],
   previousStatement: null,
   nextStatement: null,
-  colour: 120,
+  colour: 499,
   tooltip: "",
   helpUrl: ""
 };
@@ -403,7 +403,7 @@ var regAnyOneBlock = {
     }
   ],
   category: "Regular Expressions",
-  message0: "match any of %1 characters",
+  message0: "Match any of %1 characters",
   args0:  [
     {
       type: "field_input",
@@ -496,7 +496,7 @@ var regOccursBlock = { // not applied yet
     }
   ],
   category: "Regular Expressions",
-  message0: "match the pattern \n from %1 \n to %2 times",
+  message0: "Match the pattern \n from %1 \n to %2 times",
   args0:  [
     {
       type: "field_number",
@@ -525,13 +525,13 @@ var regQuantBlock = {
   category: "Regular Expressions",
   unix_description: [
     {
-      zeroOne: "?",
-      oneMore: "+",
-      zeroMore: "*",
+      zeroOne: "patt?",
+      oneMore: "patt+",
+      zeroMore: "patt*",
       anyCharExceptNewLine : "."
     }
   ],
-  message0: "Check pattern occurencies \n",
+  message0: "Check occurencies of pattern \n",
   message1: "%1",
   args1:   [
     {
@@ -624,46 +624,46 @@ var filenameBlock = {
   helpUrl: "" // URL to further information or documentation.
 };
 
-// var fileInputBlock = {
-//   type: "fileInput",
-//   unix_description: [
-//     {
-//       anyChars: "*",
-//       singleChar: "?",
-//       singleInSet: "[]",
-//       negation: "[^]",
-//       combinations: "{}"
-//     }
-//   ],
-//   message0: "File input %1",
-//   args0: [
-//     {
-//       type: "field_input",
-//       name: "file_input",
-//       text: "default.txt" // default text for the input
-//     }
-//   ],
-//   message1: "Wildcards %1",
-//   args1:  [
-//     {
-//       type: "field_dropdown",
-//       name: "file_Input",
-//       options: [
-//         [ "None", "None" ],
-//         [ "anyChars", "anyChars" ],
-//         [ "singleChar", "singleChar" ],
-//         [ "singleInSet", "singleInSet" ],
-//         [ "negation", "negation"],
-//         ["combinations","combinations"]
-//       ]
-//     }
-//   ],
-//   output: "String",
-//   colour: 290,
-//   //nextStatement: "Action",
-//   tooltip: "Represents a filename.",
-//   helpUrl: "" // URL to further information or documentation.
-// };
+var fileInputBlock = {
+   type: "fileInput",
+   unix_description: [
+     {
+       anyChars: "*",
+       singleChar: "?",
+       singleInSet: "[]",
+       negation: "[^]",
+       combinations: "{}"
+     }
+   ],
+   message0: "File input %1",
+   args0: [
+     {
+       type: "field_input",
+       name: "file_input",
+       text: "default.txt" // default text for the input
+     }
+   ],
+   message1: "Wildcards %1",
+   args1:  [
+     {
+       type: "field_dropdown",
+       name: "file_Input",
+       options: [
+         [ "None", "None" ],
+         [ "anyChars", "anyChars" ],
+         [ "singleChar", "singleChar" ],
+         [ "singleInSet", "singleInSet" ],
+         [ "negation", "negation"],
+         ["combinations","combinations"]
+       ]
+     }
+   ],
+   output: "String",
+   colour: 290,
+   //nextStatement: "Action",
+   tooltip: "Represents a filename.",
+   helpUrl: "" // URL to further information or documentation.
+ };
 
 var sedBlock = {
   type: "sed",
@@ -675,38 +675,123 @@ var sedBlock = {
       globally: "g"
     }
   ],
-  message0: "Stream edit in a file\n",
+  message0: "Stream edit in a file %1\n",
+  args0: [{
+      type: "input_value",
+      name: "FILENAME",
+	  check: "String" 
+  }],
   message1: "search pattern %1 is Regex %2\n",
   args1: [{
     type: "input_value",
     name: "regPattern",
     check: "String" 
-},
-{
+  },
+  {
   type: "field_checkbox",
   name: "regex",
   checked: false // by default it's disabled
-}
-],
+  }
+  ],
   message2: "text to change %1\n",
   args2: [{
     type: "field_input",
     name: "grepChangeText",
     text: "changeText" // default text for the input
-}],
+  }],
   message3: "in file %1\n",
   args3: [{
     type: "input_value",
     name: "FILENAME",
   check: "String" 
-}],
-message4: "in all occurencies of the pattern %1",
-args4: [{
-  type: "field_checkbox",
-  name: "globally",
-  checked: false // by default it's disabled
-}],
+  }],
+  message4: "in all occurencies of the pattern %1",
+  args4: [{
+    type: "field_checkbox",
+    name: "globally",
+    checked: false // by default it's disabled
+  }],
+  colour: 590,
+  previousStatement: "Action",
+  nextStatement: "Action",
+  tooltip: "Stream edit in a file",
+  helpUrl: "" // URL to further information or documentation.
+};
 
+var awkBlock = {
+  type: "awk",
+  category: "File and Directory Operations",
+  unix_description: [
+    {
+
+    }
+  ],
+  message0: "Awk in file %1\n",
+  args0: [{
+      type: "input_value",
+      name: "FILENAME",
+	  check: "String" 
+  }],
+  message1: "pattern %1",
+  args1: [{
+    type: "input_value",
+    name: "regPattern",
+    check: "String" 
+  }],
+  colour: 387,
+  previousStatement: "Action",
+  nextStatement: "Action",
+  tooltip: "awk in a file",
+  helpUrl: "" // URL to further information or documentation.
+};
+
+var cutBlock = {
+  type: "cut",
+  category: "File and Directory Operations",
+  unix_description: [
+    {
+
+    }
+  ],
+  message0: "Cut out in file %1\n",
+  args0: [{
+      type: "input_value",
+      name: "FILENAME",
+	  check: "String" 
+  }],
+  message1: "pattern %1",
+  args1: [{
+    type: "input_value",
+    name: "regPattern",
+    check: "String" 
+  }],
+  colour: 611,
+  previousStatement: "Action",
+  nextStatement: "Action",
+  tooltip: "Cut out in a file",
+  helpUrl: "" // URL to further information or documentation.
+};
+
+var catBlock = {
+  type: "cat",
+  category: "File and Directory Operations",
+  unix_description: [
+    {
+
+    }
+  ],
+  message0: "Concatenate in file %1\n",
+  args0: [{
+      type: "input_value",
+      name: "FILENAME",
+	  check: "String" 
+  }],
+
+  colour: 876,
+  previousStatement: "Action",
+  nextStatement: "Action",
+  tooltip: "Cut out in a file",
+  helpUrl: "" // URL to further information or documentation.
 };
 
 var grepBlock = {
@@ -725,8 +810,13 @@ var grepBlock = {
 	  regPattern: 'patt'
     }
   ],
-  message0: "Search in a file with a pattern",
-  message1: "pattern to search %1",
+  message0: "Search in file %1",
+  args0: [{
+      type: "input_value",
+      name: "FILENAME",
+	  check: "String" 
+  }],
+  message1: "the pattern %1",
   args1:   [{
 
 	  type: "input_value",
@@ -815,7 +905,7 @@ var grepBlock = {
 
 var saveBlock = {
   type: "save",
-  message0: "save result to %1",
+  message0: "Save result to %1",
   category: "I/O Redirection",
   unix_description: [
     {
@@ -837,7 +927,7 @@ var saveBlock = {
 
 var appendBlock = {
   type: "append",
-  message0: "append result to %1",
+  message0: "Append result to %1",
   category: "I/O Redirection",  
   unix_description: [
     {
@@ -866,7 +956,7 @@ var mkdirBlock = {
       verbose: "-v"
     }
   ],
-  message0: "create directory",
+  message0: "Create directory",
   message1: "for multiple directories separate with space",
   message2: "write directory or path %1",
   args2: [{
@@ -902,7 +992,7 @@ var mkdirBlock = {
 
 var lsBlock = {
   type: "ls",
-  message0: "list files & directories %1",
+  message0: "List files & directories %1",
   category: "File and Directory Operations",
   unix_description: [
     {
@@ -961,7 +1051,7 @@ var lsBlock = {
 
 var changeDirectoryBlock = {
   type: "cd",
-  message0: "change directory to %1",
+  message0: "Change directory to %1",
   category: "File and Directory Operations",
   args0: [
     {
@@ -978,7 +1068,7 @@ var changeDirectoryBlock = {
 
 var tailBlock = {
   type: "tail",
-  message0: "Tail command %1",
+  message0: "Tail of file %1",
   category: "Data Processing",
   unix_description: [
     {
@@ -1033,7 +1123,7 @@ var tailBlock = {
 
 var headBlock = {
   type: "head",
-  message0: "Head command %1",
+  message0: "Head of file %1",
   category: "Data Processing",
   unix_description: [
     {
@@ -1097,7 +1187,7 @@ var headBlock = {
 
 var wcBlock = {
   type: "wc",
-  message0: "word count %1",
+  message0: "Word count of file %1",
   category: "Data Processing",
   unix_description: [
     {
@@ -1159,14 +1249,12 @@ var wcBlock = {
 
 var uniqBlock = {
   type: "uniq",
-  message0: "Remove duplicate lines %1\n",
+  message0: "Remove duplicate lines in file %1\n",
   category: "Data Processing",
   unix_description: [
     {
 	  none: "",
-      occurencies: "-c"//,
-      // duplicates: "-d",
-      // uniq : '-u'
+      occurencies: "-c"
 
     }
   ],
@@ -1180,22 +1268,7 @@ var uniqBlock = {
     type: "field_checkbox",
     name: "occurencies",
     checked: false // by default it's disabled
-  }
-],
-  // message1: "parameter choice %1",
-  // args1: [
-  //   {
-  //     type: "field_dropdown",
-  //     name: "uniq_parameter",
-  //     options: [
-  //       [ "none", "none" ],
-  //       [ "occurencies", "occurencies" ],
-  //       [ "duplicates", "duplicates" ],
-  //       [ "uniq", "uniq" ]
-  //     ]
-  //   }
-  // ],
-
+  }],
   // output: "String",
   colour: 220,
   previousStatement: "Action",
@@ -1206,7 +1279,7 @@ var uniqBlock = {
 
 var findDuplicatesBlock = { 
   type: "findDuplicates",
-  message0: "Find duplicates %1\n",
+  message0: "Find duplicates in file%1\n",
   category: "Data Processing",
   unix_description: [
     {
@@ -1229,7 +1302,7 @@ var findDuplicatesBlock = {
 
 var showUniqsBlock = {
   type: "showUniqs",
-  message0: "Show only the unique lines %1\n",
+  message0: "Show only the unique lines in file %1\n",
   category: "Data Processing",
   unix_description: [
     {
@@ -1252,7 +1325,7 @@ var showUniqsBlock = {
 
 var sortBlock = {
   type: "sort",
-  message0: "sort %1",
+  message0: "Sort file%1",
   category: "Data Processing",
   unix_description: [
     {
@@ -1338,9 +1411,9 @@ regWordMatchingBlock,
 regRangeBlock,
 regPatternBlock,
 //regAlternationBlock,
-regExactBlock,
-regMoreThanBlock,
-regBetweenBlock,
+//regExactBlock,
+//regMoreThanBlock,
+//regBetweenBlock,
 regAnyOneBlock,
 regCapturingGroupBlock,
 regDigitBlock,
@@ -1351,7 +1424,7 @@ regStartBlock,
 regEndBlock,
 regQuantBlock,
 filenameBlock,
-// fileInputBlock,
+//fileInputBlock,
 gzipBlock,
 grepBlock,
 saveBlock,
@@ -1366,7 +1439,10 @@ findDuplicatesBlock,
 showUniqsBlock,
 wcBlock,
 sortBlock,
-sedBlock
+sedBlock,
+awkBlock,
+cutBlock,
+catBlock
 ]);
 
 
