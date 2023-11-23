@@ -317,6 +317,39 @@ function replaceKeywords(command) {
   return command;
 }
 
+Blockly.Extensions.register('integer_validation', function() {
+  var thisBlock = this;
+
+  // Initialize a property to store the last valid value.
+  this.lastValidValue = {};
+
+  // Automatically attach validators to all integer fields.
+  thisBlock.inputList.forEach(function(input) {
+    input.fieldRow.forEach(function(field) {
+      if (field instanceof Blockly.FieldNumber) {
+        // Store the initial value as the last valid value.
+        thisBlock.lastValidValue[field.name] = field.getValue();
+
+        field.setValidator(function(newValue) {
+          var intValue = Number(newValue);
+          if (Number.isInteger(intValue)) {
+            // Update last valid value to the new value.
+            thisBlock.lastValidValue[field.name] = newValue;
+            // Clear warning text since the value is valid.
+            field.sourceBlock_.setWarningText(null);
+            return newValue;
+          } else {
+            // Set warning text since the value is invalid.
+            field.sourceBlock_.setWarningText('You must enter an integer.');
+            // Revert to the last valid value.
+            return thisBlock.lastValidValue[field.name];
+          }
+        });
+      }
+    });
+  });
+});
+
 
 
 

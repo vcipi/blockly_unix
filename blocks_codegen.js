@@ -1,18 +1,20 @@
-var regOutputBlock = {
-  type: "regOutput",
-  category: "Regular Expressions",
-  message0: "Put Regex",
-  message1: "%1",
-  args1: [
-    {
-      type: "input_statement", 
-      name: "DO"
-    }
-  ],
-  output: "String",
-  "nextStatement": null,
-  "colour": 120
-};
+//var regOutputBlock = {
+  //type: "regOutput",
+ // category: "Regular Expressions",
+ // message0: "Put Regex",
+ // message1: "%1",
+  //args1: [
+  //  {
+  //    type: "input_statement", 
+  //    name: "DO"
+   // }
+  //],
+  //output: "String",
+  //"nextStatement": null,
+  //"colour": 120
+//};
+
+import { headBlock } from './headBlock.js';
 
 var regForBlock = {
   type: "regFor",
@@ -1405,78 +1407,47 @@ var sortBlock = {
 
 
 Blockly.defineBlocksWithJsonArray([
-regOutputBlock,
-regForBlock,
-regWordMatchingBlock,
-regRangeBlock,
-regPatternBlock,
+//regOutputBlock,
+//regForBlock,
+//regWordMatchingBlock,
+//regRangeBlock,
+//regPatternBlock,
 //regAlternationBlock,
 //regExactBlock,
 //regMoreThanBlock,
 //regBetweenBlock,
-regAnyOneBlock,
-regCapturingGroupBlock,
-regDigitBlock,
-regWordCharBlock,
-regWhitespaceBlock,
+//regAnyOneBlock,
+//regCapturingGroupBlock,
+//regDigitBlock,
+//regWordCharBlock,
+//regWhitespaceBlock,
 //regAnchorBlock,
-regStartBlock,
-regEndBlock,
-regQuantBlock,
-filenameBlock,
+//regStartBlock,
+//regEndBlock,
+//regQuantBlock,
+//filenameBlock,
 //fileInputBlock,
-gzipBlock,
-grepBlock,
-saveBlock,
-appendBlock,
-mkdirBlock,
-lsBlock,
-changeDirectoryBlock,
-tailBlock,
-headBlock,
-uniqBlock,
-findDuplicatesBlock,
-showUniqsBlock,
-wcBlock,
-sortBlock,
-sedBlock,
-awkBlock,
-cutBlock,
-catBlock
+//gzipBlock,
+//grepBlock,
+//saveBlock,
+//appendBlock,
+//mkdirBlock,
+//lsBlock,
+//changeDirectoryBlock,
+//tailBlock,
+//headBlock,
+//uniqBlock,
+//findDuplicatesBlock,
+//showUniqsBlock,
+//wcBlock,
+//sortBlock,
+//sedBlock,
+//awkBlock,
+//cutBlock,
+//catBlock
 ]);
 
 
-Blockly.Extensions.register('integer_validation', function() {
-  var thisBlock = this;
 
-  // Initialize a property to store the last valid value.
-  this.lastValidValue = {};
-
-  // Automatically attach validators to all integer fields.
-  thisBlock.inputList.forEach(function(input) {
-    input.fieldRow.forEach(function(field) {
-      if (field instanceof Blockly.FieldNumber) {
-        // Store the initial value as the last valid value.
-        thisBlock.lastValidValue[field.name] = field.getValue();
-
-        field.setValidator(function(newValue) {
-          var intValue = Number(newValue);
-          if (Number.isInteger(intValue)) {
-            // Update last valid value to the new value.
-            thisBlock.lastValidValue[field.name] = newValue;
-            // Clear warning text since the value is valid.
-            field.sourceBlock_.setWarningText(null);
-            return newValue;
-          } else {
-            // Set warning text since the value is invalid.
-            field.sourceBlock_.setWarningText('You must enter an integer.');
-            // Revert to the last valid value.
-            return thisBlock.lastValidValue[field.name];
-          }
-        });
-      }
-    });
-  });
-});
 
 
