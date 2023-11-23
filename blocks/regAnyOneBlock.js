@@ -2,19 +2,17 @@ var regAnyOneBlock = {
   type: "regAnyOne",
   unix_description: [
     {
-      anyOne: "[]",
-      notMatch: "^"
+      regPattern: "[patt]",
+      notMatch: "patt^"
     }
   ],
   category: "Regular Expressions",
   message0: "Match any of %1 characters",
-  args0:  [
-    {
-      type: "field_input",
-      name: "FILENAME",
-      text: "abc" 
-    }
-  ],
+  args0: [{
+    type: "input_value",
+    name: "regPattern",
+    check: "String" 
+  }],
   message1: "Not %1",
   args1:  [
     {

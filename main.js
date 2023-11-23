@@ -143,9 +143,17 @@ function handleBlock(block) {
 			  //console.log("HANDLEBLOCK - value:", value);
 			}
 			else if (field  instanceof Blockly.FieldCheckbox) {
-			  value = (field.getValue() === 'TRUE')
+			  if(field.name === 'notMatch' && field.getValue() === 'TRUE'){
+				  commandParts.splice(-3);
+				  value = (patternValue)
+						? blockDefinition.unix_description[0][field.name].replace("patt",patternValue)
+						: '';
+			  }
+			  else{
+				  value = (field.getValue() === 'TRUE')
 					? blockDefinition.unix_description[0][field.name]
 					: '';
+			  }
 			
 			  //console.log("HANDLEBLOCK - commandParts:", commandParts);
 			  //specifically made for the regForBlock so value m is replaced with the infinity option(commandParts.length - 2 is used because the last part of the list is an object with an undefined value - don't know what)
@@ -154,7 +162,7 @@ function handleBlock(block) {
 				//console.log("HANDLEBLOCK - commandParts:", commandParts);
 			  }
 			}
-			else if (field  instanceof Blockly.FieldTextInput || field instanceof Blockly.FieldNumber ) {
+			else if (field instanceof Blockly.FieldNumber ) {
 			  value = (blockDefinition.unix_description[0][field.name]== null)
 					? field.getValue()
 					: (patternValue)
@@ -169,7 +177,13 @@ function handleBlock(block) {
 			  if(str[str.length - 1] == field.getValue()){
 					value = '}';
 			  }
-			
+			}
+			else if(field  instanceof Blockly.FieldTextInput){
+			  value = (blockDefinition.unix_description[0][field.name]== null)
+					? field.getValue()
+					: (patternValue)
+						? blockDefinition.unix_description[0][field.name].replace("patt",patternValue)
+						: blockDefinition.unix_description[0][field.name].replace("patt",field.getValue());
 			}
 			else if (input.type === Blockly.INPUT_VALUE ){
 			  value =  (blockDefinition.unix_description[0][input.name])
@@ -182,6 +196,7 @@ function handleBlock(block) {
 			
 			console.log("HANDLEBLOCK - value:", value);
 			// Add the processed value to the command parts
+			console.log("HANDLEBLOCK - commandParts:", commandParts);
 			commandParts.push(value);
 		  });
 		});
