@@ -6,6 +6,8 @@ let csvContent = "";
 const replacementMap = {
   "findDuplicates": "uniq -d",
   "showUniqs": "uniq -u",
+  "or":"||",
+  "and" : "&&"
   // Add more key-value pairs as needed
 };
 
@@ -221,9 +223,14 @@ function handleBlock(block) {
 			}
 			// Handle text inputs (including numbers)
 			else if (field  instanceof Blockly.FieldTextInput) {
-			  value = (blockDefinition.unix_description[0][field.name]== null || field.getValue() == '')
+				if (field.name === 'awk_cols'){
+					value = blockDefinition.unix_description[0][field.name].replace("col" , field.getValue());
+				  }
+				else{
+			  		value = (blockDefinition.unix_description[0][field.name]== null || field.getValue() == '')
 					? field.getValue()
 					: blockDefinition.unix_description[0][field.name] + field.getValue();
+				}
 			} 			
 			else if (field instanceof Blockly.FieldNumber) {
 			  value = (blockDefinition.unix_description[0][field.name]== null && field.getValue() != 0)
