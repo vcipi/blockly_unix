@@ -1,5 +1,4 @@
 Blockly.JavaScript = new Blockly.Generator('JavaScript');
-let csvContent = "";
 
 
 // Global replacement map
@@ -87,6 +86,8 @@ Blockly.JavaScript.forBlock['filename'] = function(block) {
     return [JSON.stringify(filename), Blockly.JavaScript.ORDER_NONE];
 };
 	
+//var patternValue;
+//var filenameValue
 
 function handleBlock(block) {
 	
@@ -123,10 +124,91 @@ function handleBlock(block) {
     console.log("HANDLEBLOCK - Regex String value:", regexStringValue);
   
     let commandParts = [];
-
-    // Iterate over all inputs and their fields
 	
 	if (blockCategory === "Regular Expressions"){
+		commandParts = handleRegexBlocks(block,blockDefinition,patternValue);
+	}
+	else if (blockType === "awk"){
+		commandParts = handleAwkBlock(block,blockDefinition,filenameValue,patternValue);
+	}
+	else{
+		commandParts = handleMainBlocks(block,blockDefinition,filenameValue,patternValue);
+	}
+
+
+    // Build the string command from parts
+	let commandString;
+	
+	if(blockCategory==="I/O Redirection" ){
+		commandString = commandParts.join(' ');
+	}else if(blockCategory === "Regular Expressions") {
+		commandString = regexStringValue + commandParts.join('');
+	}
+	else{
+		commandString = blockType + ' ' + commandParts.join(' ') + ' ' + regexStringValue + ' ' + filenameValue;
+	}
+
+	
+	console.log("HANDLEBLOCK - command built:", commandString);
+	
+    // Here you can add any custom logic for special cases
+
+    return commandString;
+}
+
+function handleMainBlocks(block,blockDefinition,filenameValue,patternValue){
+	
+		let commandParts = [];
+	    // Iterate over all inputs and their fields
+		block.inputList.forEach((input) => {
+		  console.log("HANDLEBLOCK - input:", input.name);
+		  input.fieldRow.forEach((field) => {
+			console.log("HANDLEBLOCK - field:", field);
+			let value;
+		  
+			// Handle dropdowns
+			if (field instanceof Blockly.FieldDropdown) {
+			  paramselected = field.getValue();
+			  value = blockDefinition.unix_description[0][paramselected];
+			}
+			// Handle checkboxes
+			else if (field  instanceof Blockly.FieldCheckbox) {
+			  value = field.getValue() === 'TRUE'
+			  ? blockDefinition.unix_description[0][field.name]
+			  : '';
+			}
+			// Handle text inputs (including numbers)
+			else if (field  instanceof Blockly.FieldTextInput) {
+			  	value = (blockDefinition.unix_description[0][field.name]== null || field.getValue() == '')
+						? field.getValue()
+						: blockDefinition.unix_description[0][field.name] + field.getValue();
+			} 			
+			else if (field instanceof Blockly.FieldNumber) {
+			  value = (blockDefinition.unix_description[0][field.name]== null && field.getValue() != 0)
+					? field.getValue()
+					: (field.getValue() == 0)
+						?''
+						: blockDefinition.unix_description[0][field.name] + field.getValue();
+			}
+			else if (input.type === Blockly.INPUT_VALUE ){
+			  value =  (blockDefinition.unix_description[0][input.name])
+					? blockDefinition.unix_description[0][input.name].replace("patt",patternValue)
+					: '';
+			}
+
+			console.log("HANDLEBLOCK - value:", value);
+			// Add the processed value to the command parts
+			commandParts.push(value);
+		  });
+		});
+		
+		return commandParts;
+}
+
+function handleRegexBlocks(block,blockDefinition,patternValue){
+	
+		let commandParts = [];
+	    // Iterate over all inputs and their fields
 		block.inputList.forEach((input) => {
 		  console.log("HANDLEBLOCK - input:", input.name);
 		  input.fieldRow.forEach((field) => {
@@ -202,8 +284,14 @@ function handleBlock(block) {
 			commandParts.push(value);
 		  });
 		});
-	}
-	else{
+	
+		return commandParts;
+}
+
+function handleAwkBlock(block,blockDefinition,filenameValue,patternValue){
+	
+		let commandParts = [];
+	    // Iterate over all inputs and their fields
 		block.inputList.forEach((input) => {
 		  console.log("HANDLEBLOCK - input:", input.name);
 		  input.fieldRow.forEach((field) => {
@@ -212,37 +300,21 @@ function handleBlock(block) {
 		  
 			// Handle dropdowns
 			if (field instanceof Blockly.FieldDropdown) {
-			  paramselected = field.getValue();
-			  value = blockDefinition.unix_description[0][paramselected];
+			 
 			}
 			// Handle checkboxes
 			else if (field  instanceof Blockly.FieldCheckbox) {
-			  value = field.getValue() === 'TRUE'
-			  ? blockDefinition.unix_description[0][field.name]
-			  : '';
+			 
 			}
 			// Handle text inputs (including numbers)
 			else if (field  instanceof Blockly.FieldTextInput) {
-				if (field.name === 'awk_cols'){
-					value = blockDefinition.unix_description[0][field.name].replace("col" , field.getValue());
-				  }
-				else{
-			  		value = (blockDefinition.unix_description[0][field.name]== null || field.getValue() == '')
-					? field.getValue()
-					: blockDefinition.unix_description[0][field.name] + field.getValue();
-				}
+			  	
 			} 			
 			else if (field instanceof Blockly.FieldNumber) {
-			  value = (blockDefinition.unix_description[0][field.name]== null && field.getValue() != 0)
-					? field.getValue()
-					: (field.getValue() == 0)
-						?''
-						: blockDefinition.unix_description[0][field.name] + field.getValue();
+			  
 			}
 			else if (input.type === Blockly.INPUT_VALUE ){
-			  value =  (blockDefinition.unix_description[0][input.name])
-					? blockDefinition.unix_description[0][input.name].replace("patt",patternValue)
-					: '';
+			  
 			}
 
 			console.log("HANDLEBLOCK - value:", value);
@@ -250,27 +322,8 @@ function handleBlock(block) {
 			commandParts.push(value);
 		  });
 		});
-	}
-
-
-    // Build the string command from parts
-	let commandString;
-	
-	if(blockCategory==="I/O Redirection" ){
-		commandString = commandParts.join(' ');
-	}else if(blockCategory === "Regular Expressions") {
-		commandString = regexStringValue + commandParts.join('');
-	}
-	else{
-		commandString = blockType + ' ' + commandParts.join(' ') + ' ' + regexStringValue + ' ' + filenameValue;
-	}
-
-	
-	console.log("HANDLEBLOCK - command built:", commandString);
-	
-    // Here you can add any custom logic for special cases
-
-    return commandString;
+		
+		return commandParts;
 }
 
 function generateRegexString(regexBlocksList){
