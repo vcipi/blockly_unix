@@ -44,6 +44,7 @@
     <script src="blocks/orBlock.js"></script>
     <script src="blocks/andBlock.js"></script>
     <script src="blocks/condOutputBlock.js"></script>
+    <script src="blocks/logic.ts"></script>
 	<!-- END OF BLOCK DEFINITION -->
 	
 	<!-- <script src="blocks_codegen.js"></script> -->
@@ -89,13 +90,8 @@
                 <block type="gzip"></block>
                 <block type="grep"></block>
                 <block type="sed"></block>
-                <block type="awk"></block>
                 <block type="cut"></block>
                 <block type="cat"></block>
-                <block type="cond"></block>
-                <block type="or"></block>
-                <block type="and"></block>
-                <block type="condOutput"></block>
             </category>
             <category name="I/O Redirection" colour="#FF5733">
                 <block type="save"></block>
@@ -119,6 +115,20 @@
                 <!-- <block type="regMoreThan"></block> -->
                 <!-- <block type="regBetween"></block> -->
                 <!-- <block type="regAlternation"></block> -->
+            </category>
+            <category name="awk" colour="#FFFF00">
+                <block type="awk"></block>
+                <block type="controls_if"></block>
+                <block type="or"></block>
+                <block type="and"></block>
+                <block type="condOutput"></block>
+                <block type="controls_if"></block>
+                <block type="logic_compare"></block>
+                <block type="logic_operation"></block>
+                <block type="logic_boolean"></block>
+                <block type="logic_null"></block>
+                <block type="logic_ternary"></block>
+
             </category>
            
         </xml>
