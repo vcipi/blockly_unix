@@ -6,7 +6,7 @@ var regPatternBlock = {
 
     }
   ],
-  message0: "Pattern %1\n(for multiple patterns, separate by space between patterns)",
+  message0: "Pattern %1\n(for multiple patterns,\n separate by space between patterns)",
   args0: [
     {
       type: "field_input",

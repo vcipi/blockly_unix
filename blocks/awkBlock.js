@@ -28,7 +28,7 @@ var awkBlock = {
     check: "String" 
   }],
 
-  message3: "columns to print %1\n(for multiple separate with space)",
+  message3: "columns to print %1\n(for multiple separate with comma)",
   args3: [
     {
       type: "field_input",

@@ -42,7 +42,7 @@ var condBlock = {
 //   tooltip: "Search in a file with a specified condition",
 //   helpUrl: "" // URL to further information or documentation.
 
-  'type': 'controls_if',
+  'type': 'if',
   'message0': 'if %1',
   'args0': [
     {
@@ -51,19 +51,19 @@ var condBlock = {
       'check': 'Boolean',
     },
   ],
-  'message1': 'then %1',
-  'args1': [
-    {
-      'type': 'input_statement',
-      'name': 'DO0',
-    },
-  ],
+  // 'message1': 'then %1',
+  // 'args1': [
+  //   {
+  //     'type': 'input_statement',
+  //     'name': 'DO0',
+  //   },
+  // ],
   'previousStatement': null,
   'nextStatement': null,
   'style': 'logic_blocks',
   'helpUrl': 'help',
   'suppressPrefixSuffix': true,
-  'mutator': 'controls_if_mutator',
+  // 'mutator': 'controls_if_mutator',
   'extensions': ['controls_if_tooltip'],
 };
 

@@ -41,10 +41,10 @@
 	<script src="blocks/regWordCharBlock.js"></script>
 	<script src="blocks/regWhitespaceBlock.js"></script>
     <script src="blocks/condBlock.js"></script>
-    <script src="blocks/orBlock.js"></script>
-    <script src="blocks/andBlock.js"></script>
+    <script src="blocks/andOrBlock.js"></script>
+    <script src="blocks/compBlock.js"></script>
     <script src="blocks/condOutputBlock.js"></script>
-    <script src="blocks/logic.ts"></script>
+    <!-- <script src="blocks/logic.ts"></script> -->
 	<!-- END OF BLOCK DEFINITION -->
 	
 	<!-- <script src="blocks_codegen.js"></script> -->
@@ -118,17 +118,10 @@
             </category>
             <category name="awk" colour="#FFFF00">
                 <block type="awk"></block>
-                <block type="controls_if"></block>
-                <block type="or"></block>
-                <block type="and"></block>
-                <block type="condOutput"></block>
-                <block type="controls_if"></block>
+                <block type="if"></block>
+                <block type="andOr"></block>
                 <block type="logic_compare"></block>
-                <block type="logic_operation"></block>
-                <block type="logic_boolean"></block>
-                <block type="logic_null"></block>
-                <block type="logic_ternary"></block>
-
+                <block type="condOutput"></block>
             </category>
            
         </xml>
