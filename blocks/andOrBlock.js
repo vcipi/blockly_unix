@@ -14,6 +14,13 @@ var andOrBlock = {
   // tooltip: "AND condition",
   // helpUrl: "" // URL to further information or documentation.
   'type': 'andOr',
+  category: "awk",
+  unix_description: [
+    {
+      or: "||",
+      and: "&&"
+    }
+  ],
   'message0': '%1 %2 %3',
   'args0': [
     {
@@ -25,8 +32,8 @@ var andOrBlock = {
       'type': 'field_dropdown',
       'name': 'OP',
       'options': [
-        ['AND', 'AND'],
-        ['OR', 'OR'],
+        ['and', 'AND'],
+        ['or', 'OR'],
       ],
     },
     {

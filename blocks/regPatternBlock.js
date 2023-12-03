@@ -3,10 +3,10 @@ var regPatternBlock = {
   category: "Regular Expressions",
   unix_description: [
     {
-
+    //????????? 
     }
   ],
-  message0: "Pattern %1\n(for multiple patterns,\n separate by space between patterns)",
+  message0: "Pattern %1\n(for multiple patterns,\n separate by space)",
   args0: [
     {
       type: "field_input",

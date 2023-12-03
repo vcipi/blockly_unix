@@ -43,6 +43,7 @@ var condBlock = {
 //   helpUrl: "" // URL to further information or documentation.
 
   'type': 'if',
+  category: "awk",
   'message0': 'if %1',
   'args0': [
     {

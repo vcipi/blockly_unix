@@ -1,5 +1,6 @@
 var compBlock =   {
     'type': 'logic_compare',
+    category: "awk",
     'message0': '%1 %2 %3',
     'args0': [
       {

@@ -1,7 +1,7 @@
 var condOutputBlock = {
   type: "condOutput",
-  category: "File and Directory Operations",
-  message0: "Put multiple condition",
+  category: "awk",
+  message0: "Put search condition",
   message1: "%1",
   args1: [
     {

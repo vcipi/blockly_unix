@@ -1,6 +1,6 @@
 var awkBlock = {
   type: "awk",
-  category: "File and Directory Operations",
+  category: "awk",
   unix_description: [
     {
       sort_delimiter : "-F",  // Change to awk_delimiter
