@@ -40,16 +40,11 @@
 	<script src="blocks/regDigitBlock.js"></script>
 	<script src="blocks/regWordCharBlock.js"></script>
 	<script src="blocks/regWhitespaceBlock.js"></script>
-    <!-- <script src="blocks/condBlock.js"></script> -->
-    <!-- <script src="blocks/andOrBlock.js"></script> -->
-    <!-- <script src="blocks/compBlock.js"></script> -->
-    <!-- <script src="blocks/condOutputBlock.js"></script> -->
-    <!-- <script src="blocks/negateBlock.js"></script> -->
-    <!-- <script src="blocks/fieldInputBlock.js"></script> -->
-    <!-- <script src="blocks/columnBlock.js"></script> -->
-    <script src="../../blocks/logic.ts"></script>
-    <!-- <script src="blocks/logic.ts"></script> -->
+    <script src="../../blocks/logic.ts "></script>
+    <script src="../../blocks/loops.ts"></script>
+    <script src="../../blocks/text.ts"></script>
 	<!-- END OF BLOCK DEFINITION -->
+
 	
 	<!-- <script src="blocks_codegen.js"></script> -->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
@@ -123,12 +118,27 @@
             <category name="awk" colour="#FFFF00">
                 <block type="awk"></block>
                 <block type="controls_if"></block>
-                <!-- <block type="andOr"></block> -->
-                <!-- <block type="logic_compare"></block> -->
-                <!-- <block type="negate"></block> -->
-                <!-- <block type="condOutput"></block> -->
-                <!-- <block type="field_input"></block> -->
-                <!-- <block type="column_search"></block> -->
+                <block type="logic_compare"></block>
+                <block type="logic_operation"></block>
+                <block type="logic_negate"></block>
+                <block type="controls_for">
+                    <value name="FROM">
+                    <shadow type="math_number">
+                        <field name="NUM">1</field>
+                    </shadow>
+                    </value>
+                    <value name="TO">
+                    <shadow type="math_number">
+                        <field name="NUM">10</field>
+                    </shadow>
+                    </value>
+                    <value name="BY">
+                    <shadow type="math_number">
+                        <field name="NUM">1</field>
+                    </shadow>
+                    </value>
+                </block>
+                <block type="text"></block>
             </category>
            
         </xml>

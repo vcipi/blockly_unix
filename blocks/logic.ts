@@ -151,8 +151,8 @@ export const blocks = createBlockDefinitionsFromJsonArray([
         'type': 'field_dropdown',
         'name': 'OP',
         'options': [
-          ['AND', 'AND'],
-          ['OR', 'OR'],
+          ['%{BKY_LOGIC_OPERATION_AND}', 'AND'],
+          ['%{BKY_LOGIC_OPERATION_OR}', 'OR'],
         ],
       },
       {
@@ -170,7 +170,7 @@ export const blocks = createBlockDefinitionsFromJsonArray([
   // Block for negation.
   {
     'type': 'logic_negate',
-    'message0': '%{BKY_LOGIC_NEGATE_TITLE} %1',
+    'message0': '%{BKY_LOGIC_NEGATE_TITLE}',
     'args0': [
       {
         'type': 'input_value',
