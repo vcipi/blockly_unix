@@ -77,12 +77,28 @@ icon-button i {
 }
 
 /* Buttons */
+
+#container {
+  padding: 4px;
+  background: #f5f5f5;
+  border-bottom: 1px solid #ddd;
+  text-align: right;
+}
+
 #buttonContainer {
   padding: 4px;
   background: #f5f5f5;
   border-bottom: 1px solid #ddd;
   text-align: right;
 }
+
+
+/* #languageMenu {
+  position: absolute;
+  top: 25px;
+  right: 15px;
+  vertical-align: top;
+} */
 
 button {
   border-radius: 4px;

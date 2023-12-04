@@ -40,6 +40,7 @@
 	<script src="blocks/regDigitBlock.js"></script>
 	<script src="blocks/regWordCharBlock.js"></script>
 	<script src="blocks/regWhitespaceBlock.js"></script>
+    
 	<!-- END OF BLOCK DEFINITION -->
 
 	
@@ -49,11 +50,30 @@
 
 </head>
 <body>
-
-<div id="buttonContainer">
+    <div id="container">
+        <table>
+          <tr>
+            <td>
+              <h1>
+                <a href="">Blockly-Unix</a>&rlm;
+              </h1>
+            </td>
+            <!-- <td class="farSide">
+              <select id="languageMenu"></select>
+            </td> -->
+          </tr>
+        </table>
+      
+        <div id="buttonContainer">
+          <button id="resetButton" class="icon-button" title="Reset Workspace"><i class="fas fa-undo"></i></button>
+          <button id="executeButton" class="icon-button" title="Execute"><i class="fas fa-play"></i></button>
+        </div>
+      </div>
+      
+<!-- <div id="buttonContainer">
 	<button id="resetButton" class="icon-button" title="Reset Workspace"><i class="fas fa-undo"></i></button> 
     <button id="executeButton" class="icon-button" title="Execute"><i class="fas fa-play"></i></button> 
-</div>
+</div> -->
 
 <div id="blocklyArea">
     <div id="blocklyDiv"></div>
@@ -159,5 +179,6 @@
     });
 </script>
 <script src="main.js"></script>
+<script src="code.js"></script>
 </body>
 </html>
