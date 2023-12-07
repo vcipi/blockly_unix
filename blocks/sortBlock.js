@@ -7,7 +7,7 @@ var sortBlock = {
       desc: "-r",
       // characters_sorting: "-d", Probably not needed. Same output as if left blank
       numeric_sorting : '-n',
-	  sort_delimiter : "-t", // if blank shouldn't display the -t. Vag
+	  sort_delimiter : "-t'str'",
 	  sort_column : '-k',
 	  uniq_elements : '-u'
 
@@ -37,7 +37,7 @@ var sortBlock = {
       ]
     }
   ],
-  message3: "delimeter in quotes %1",
+  message3: "delimeter %1",
   args3: [
     {
       type: "field_input",

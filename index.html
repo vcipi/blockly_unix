@@ -40,40 +40,20 @@
 	<script src="blocks/regDigitBlock.js"></script>
 	<script src="blocks/regWordCharBlock.js"></script>
 	<script src="blocks/regWhitespaceBlock.js"></script>
+	<script src="blocks/condOutputBlock.js"></script>
     
 	<!-- END OF BLOCK DEFINITION -->
 
-	
-	<!-- <script src="blocks_codegen.js"></script> -->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 	<link rel="stylesheet" href="styles.css">
 
 </head>
 <body>
-    <div id="container">
-        <table>
-          <tr>
-            <td>
-              <h1>
-                <a href="">Blockly-Unix</a>&rlm;
-              </h1>
-            </td>
-            <!-- <td class="farSide">
-              <select id="languageMenu"></select>
-            </td> -->
-          </tr>
-        </table>
       
-        <div id="buttonContainer">
-          <button id="resetButton" class="icon-button" title="Reset Workspace"><i class="fas fa-undo"></i></button>
-          <button id="executeButton" class="icon-button" title="Execute"><i class="fas fa-play"></i></button>
-        </div>
-      </div>
-      
-<!-- <div id="buttonContainer">
+<div id="buttonContainer">
 	<button id="resetButton" class="icon-button" title="Reset Workspace"><i class="fas fa-undo"></i></button> 
     <button id="executeButton" class="icon-button" title="Execute"><i class="fas fa-play"></i></button> 
-</div> -->
+</div>
 
 <div id="blocklyArea">
     <div id="blocklyDiv"></div>
@@ -97,7 +77,6 @@
                 <block type="uniq"></block>
                 <block type="findDuplicates"></block>
                 <block type="showUniqs"></block>
-                <!-- <block type="fileInput"></block> -->
             </category>
             <category name="File and Directory Operations" colour="#457D4B">
                 <block type="ls"></block>
@@ -126,13 +105,8 @@
                 <block type="regDigit"></block>
                 <block type="regWordChar"></block>
                 <block type="regWhitespace"></block>
-                <!-- <block type="regAnchor"></block> -->
-                <!-- <block type="regExact"></block> -->
-                <!-- <block type="regMoreThan"></block> -->
-                <!-- <block type="regBetween"></block> -->
-                <!-- <block type="regAlternation"></block> -->
             </category>
-            <category name="awk" colour="#FFFF00">
+            <category name="Awk" colour="#D800FF">
                 <block type="awk"></block>
                 <block type="controls_if"></block>
                 <block type="logic_compare"></block>
@@ -163,6 +137,7 @@
 					  </shadow>
 					</value>
 				</block>
+				<block type="condOutput"></block>
             </category>
            
         </xml>
@@ -179,6 +154,5 @@
     });
 </script>
 <script src="main.js"></script>
-<script src="code.js"></script>
 </body>
 </html>

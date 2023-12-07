@@ -3,7 +3,7 @@ var awkBlock = {
   category: "awk",
   unix_description: [
     {
-      sort_delimiter : "-F",  // Change to awk_delimiter
+      sort_delimiter : "-F'str'",  // Change to awk_delimiter
       awk_cols : "{print $col}"
     }
   ],
@@ -13,7 +13,7 @@ var awkBlock = {
       name: "FILENAME",
 	  check: "String" 
   }],
-  message1: "delimeter in quotes %1\n",
+  message1: "delimeter %1\n",
   args1: [
     {
       type: "field_input",

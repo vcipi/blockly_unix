@@ -1,11 +1,59 @@
 Blockly.JavaScript = new Blockly.Generator('JavaScript');
 
+/**
+ * Create a namespace for the application.
+ */
+var Unix = {};
+
+/**
+ * Lookup for names of supported languages.  Keys should be in ISO 639 format.
+ */
+Unix.LANGUAGE_NAME = {
+  'en': 'English',
+};
+
+/**
+ * Extracts a parameter from the URL.
+ * If the parameter is absent default_value is returned.
+ * @param {string} name The name of the parameter.
+ * @param {string} defaultValue Value to return if parameter not found.
+ * @return {string} The parameter value or the default value if not found.
+ */
+Unix.getStringParamFromUrl = function(name, defaultValue) {
+  var val = location.search.match(new RegExp('[?&]' + name + '=([^&]+)'));
+  return val ? deUnixURIComponent(val[1].replace(/\+/g, '%20')) : defaultValue;
+};
+
+/**
+ * Get the language of this user from the URL.
+ * @return {string} User's language.
+ */
+Unix.getLang = function() {
+  var lang = Unix.getStringParamFromUrl('lang', '');
+  if (Unix.LANGUAGE_NAME[lang] === undefined) {
+    // Default to English.
+    lang = 'en';
+  }
+  return lang;
+};
+
+/**
+ * User's language (e.g. "en").
+ * @type {string}
+ */
+Unix.LANG = Unix.getLang();
+
+// // Load the Unix demo's language strings.
+// document.write('<script src="msg/' + Unix.LANG + '.js"></script>\n');
+// Load Blockly's language strings.
+document.write('<script src="js/' + Unix.LANG + '.js"></script>\n');
+
 
 // Global replacement map
 const replacementMap = {
   "findDuplicates": "uniq -d",
   "showUniqs": "uniq -u",
-  "or":"||",
+  //"or":"||",
   "and" : "&&"
   // Add more key-value pairs as needed
 };
@@ -85,9 +133,6 @@ Blockly.JavaScript.forBlock['filename'] = function(block) {
     var filename = block.getFieldValue('FILENAME');
     return [JSON.stringify(filename), Blockly.JavaScript.ORDER_NONE];
 };
-	
-//var patternValue;
-//var filenameValue
 
 function handleBlock(block) {
 	
@@ -125,11 +170,11 @@ function handleBlock(block) {
   
     let commandParts = [];
 	
-	if (blockCategory === "Regular Expressions"){
-		commandParts = handleRegexBlocks(block,blockDefinition,patternValue);
+	if (blockType === "condOutput"){
+		commandParts = handleConditionsAndLoops(block);
 	}
-	else if (blockType === "awk"){
-		commandParts = handleAwkBlock(block,blockDefinition,filenameValue,patternValue);
+	else if (blockCategory === "Regular Expressions"){
+		commandParts = handleRegexBlocks(block,blockDefinition,patternValue);
 	}
 	else{
 		commandParts = handleMainBlocks(block,blockDefinition,filenameValue,patternValue);
@@ -181,7 +226,7 @@ function handleMainBlocks(block,blockDefinition,filenameValue,patternValue){
 			else if (field  instanceof Blockly.FieldTextInput) {
 			  	value = (blockDefinition.unix_description[0][field.name]== null || field.getValue() == '')
 						? field.getValue()
-						: blockDefinition.unix_description[0][field.name] + field.getValue();
+						: blockDefinition.unix_description[0][field.name].replace("str",field.getValue());
 			} 			
 			else if (field instanceof Blockly.FieldNumber) {
 			  value = (blockDefinition.unix_description[0][field.name]== null && field.getValue() != 0)
@@ -288,7 +333,7 @@ function handleRegexBlocks(block,blockDefinition,patternValue){
 		return commandParts;
 }
 
-function handleAwkBlock(block,blockDefinition,filenameValue,patternValue){
+function handleConditionsAndLoops(block){
 	
 		let commandParts = [];
 	    // Iterate over all inputs and their fields
@@ -424,6 +469,8 @@ Blockly.Extensions.register('integer_validation', function() {
     });
   });
 });
+
+
 
 
 
