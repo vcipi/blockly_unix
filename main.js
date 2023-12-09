@@ -1,3 +1,4 @@
+Blockly.JavaScript.init(workspace);
 Blockly.JavaScript = new Blockly.Generator('JavaScript');
 
 /**
@@ -54,7 +55,8 @@ const replacementMap = {
   "findDuplicates": "uniq -d",
   "showUniqs": "uniq -u",
   //"or":"||",
-  "and" : "&&"
+  "and" : "&&",
+  "window.alert" : "print"
   // Add more key-value pairs as needed
 };
 
@@ -137,6 +139,7 @@ Blockly.JavaScript.forBlock['filename'] = function(block) {
 function handleBlock(block) {
 	
     var blockType = block.type;
+	console.log("HANDLEBLOCK - Block Type:", blockCategory);
     var blockDefinition = window[blockType + 'Block'];  // Construct the name of the block definition variable and access it
 	var blockCategory = blockDefinition.category;
 	console.log("HANDLEBLOCK - Block Category:", blockCategory);
@@ -153,12 +156,18 @@ function handleBlock(block) {
     var inputPatternBlock = block.getInputTargetBlock('regPattern');
 	//console.log("inputPatternBlock:", inputPatternBlock.type);
     // If there's a connected block, and it's of type 'Regex', get the field value
-    var patternValue = (inputPatternBlock && inputPatternBlock.type === 'regPattern')
-        ? inputPatternBlock.getFieldValue('regPattern').replace(new RegExp(" ", 'g'), "|")
-        : '';
-	console.log("HANDLEBLOCK - patternValue:", patternValue);
+	var patternValue='';
+	var conditionValue='';
+	if(inputPatternBlock && inputPatternBlock.type === 'regPattern'){
+		patternValue = inputPatternBlock.getFieldValue('regPattern').replace(new RegExp(" ", 'g'), "|")
+		console.log("HANDLEBLOCK - patternValue:", patternValue);
+	}else if (inputPatternBlock && inputPatternBlock.type === 'condOutput'){
+		conditionValue = handleConditionsAndLoops(inputPatternBlock);
+		console.log("HANDLEBLOCK - conditionValue", conditionValue);
+	}
+	
 		
-	//get all the children of the top block
+	//get all the children of the regex blocks
 	var regexBlocks = getRegexChildenBlocks(block);
 	console.log("HANDLEBLOCK - regexBlocks[] length:", regexBlocks.length);
 
@@ -170,10 +179,10 @@ function handleBlock(block) {
   
     let commandParts = [];
 	
-	if (blockType === "condOutput"){
-		commandParts = handleConditionsAndLoops(block);
-	}
-	else if (blockCategory === "Regular Expressions"){
+	//if (blockType === "condOutput"){
+		//commandParts = handleConditionsAndLoops(block);
+	//}
+	if (blockCategory === "Regular Expressions"){
 		commandParts = handleRegexBlocks(block,blockDefinition,patternValue);
 	}
 	else{
@@ -190,7 +199,7 @@ function handleBlock(block) {
 		commandString = regexStringValue + commandParts.join('');
 	}
 	else{
-		commandString = blockType + ' ' + commandParts.join(' ') + ' ' + regexStringValue + ' ' + filenameValue;
+		commandString = blockType + ' ' + commandParts.join(' ') + ' ' + conditionValue + ' ' + regexStringValue + ' ' + filenameValue;
 	}
 
 	
@@ -334,41 +343,20 @@ function handleRegexBlocks(block,blockDefinition,patternValue){
 }
 
 function handleConditionsAndLoops(block){
-	
-		let commandParts = [];
-	    // Iterate over all inputs and their fields
-		block.inputList.forEach((input) => {
-		  console.log("HANDLEBLOCK - input:", input.name);
-		  input.fieldRow.forEach((field) => {
-			console.log("HANDLEBLOCK - field:", field);
-			let value;
-		  
-			// Handle dropdowns
-			if (field instanceof Blockly.FieldDropdown) {
-			 
-			}
-			// Handle checkboxes
-			else if (field  instanceof Blockly.FieldCheckbox) {
-			 
-			}
-			// Handle text inputs (including numbers)
-			else if (field  instanceof Blockly.FieldTextInput) {
-			  	
-			} 			
-			else if (field instanceof Blockly.FieldNumber) {
-			  
-			}
-			else if (input.type === Blockly.INPUT_VALUE ){
-			  
-			}
+		console.log("handleConditionsAndLoops init");
+		console.log("handleConditionsAndLoops - block :", block.type);
+		var innerBlock = block.getInputTargetBlock('DO');
+		console.log("handleConditionsAndLoops - innerBlock :", innerBlock);
+		var generator = javascript.javascriptGenerator;
 
-			console.log("HANDLEBLOCK - value:", value);
-			// Add the processed value to the command parts
-			commandParts.push(value);
-		  });
-		});
+		var blockCode = generator.blockToCode(innerBlock);
+		var blockCode = blockCode.replace(/'/g, '').replace(/;/g, '');
+		var blockCode = "'{" + blockCode.replace(/\n/g, ' ').replace(/\s+/g, ' ') + "}'";
+
 		
-		return commandParts;
+		console.log("handleConditionsAndLoops - code:", blockCode);
+
+		return blockCode;
 }
 
 function generateRegexString(regexBlocksList){
