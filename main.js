@@ -179,16 +179,15 @@ function handleBlock(block) {
   
     let commandParts = [];
 	
-	//if (blockType === "condOutput"){
-		//commandParts = handleConditionsAndLoops(block);
-	//}
 	if (blockCategory === "Regular Expressions"){
 		commandParts = handleRegexBlocks(block,blockDefinition,patternValue);
 	}
 	else{
-		commandParts = handleMainBlocks(block,blockDefinition,filenameValue,patternValue);
+		commandParts = handleMainBlocks(block,blockDefinition,filenameValue,patternValue,regexStringValue);
 	}
 
+	//in case of the awk the regexStringValue is already included in the command so we dont need it
+	if(blockCategory==="awk"){regexStringValue='';}
 
     // Build the string command from parts
 	let commandString;
@@ -210,9 +209,18 @@ function handleBlock(block) {
     return commandString;
 }
 
-function handleMainBlocks(block,blockDefinition,filenameValue,patternValue){
+function handleMainBlocks(block,blockDefinition,filenameValue,patternValue,regexStringValue){
 	
 		let commandParts = [];
+		
+		//in case we don't have just a pattern in a main block but a full regex 
+		 console.log("handleMainBlocks - regexStringValue:", regexStringValue);
+		  console.log("handleMainBlocks - patternValue:", patternValue);
+		if(regexStringValue !== null && patternValue === ''){
+			patternValue = regexStringValue;
+			console.log("handleMainBlocks - after patternValue:", patternValue);
+		}
+		
 	    // Iterate over all inputs and their fields
 		block.inputList.forEach((input) => {
 		  console.log("HANDLEBLOCK - input:", input.name);
@@ -235,7 +243,7 @@ function handleMainBlocks(block,blockDefinition,filenameValue,patternValue){
 			else if (field  instanceof Blockly.FieldTextInput) {
 			  	value = (blockDefinition.unix_description[0][field.name]== null || field.getValue() == '')
 						? field.getValue()
-						: blockDefinition.unix_description[0][field.name].replace("str",field.getValue());
+						: blockDefinition.unix_description[0][field.name].replace("str",field.getValue()).replace(",","$");
 			} 			
 			else if (field instanceof Blockly.FieldNumber) {
 			  value = (blockDefinition.unix_description[0][field.name]== null && field.getValue() != 0)
@@ -344,16 +352,15 @@ function handleRegexBlocks(block,blockDefinition,patternValue){
 
 function handleConditionsAndLoops(block){
 		console.log("handleConditionsAndLoops init");
-		console.log("handleConditionsAndLoops - block :", block.type);
+		//console.log("handleConditionsAndLoops - block :", block.type);
 		var innerBlock = block.getInputTargetBlock('DO');
-		console.log("handleConditionsAndLoops - innerBlock :", innerBlock);
+		//console.log("handleConditionsAndLoops - innerBlock :", innerBlock);
 		var generator = javascript.javascriptGenerator;
 
 		var blockCode = generator.blockToCode(innerBlock);
 		var blockCode = blockCode.replace(/'/g, '').replace(/;/g, '');
 		var blockCode = "'{" + blockCode.replace(/\n/g, ' ').replace(/\s+/g, ' ') + "}'";
 
-		
 		console.log("handleConditionsAndLoops - code:", blockCode);
 
 		return blockCode;
@@ -396,13 +403,6 @@ function getRegexChildenBlocks(startBlock) {
             if (block.nextConnection && block.nextConnection.targetBlock()) {
                 addBlocks(block.nextConnection.targetBlock());
             }
-
-            // Add blocks connected to inputs
-            //block.inputList.forEach(function(input) {
-               // if (input.connection && input.connection.targetBlock()) {
-                  //  addBlocks(input.connection.targetBlock());
-                //}
-            //});
         }
     }
 

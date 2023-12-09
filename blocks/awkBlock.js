@@ -4,7 +4,8 @@ var awkBlock = {
   unix_description: [
     {
       sort_delimiter : "-F'str'",  // Change to awk_delimiter
-      awk_cols : "{print $col}"
+	  regPattern : "'{patt",
+	  awk_cols : "{print $str}}'",
     }
   ],
   message0: "Text data processing in file %1\n",
