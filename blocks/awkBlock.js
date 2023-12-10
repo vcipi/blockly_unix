@@ -3,7 +3,8 @@ var awkBlock = {
   category: "awk",
   unix_description: [
     {
-      sort_delimiter : "-F'str'",  // Change to awk_delimiter
+    awkInput_delimiter : "-F'str'",  // Change to awk_delimiter
+    awkOutput_delimiter : "-OFS'str'",  // Change to awk_delimiter
 	  regPattern : "'{patt",
 	  awk_cols : "{print $str}}'",
     }
@@ -14,23 +15,32 @@ var awkBlock = {
       name: "FILENAME",
 	  check: "String" 
   }],
-  message1: "delimeter %1\n",
+  message1: "delimeter %1",
   args1: [
     {
       type: "field_input",
-      name: "sort_delimiter", // Change to awk_delimiter
+      name: "awkInput_delimiter", // Change to awk_delimiter || Discuss with VAG
       text: "" 
     }
   ],
-  message2: "pattern or condition %1\n",
-  args2: [{
+  message2: "output delimeter %1\n",
+  args2: [
+    {
+      type: "field_input",
+      name: "awkOutput_delimiter", // Change to output awk_delimiter || Discuss with VAG
+      text: "",
+      align: "RIGHT"
+    }
+  ],
+  message3: "pattern or condition %1\n",
+  args3: [{
     type: "input_value",
     name: "regPattern",
     check: "String" 
   }],
 
-  message3: "columns to print %1",
-  args3: [
+  message4: "columns to print %1",
+  args4: [
     {
       type: "input_value",
       name: "awk_cols",
