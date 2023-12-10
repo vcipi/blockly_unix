@@ -1,155 +1,20 @@
-/** DISCUSS WITH VAG. Παραμετροποίηση. Να μην είναι όλες οι functions
- *  σε όλα τα αρχεία αλλά να γίνεται import. Επίσης τα minus και plus images*/
-
-/**
- * @license
- * Copyright 2020 Google LLC
- * SPDX-License-Identifier: Apache-2.0
- */
-// ASK LL if we keep the above for the license
-
-
-// import Blockly from 'blockly/core';
-// import {createPlusField} from './field_plus';
-// import {createMinusField} from './field_minus';
-
-// Delete original block because there's no way to unregister it:
-// https://github.com/google/blockly-samples/issues/768#issuecomment-885663394
-// delete Blockly.Blocks['lists_create_with'];
-
-function getExtraBlockState(block) {
-  // TODO: This is a dupe of the BlockChange.getExtraBlockState code, do we
-  //    want to make that public?
-  if (block.saveExtraState) {
-    const state = block.saveExtraState();
-    return state ? JSON.stringify(state) : '';
-  } else if (block.mutationToDom) {
-    const state = block.mutationToDom();
-    return state ? Blockly.Xml.domToText(state) : '';
-  }
-  return '';
-}
-
-
-/**
- * Creates a minus image field used for mutation.
- * @param {Object=} args Untyped args passed to block.minus when the field
- *     is clicked.
- * @returns {Blockly.FieldImage} The minus field.
- */
-function createMinusField(args = undefined) {
-  const minus = new Blockly.FieldImage(minusImage_File, 15, 15, undefined, onClick_);
-  /**
-   * Untyped args passed to block.minus when the field is clicked.
-   * @type {?(Object|undefined)}
-   * @private
-   */
-  minus.args_ = args;
-  return minus;
-}
-
-/**
- * Calls block.minus(args) when the minus field is clicked.
- * @param {Blockly.FieldImage} minusField The field being clicked.
- * @private
- */
-function onClick_(minusField) {
-  // TODO: This is a dupe of the mutator code, anyway to unify?
-  const block = minusField.getSourceBlock();
-
-  if (block.isInFlyout) {
-    return;
-  }
-
-  Blockly.Events.setGroup(true);
-  const oldExtraState = getExtraBlockState(block);
-  block.minus(minusField.args_);
-  const newExtraState = getExtraBlockState(block);
-
-  if (oldExtraState != newExtraState) {
-    Blockly.Events.fire(new Blockly.Events.BlockChange(
-        block, 'mutation', null, oldExtraState, newExtraState));
-  }
-  Blockly.Events.setGroup(false);
-}
-
-const minusImage_File =
-    'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAw' +
-    'MC9zdmciIHZlcnNpb249IjEuMSIgd2lkdGg9IjI0IiBoZWlnaHQ9IjI0Ij48cGF0aCBkPS' +
-    'JNMTggMTFoLTEyYy0xLjEwNCAwLTIgLjg5Ni0yIDJzLjg5NiAyIDIgMmgxMmMxLjEwNCAw' +
-    'IDItLjg5NiAyLTJzLS44OTYtMi0yLTJ6IiBmaWxsPSJ3aGl0ZSIgLz48L3N2Zz4K';
-
-
-    /**
-    * Creates a plus image field used for mutation.
-    * @param {Object=} args Untyped args passed to block.minus when the field
-    *     is clicked.
-    * @returns {Blockly.FieldImage} The Plus field.
-    */
-function createPlusField(args = undefined) {
-     const plus = new Blockly.FieldImage(plusImage_File, 15, 15, undefined, onClickPlus_);
-     /**
-      * Untyped args passed to block.plus when the field is clicked.
-      * @type {?(Object|undefined)}
-      * @private
-      */
-     plus.args_ = args;
-     return plus;
-   }
-   
-   /**
-    * Calls block.plus(args) when the plus field is clicked.
-    * @param {!Blockly.FieldImage} plusField The field being clicked.
-    * @private
-    */
-   function onClickPlus_(plusField) {
-     // TODO: This is a dupe of the mutator code, anyway to unify?
-     const block = plusField.getSourceBlock();
-   
-     if (block.isInFlyout) {
-       return;
-     }
-   
-     Blockly.Events.setGroup(true);
-     const oldExtraState = getExtraBlockState(block);
-     block.plus(plusField.args_);
-     const newExtraState = getExtraBlockState(block);
-   
-     if (oldExtraState != newExtraState) {
-       Blockly.Events.fire(new Blockly.Events.BlockChange(
-           block, 'mutation', null, oldExtraState, newExtraState));
-     }
-     Blockly.Events.setGroup(false);
-   }
-   
-   const plusImage_File =
-       'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC' +
-       '9zdmciIHZlcnNpb249IjEuMSIgd2lkdGg9IjI0IiBoZWlnaHQ9IjI0Ij48cGF0aCBkPSJNMT' +
-       'ggMTBoLTR2LTRjMC0xLjEwNC0uODk2LTItMi0ycy0yIC44OTYtMiAybC4wNzEgNGgtNC4wNz' +
-       'FjLTEuMTA0IDAtMiAuODk2LTIgMnMuODk2IDIgMiAybDQuMDcxLS4wNzEtLjA3MSA0LjA3MW' +
-       'MwIDEuMTA0Ljg5NiAyIDIgMnMyLS44OTYgMi0ydi00LjA3MWw0IC4wNzFjMS4xMDQgMCAyLS' +
-       '44OTYgMi0ycy0uODk2LTItMi0yeiIgZmlsbD0id2hpdGUiIC8+PC9zdmc+Cg==';
-
-
-/* eslint-disable quotes */
-Blockly.defineBlocksWithJsonArray([
-  {
-    "type": "files_create_with",
-    "message0": "%{BKY_FILES_CREATE_WITH} %1",
-    "args0": [
+var filenamesCreateBlock = {
+    type: "files_create_with",
+    message0: "%{BKY_FILES_CREATE_WITH} %1",
+    args0: [
       {
-        "type": "input_dummy",
-        "name": "EMPTY",
+        type: "input_dummy",
+        name: "EMPTY",
       },
     ],
-    "output": "String",
-    "style": "list_blocks", 
-    "helpUrl": "%{BKY_FILES_CREATE_WITH_HELPURL}",
-    "tooltip": "%{BKY_FILES_CREATE_WITH_TOOLTIP}",
-    "mutator": "new_list_create_with_mutator_File",
-  },
-]);
-/* eslint-enable quotes */
+    output: "String",
+    style: "list_blocks", 
+    helpUrl: "%{BKY_FILES_CREATE_WITH_HELPURL}",
+    tooltip: "%{BKY_FILES_CREATE_WITH_TOOLTIP}",
+    mutator: "new_list_create_with_mutator_File",
+};
+
+Blockly.defineBlocksWithJsonArray([filenamesCreateBlock]);
 
 const listCreateMutator_File = {
   /**

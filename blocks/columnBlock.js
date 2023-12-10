@@ -1,16 +1,16 @@
 var columnBlock = {
-    'type': 'column',
+    type: "column",
     category: "awk",
     unix_description: [
         {
-            columnSearch: "$col"
+            TEXT: "$str"
         }
       ],
     'message0': 'column %1',
     'args0': [
       {
         'type': 'field_input',
-        'name': 'column'
+        'name': 'TEXT'
       },
     ],
     'output': 'String',
