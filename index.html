@@ -7,7 +7,8 @@
     <script src="https://unpkg.com/blockly@latest/blockly_compressed.js"></script>
     <script src="https://unpkg.com/blockly@latest/blocks_compressed.js"></script>
     <script src="https://unpkg.com/blockly@latest/javascript_compressed.js"></script>
-	
+	<!-- <script src="https://unpkg.com/@blockly/block-plus-minus"></script> -->
+
 	<!-- BLOCKS DEFINITION -->
 	<script src="blocks/filenameBlock.js"></script>
 	<script src="blocks/headBlock.js"></script>
@@ -41,6 +42,11 @@
 	<script src="blocks/regWordCharBlock.js"></script>
 	<script src="blocks/regWhitespaceBlock.js"></script>
 	<script src="blocks/condOutputBlock.js"></script>
+    <script src="blocks/list_test.js"></script>
+    <script src="blocks/columnsCreateBlock.js"></script>
+    <script src="blocks/filenamesCreateBlock.js"></script>
+    <script src="blocks/columnBlock.js"></script>
+
     
 	<!-- END OF BLOCK DEFINITION -->
 
@@ -70,6 +76,7 @@
         <xml>
             <category name="Data Processing" colour="#5C81A6">
                 <block type="filename"></block>
+                <block type="files_create_with"></block>
                 <block type="head"></block>
                 <block type="tail"></block>
                 <block type="wc"></block>
@@ -112,6 +119,8 @@
                 <block type="logic_compare"></block>
                 <block type="logic_operation"></block>
                 <block type="logic_negate"></block>
+                <block type="columns_create_with"></block>
+                <block type="column"></block>
                 <block type="controls_for">
                     <value name="FROM">
                     <shadow type="math_number">

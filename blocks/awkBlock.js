@@ -29,10 +29,10 @@ var awkBlock = {
     check: "String" 
   }],
 
-  message3: "columns to print %1\n(for multiple separate with comma)",
+  message3: "columns to print %1",
   args3: [
     {
-      type: "field_input",
+      type: "input_value",
       name: "awk_cols",
       text: "" 
     }

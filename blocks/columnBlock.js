@@ -1,5 +1,5 @@
 var columnBlock = {
-    'type': 'column_search',
+    'type': 'column',
     category: "awk",
     unix_description: [
         {
@@ -10,13 +10,14 @@ var columnBlock = {
     'args0': [
       {
         'type': 'field_input',
-        'name': 'columnSearch'
+        'name': 'column'
       },
     ],
     'output': 'String',
-    'style': 'logic_blocks',
-    'tooltip': '%{BKY_LOGIC_NEGATE_TOOLTIP}',
-    'helpUrl': '%{BKY_LOGIC_NEGATE_HELPURL}',
+    // 'style': 'logic_blocks',
+    'colour': 260,
+    'tooltip': 'put column',
+    'helpUrl': '',
 };
 
 Blockly.defineBlocksWithJsonArray([columnBlock]);
