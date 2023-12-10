@@ -194,7 +194,7 @@ function handleMainBlocks(block,blockDefinition,filenameValue,patternValue,regex
 			else if (field  instanceof Blockly.FieldTextInput) {
 			  	value = (blockDefinition.unix_description[0][field.name]== null || field.getValue() == '')
 						? field.getValue()
-						: blockDefinition.unix_description[0][field.name].replace("str",field.getValue()).replace(",","$");
+						: blockDefinition.unix_description[0][field.name].replace("str",field.getValue());
 			} 			
 			else if (field instanceof Blockly.FieldNumber) {
 			  value = (blockDefinition.unix_description[0][field.name]== null && field.getValue() != 0)
@@ -206,9 +206,11 @@ function handleMainBlocks(block,blockDefinition,filenameValue,patternValue,regex
 			else if (input.type === Blockly.INPUT_VALUE ){
 			  console.log("HANDLEBLOCK - field.getValue():", input.name);
 			  value =  (blockDefinition.unix_description[0][input.name] && block.getInputTargetBlock(input.name))
-					? (blockDefinition.unix_description[0][input.name].includes("patt"))
+					? (blockDefinition.unix_description[0][input.name].includes("patt") && patternValue !== '')
 						? blockDefinition.unix_description[0][input.name].replace("patt",patternValue)
-						: blockDefinition.unix_description[0][input.name].replace("str",block.getInputTargetBlock(input.name).getFieldValue("TEXT"))
+						: ( patternValue === '')
+							? ''
+							: blockDefinition.unix_description[0][input.name].replace("str",block.getInputTargetBlock(input.name).getFieldValue("TEXT"))
 					: '';
 			}
 
