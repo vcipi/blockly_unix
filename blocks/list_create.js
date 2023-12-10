@@ -288,7 +288,7 @@ const listCreateMutator = {
  */
 const listCreateHelper = function() {
   this.getInput('EMPTY').insertFieldAt(0, createPlusField(), 'PLUS');
-  this.updateShape_(1);
+  this.updateShape_(2);
 };
 
 Blockly.Extensions.registerMutator('new_list_create_with_mutator',

@@ -4,7 +4,7 @@ var awkBlock = {
   unix_description: [
     {
     awkInput_delimiter : "-F'str'",  // Change to awk_delimiter
-    awkOutput_delimiter : "-OFS'str'",  // Change to awk_delimiter
+    awkOutput_delimiter : '-OFS"str"',  // Change to awk_delimiter
 	  regPattern : "'{patt",
 	  awk_cols : "{print $str}}'",
     }
@@ -19,7 +19,7 @@ var awkBlock = {
   args1: [
     {
       type: "field_input",
-      name: "awkInput_delimiter", // Change to awk_delimiter || Discuss with VAG
+      name: "awkInput_delimiter", // Change to awk_delimiter 
       text: "" 
     }
   ],
@@ -27,7 +27,7 @@ var awkBlock = {
   args2: [
     {
       type: "field_input",
-      name: "awkOutput_delimiter", // Change to output awk_delimiter || Discuss with VAG
+      name: "awkOutput_delimiter", // Change to output awk_delimiter
       text: "",
       align: "RIGHT"
     }

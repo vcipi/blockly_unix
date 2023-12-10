@@ -131,8 +131,8 @@ function createPlusField(args = undefined) {
 /* eslint-disable quotes */
 Blockly.defineBlocksWithJsonArray([
   {
-    "type": "columns_create_with",
-    "message0": "%{BKY_COLUMNS_CREATE_WITH} %1",
+    "type": "print_create_with",
+    "message0": "%{BKY_PRINT_CREATE_WITH} %1",
     "args0": [
       {
         "type": "input_dummy",
@@ -141,8 +141,8 @@ Blockly.defineBlocksWithJsonArray([
     ],
     "output": "String",
     "style": "list_blocks", 
-    "helpUrl": "%{BKY_COLUMNS_CREATE_WITH_HELPURL}",
-    "tooltip": "%{BKY_COLUMNS_CREATE_WITH_TOOLTIP}",
+    "helpUrl": "%{BKY_PRINT_CREATE_WITH_HELPURL}",
+    "tooltip": "%{BKY_PRINT_CREATE_WITH_TOOLTIP}",
     "mutator": "new_list_create_with_mutator",
   },
 ]);
@@ -245,7 +245,7 @@ const listCreateMutator = {
       this.removeInput('EMPTY');
       this.topInput_ = this.appendValueInput('ADD' + this.itemCount_)
           .appendField(createPlusField(), 'PLUS')
-          .appendField(Blockly.Msg['COLUMNS_CREATE_WITH']);
+          .appendField(Blockly.Msg['PRINT_CREATE_WITH']);
     } else {
       this.appendValueInput('ADD' + this.itemCount_);
     }
@@ -264,7 +264,7 @@ const listCreateMutator = {
     if (this.itemCount_ == 0) {
       this.topInput_ = this.appendDummyInput('EMPTY')
           .appendField(createPlusField(), 'PLUS')
-          .appendField(Blockly.Msg['COLUMNS_CREATE_EMPTY_TITLE']);
+          .appendField(Blockly.Msg['PRINT_CREATE_EMPTY_TITLE']);
     }
   },
 
