@@ -1,5 +1,6 @@
 var multiplePrintBlock = {
-    type: "print_create_with",
+    type: "multiplePrint",
+	category: "awk",
     message0: "%{BKY_PRINT_CREATE_WITH} %1",
     args0: [
       {

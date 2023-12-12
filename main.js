@@ -21,6 +21,7 @@ document.getElementById('executeButton').addEventListener('click', function onEx
     while (currentBlock) {
 		
 		var blockDef = window[currentBlock.type + 'Block'];
+		console.log("currentBlock.type:", currentBlock.type);
         // Generate the command for the current block
         try {
 			if(blockDef.category === "I/O Redirection"|| blockDef.category === "Regular Expressions"){
@@ -30,6 +31,11 @@ document.getElementById('executeButton').addEventListener('click', function onEx
 			}
         }catch(error){
             console.error('An error occurred:', error.message);
+			if (error.lineNumber) {
+				console.log('Line Number:', error.lineNumber);
+			}
+			// For a complete stack trace:
+			console.error(error.stack);
             break;
         }
         // Move to the next connected block
@@ -103,6 +109,17 @@ function handleBlock(block) {
         : '';
     console.log("HANDLEBLOCK - filenameValue:", filenameValue);
 	
+    // If there's a connected block, and it's of type 'filename', get the field value
+    var filenameValuestr = (inputBlock && inputBlock.type === 'filenamesCreate')
+		? getFileNames(inputBlock)
+		: ''
+    console.log("HANDLEBLOCK - filenameValuestr:", filenameValuestr);
+	
+	if(filenameValuestr !== '' && filenameValue === ''){
+		filenameValue = filenameValuestr;
+		console.log("handleMainBlocks - after filenameValue:", filenameValue);
+	}	
+	
 	// Fetch the attached regex block
     var inputPatternBlock = block.getInputTargetBlock('regPattern');
 	//console.log("inputPatternBlock:", inputPatternBlock.type);
@@ -160,6 +177,39 @@ function handleBlock(block) {
     return commandString;
 }
 
+function getFileNames(block) {
+	
+	console.log("getFileNames - init");
+    let fileNames = [];
+    for (let i = 0; i < block.itemCount_; i++) {
+        let inputBlock = block.getInputTargetBlock('ADD' + i);
+        if (inputBlock) {
+            let fileName = inputBlock.getFieldValue('FILENAME');
+            if (fileName) {
+                fileNames.push(fileName);
+            }
+        }
+    }
+    return fileNames.join(' ');
+}
+
+function getMultiplePrints(block) {
+	
+	console.log("getMultiplePrints - init");
+    let prints = [];
+    for (let i = 0; i < block.itemCount_; i++) {
+        let inputBlock = block.getInputTargetBlock('ADD' + i);
+        if (inputBlock) {
+			var blockDefinition = window[inputBlock.type + 'Block'];
+            let singlePrint = blockDefinition.unix_description[0]['TEXT'].replace('str',inputBlock.getFieldValue('TEXT'));
+            if (singlePrint) {
+                prints.push(singlePrint);
+            }
+        }
+    }
+    return prints.join(' ');
+}
+
 function handleMainBlocks(block,blockDefinition,filenameValue,patternValue,regexStringValue){
 	
 		let commandParts = [];
@@ -204,14 +254,26 @@ function handleMainBlocks(block,blockDefinition,filenameValue,patternValue,regex
 						: blockDefinition.unix_description[0][field.name] + field.getValue();
 			}
 			else if (input.type === Blockly.INPUT_VALUE ){
-			  console.log("HANDLEBLOCK - field.getValue():", input.name);
-			  value =  (blockDefinition.unix_description[0][input.name] && block.getInputTargetBlock(input.name))
-					? (blockDefinition.unix_description[0][input.name].includes("patt") && patternValue !== '')
-						? blockDefinition.unix_description[0][input.name].replace("patt",patternValue)
-						: ( patternValue === '')
-							? ''
-							: blockDefinition.unix_description[0][input.name].replace("str",block.getInputTargetBlock(input.name).getFieldValue("TEXT"))
-					: '';
+			  if (block.getInputTargetBlock(input.name) && blockDefinition.unix_description[0][input.name]){
+				  if (input.name === 'regPattern'){
+					  value = (patternValue !== '') ? blockDefinition.unix_description[0][input.name].replace("patt",patternValue) : '';
+				  }
+				  else {
+					  inputBlock = block.getInputTargetBlock(input.name)
+					  inputValue = inputBlock.getFieldValue("TEXT");
+					  inputValueStr = getMultiplePrints(inputBlock);
+					  //console.log("handleMainBlocks -  inputValue:", inputValue);
+					  //console.log("handleMainBlocks -  inputValueStr:", inputValueStr);
+					  if(inputValueStr !== '' && inputValue == null){
+						  inputValue = inputValueStr;
+						  console.log("handleMainBlocks - after inputValue:", inputValue);
+					  }
+					  
+					  value = (inputValue !== '') ? blockDefinition.unix_description[0][input.name].replace("str",inputValue) : '';
+				  }
+			  }else{
+				  value = '';
+			  }
 			}
 
 			console.log("HANDLEBLOCK - value:", value);

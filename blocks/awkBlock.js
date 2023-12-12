@@ -6,7 +6,7 @@ var awkBlock = {
     awkInput_delimiter : "-F'str'",  // Change to awk_delimiter
     awkOutput_delimiter : '-OFS"str"',  // Change to awk_delimiter
 	  regPattern : "'{patt",
-	  awk_cols : "{print $str}}'",
+	  awk_cols : "{print str}}'",
     }
   ],
   message0: "Text data processing in file %1\n",
