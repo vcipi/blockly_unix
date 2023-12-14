@@ -11,7 +11,7 @@ var grepBlock = {
       recursive : "-r",
       show_line_nums : "-n",
       multiple_patterns : "-e",
-	  regPattern: 'patt'
+	  //regPattern: 'patt'
     }
   ],
   message0: "Search in file %1",

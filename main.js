@@ -177,39 +177,6 @@ function handleBlock(block) {
     return commandString;
 }
 
-function getFileNames(block) {
-	
-	console.log("getFileNames - init");
-    let fileNames = [];
-    for (let i = 0; i < block.itemCount_; i++) {
-        let inputBlock = block.getInputTargetBlock('ADD' + i);
-        if (inputBlock) {
-            let fileName = inputBlock.getFieldValue('FILENAME');
-            if (fileName) {
-                fileNames.push(fileName);
-            }
-        }
-    }
-    return fileNames.join(' ');
-}
-
-function getMultiplePrints(block) {
-	
-	console.log("getMultiplePrints - init");
-    let prints = [];
-    for (let i = 0; i < block.itemCount_; i++) {
-        let inputBlock = block.getInputTargetBlock('ADD' + i);
-        if (inputBlock) {
-			var blockDefinition = window[inputBlock.type + 'Block'];
-            let singlePrint = blockDefinition.unix_description[0]['TEXT'].replace('str',inputBlock.getFieldValue('TEXT'));
-            if (singlePrint) {
-                prints.push(singlePrint);
-            }
-        }
-    }
-    return prints.join(' ');
-}
-
 function handleMainBlocks(block,blockDefinition,filenameValue,patternValue,regexStringValue){
 	
 		let commandParts = [];
@@ -442,6 +409,73 @@ function replaceKeywords(command) {
   });
   return command;
 }
+
+function getFileNames(block) {
+	
+	console.log("getFileNames - init");
+    let fileNames = [];
+    for (let i = 0; i < block.itemCount_; i++) {
+        let inputBlock = block.getInputTargetBlock('ADD' + i);
+        if (inputBlock) {
+            let fileName = inputBlock.getFieldValue('FILENAME');
+            if (fileName) {
+                fileNames.push(fileName);
+            }
+        }
+    }
+    return fileNames.join(' ');
+}
+
+function getMultiplePrints(block) {
+	
+	console.log("getMultiplePrints - init");
+    let prints = [];
+    for (let i = 0; i < block.itemCount_; i++) {
+        let inputBlock = block.getInputTargetBlock('ADD' + i);
+        if (inputBlock) {
+			let singlePrint;
+			var blockDefinition = window[inputBlock.type + 'Block'];
+			if (inputBlock.type == 'column'){
+				singlePrint = blockDefinition.unix_description[0]['TEXT'].replace('str',inputBlock.getFieldValue('TEXT'));
+			}
+			else if(inputBlock.type == 'regPattern'){
+				singlePrint = inputBlock.getFieldValue('regPattern');
+			}
+			else if(inputBlock.type == 'regOutput'){
+				singlePrint = handleBlock(inputBlock);
+			}
+			else{
+				singlePrint = inputBlock.getFieldValue('TEXT');
+			}
+            if (singlePrint) {
+                prints.push(singlePrint);
+            }
+        }
+    }
+    return prints.join(' ');
+}
+
+javascript.javascriptGenerator.forBlock['column'] = function(block) {
+    var text = block.getFieldValue('TEXT');
+    var code = '$' + `'${text}'`;
+    return [code, javascript.javascriptGenerator.ORDER_ATOMIC];
+};
+
+javascript.javascriptGenerator.forBlock['multiplePrint'] = function(block) {
+    var code = getMultiplePrints(block)
+    return [code, javascript.javascriptGenerator.ORDER_ATOMIC];
+};
+
+javascript.javascriptGenerator.forBlock['regPattern'] = function(block) {
+    var text = block.getFieldValue('regPattern');
+    var code = `'${text}'`;
+    return [code, javascript.javascriptGenerator.ORDER_ATOMIC];
+};
+
+javascript.javascriptGenerator.forBlock['regOutput'] = function(block) {
+    var code = handleBlock(block);
+    return [code, javascript.javascriptGenerator.ORDER_ATOMIC];
+};
 
 
 //***********************************
