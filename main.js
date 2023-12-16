@@ -1,5 +1,6 @@
 Blockly.JavaScript.init(workspace);
 Blockly.JavaScript = new Blockly.Generator('JavaScript');
+var generator = javascript.javascriptGenerator;
 
 // Global replacement map
 const replacementMap = {
@@ -337,14 +338,24 @@ function handleRegexBlocks(block,blockDefinition,patternValue){
 
 function handleConditionsAndLoops(block){
 		console.log("handleConditionsAndLoops init");
+		var blockCode;
 		//console.log("handleConditionsAndLoops - block :", block.type);
 		var innerBlock = block.getInputTargetBlock('DO');
 		//console.log("handleConditionsAndLoops - innerBlock :", innerBlock);
-		var generator = javascript.javascriptGenerator;
+		//var generator = javascript.javascriptGenerator;
+		
+		var doBlock = innerBlock.getInputTargetBlock('DO0');
+		if (innerBlock.type === 'controls_if' && !doBlock) { // Check if the "do" block of an if statement is empty
+			var conditionBlock = innerBlock.getInputTargetBlock('IF0'); // Get the first condition block
+			if (conditionBlock) {
+				blockCode = generator.blockToCode(conditionBlock)[0];
+			}
+		}else {
+			blockCode = generator.blockToCode(innerBlock);
+		}
 
-		var blockCode = generator.blockToCode(innerBlock);
-		var blockCode = blockCode.replace(/'/g, '').replace(/;/g, '');
-		var blockCode = "'{" + blockCode.replace(/\n/g, ' ').replace(/\s+/g, ' ') + "}'";
+		blockCode = blockCode.replace(/'/g, '').replace(/;/g, '');
+		blockCode = "'{" + blockCode.replace(/\n/g, ' ').replace(/\s+/g, ' ') + "}'";
 
 		console.log("handleConditionsAndLoops - code:", blockCode);
 
@@ -380,8 +391,10 @@ function getRegexChildenBlocks(startBlock) {
         if (block) {
 			var blockDefinition = window[block.type + 'Block'];
             // Check if the block's category is 'Regular Expressions'
-            if (block.type != 'regPattern' && blockDefinition.category === 'Regular Expressions') {
-                allBlocks.push(block);
+            if (block.type != 'regPattern' && blockDefinition) {
+				if(blockDefinition.category === 'Regular Expressions'){
+					allBlocks.push(block);
+				}
             }
 
             // Add next connected block
@@ -455,26 +468,32 @@ function getMultiplePrints(block) {
     return prints.join(' ');
 }
 
-javascript.javascriptGenerator.forBlock['column'] = function(block) {
+generator.forBlock['column'] = function(block) {
     var text = block.getFieldValue('TEXT');
     var code = '$' + `'${text}'`;
-    return [code, javascript.javascriptGenerator.ORDER_ATOMIC];
+    return [code, generator.ORDER_ATOMIC];
 };
 
-javascript.javascriptGenerator.forBlock['multiplePrint'] = function(block) {
+generator.forBlock['multiplePrint'] = function(block) {
     var code = getMultiplePrints(block)
-    return [code, javascript.javascriptGenerator.ORDER_ATOMIC];
+    return [code, generator.ORDER_ATOMIC];
 };
 
-javascript.javascriptGenerator.forBlock['regPattern'] = function(block) {
+generator.forBlock['regPattern'] = function(block) {
     var text = block.getFieldValue('regPattern');
     var code = `'${text}'`;
-    return [code, javascript.javascriptGenerator.ORDER_ATOMIC];
+    return [code, generator.ORDER_ATOMIC];
 };
 
-javascript.javascriptGenerator.forBlock['regOutput'] = function(block) {
+generator.forBlock['regOutput'] = function(block) {
     var code = handleBlock(block);
-    return [code, javascript.javascriptGenerator.ORDER_ATOMIC];
+    return [code, generator.ORDER_ATOMIC];
+};
+
+generator.forBlock['text'] = function(block) {
+    var textValue = block.getFieldValue('TEXT');
+    var code = '"' + textValue + '"';
+    return [code, generator.ORDER_ATOMIC];
 };
 
 
