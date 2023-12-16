@@ -22,7 +22,7 @@ document.getElementById('executeButton').addEventListener('click', function onEx
     while (currentBlock) {
 		
 		var blockDef = window[currentBlock.type + 'Block'];
-		console.log("currentBlock.type:", currentBlock.type);
+		//console.log("currentBlock.type:", currentBlock.type);
         // Generate the command for the current block
         try {
 			if(blockDef.category === "I/O Redirection"|| blockDef.category === "Regular Expressions"){
@@ -97,7 +97,7 @@ Blockly.JavaScript.forBlock['filename'] = function(block) {
 function handleBlock(block) {
 	
     var blockType = block.type;
-	console.log("HANDLEBLOCK - Block Type:", blockCategory);
+	console.log("HANDLEBLOCK - Block Type:", blockType);
     var blockDefinition = window[blockType + 'Block'];  // Construct the name of the block definition variable and access it
 	var blockCategory = blockDefinition.category;
 	console.log("HANDLEBLOCK - Block Category:", blockCategory);
@@ -136,9 +136,9 @@ function handleBlock(block) {
 	}
 	
 		
-	//get all the children of the regex blocks
+	//get all the regex children blocks of the main block
 	var regexBlocks = getRegexChildenBlocks(block);
-	console.log("HANDLEBLOCK - regexBlocks[] length:", regexBlocks.length);
+	//console.log("HANDLEBLOCK - regexBlocks[] length:", regexBlocks.length);
 
 	var regexStringValue = (regexBlocks.length > 0)
 		? generateRegexString(regexBlocks)
@@ -170,7 +170,6 @@ function handleBlock(block) {
 		commandString = blockType + ' ' + commandParts.join(' ') + ' ' + conditionValue + ' ' + regexStringValue + ' ' + filenameValue;
 	}
 
-	
 	console.log("HANDLEBLOCK - command built:", commandString);
 	
     // Here you can add any custom logic for special cases
@@ -179,12 +178,12 @@ function handleBlock(block) {
 }
 
 function handleMainBlocks(block,blockDefinition,filenameValue,patternValue,regexStringValue){
-	
+		console.log("handleMainBlocks init");
 		let commandParts = [];
 		
 		//in case we don't have just a pattern in a main block but a full regex 
-		 console.log("handleMainBlocks - regexStringValue:", regexStringValue);
-		  console.log("handleMainBlocks - patternValue:", patternValue);
+		console.log("handleMainBlocks - regexStringValue:", regexStringValue);
+		console.log("handleMainBlocks - patternValue:", patternValue);
 		if(regexStringValue !== null && patternValue === ''){
 			patternValue = regexStringValue;
 			console.log("handleMainBlocks - after patternValue:", patternValue);
@@ -192,9 +191,9 @@ function handleMainBlocks(block,blockDefinition,filenameValue,patternValue,regex
 		
 	    // Iterate over all inputs and their fields
 		block.inputList.forEach((input) => {
-		  console.log("HANDLEBLOCK - input:", input.name);
+		  //console.log("handleMainBlocks - input:", input.name);
 		  input.fieldRow.forEach((field) => {
-			console.log("HANDLEBLOCK - field:", field);
+			//console.log("handleMainBlocks - field:", field);
 			let value;
 		  
 			// Handle dropdowns
@@ -205,14 +204,14 @@ function handleMainBlocks(block,blockDefinition,filenameValue,patternValue,regex
 			// Handle checkboxes
 			else if (field  instanceof Blockly.FieldCheckbox) {
 			  value = field.getValue() === 'TRUE'
-			  ? blockDefinition.unix_description[0][field.name]
-			  : '';
+					? blockDefinition.unix_description[0][field.name]
+					: '';
 			}
 			// Handle text inputs (including numbers)
 			else if (field  instanceof Blockly.FieldTextInput) {
-			  	value = (blockDefinition.unix_description[0][field.name]== null || field.getValue() == '')
-						? field.getValue()
-						: blockDefinition.unix_description[0][field.name].replace("str",field.getValue());
+			  value = (blockDefinition.unix_description[0][field.name]== null || field.getValue() == '')
+					? field.getValue()
+					: blockDefinition.unix_description[0][field.name].replace("str",field.getValue());
 			} 			
 			else if (field instanceof Blockly.FieldNumber) {
 			  value = (blockDefinition.unix_description[0][field.name]== null && field.getValue() != 0)
@@ -234,7 +233,7 @@ function handleMainBlocks(block,blockDefinition,filenameValue,patternValue,regex
 					  //console.log("handleMainBlocks -  inputValueStr:", inputValueStr);
 					  if(inputValueStr !== '' && inputValue == null){
 						  inputValue = inputValueStr;
-						  console.log("handleMainBlocks - after inputValue:", inputValue);
+						  //console.log("handleMainBlocks - after inputValue:", inputValue);
 					  }
 					  
 					  value = (inputValue !== '') ? blockDefinition.unix_description[0][input.name].replace("str",inputValue) : '';
@@ -244,7 +243,7 @@ function handleMainBlocks(block,blockDefinition,filenameValue,patternValue,regex
 			  }
 			}
 
-			console.log("HANDLEBLOCK - value:", value);
+			console.log("handleMainBlocks - value:", value);
 			// Add the processed value to the command parts
 			commandParts.push(value);
 		  });
@@ -254,25 +253,25 @@ function handleMainBlocks(block,blockDefinition,filenameValue,patternValue,regex
 }
 
 function handleRegexBlocks(block,blockDefinition,patternValue){
-	
+		console.log("handleRegexBlocks init");
 		let commandParts = [];
 	    // Iterate over all inputs and their fields
 		block.inputList.forEach((input) => {
-		  console.log("HANDLEBLOCK - input:", input.name);
+		  //console.log("handleRegexBlocks - input:", input.name);
 		  input.fieldRow.forEach((field) => {
-			console.log("HANDLEBLOCK - field:", field);
+			//console.log("handleRegexBlocks - field:", field);
 			let value;
 			
 			// Handle dropdowns
 			if (field instanceof Blockly.FieldDropdown) {
 			  paramselected = field.getValue();
-			  console.log("HANDLEBLOCK - paramselected:", paramselected);
+			  //console.log("handleRegexBlocks - paramselected:", paramselected);
 			  value = blockDefinition.unix_description[0][paramselected];
 			  
 			  value = (patternValue)
 					? value.replace("patt",patternValue)
 					: value.replace("patt",'');
-			  //console.log("HANDLEBLOCK - value:", value);
+			  //console.log("handleRegexBlocks - value:", value);
 			}
 			else if (field  instanceof Blockly.FieldCheckbox) {
 			  if(field.name === 'notMatch' && field.getValue() === 'TRUE'){
@@ -287,11 +286,11 @@ function handleRegexBlocks(block,blockDefinition,patternValue){
 					: '';
 			  }
 			
-			  //console.log("HANDLEBLOCK - commandParts:", commandParts);
+			  //console.log("handleRegexBlocks - commandParts:", commandParts);
 			  //specifically made for the regForBlock so value m is replaced with the infinity option(commandParts.length - 2 is used because the last part of the list is an object with an undefined value - don't know what)
 			  if (field.name === 'INFINITE' && field.getValue() === 'TRUE'){
 				commandParts[commandParts.length - 2] = ', }';
-				//console.log("HANDLEBLOCK - commandParts:", commandParts);
+				//console.log("handleRegexBlocks - commandParts:", commandParts);
 			  }
 			}
 			else if (field instanceof Blockly.FieldNumber ) {
@@ -303,8 +302,8 @@ function handleRegexBlocks(block,blockDefinition,patternValue){
 			  
 			  //specifically made for the regForBlock in case n=m is replaced with the '}' option(commandParts.length - 2 is used because the last part of the list is an object with an undefined value - don't know what)
 			  str = (commandParts[commandParts.length - 2]) ? commandParts[commandParts.length - 2] :'notValid';
-			  //console.log("HANDLEBLOCK - str:", str[str.length - 1]);
-			  //console.log("HANDLEBLOCK - str:", field.getValue());
+			  //console.log("handleRegexBlocks - str:", str[str.length - 1]);
+			  //console.log("handleRegexBlocks - str:", field.getValue());
 			  //str.length - 1 is the n of the '{n' part of the command so far right before the m which is the current vlue that the user gives
 			  if(str[str.length - 1] == field.getValue()){
 					value = '}';
@@ -326,9 +325,9 @@ function handleRegexBlocks(block,blockDefinition,patternValue){
 			  value =  '';
 			}
 			
-			console.log("HANDLEBLOCK - value:", value);
+			console.log("handleRegexBlocks - value:", value);
 			// Add the processed value to the command parts
-			console.log("HANDLEBLOCK - commandParts:", commandParts);
+			console.log("handleRegexBlocks - commandParts:", commandParts);
 			commandParts.push(value);
 		  });
 		});
@@ -342,7 +341,6 @@ function handleConditionsAndLoops(block){
 		//console.log("handleConditionsAndLoops - block :", block.type);
 		var innerBlock = block.getInputTargetBlock('DO');
 		//console.log("handleConditionsAndLoops - innerBlock :", innerBlock);
-		//var generator = javascript.javascriptGenerator;
 		
 		var doBlock = innerBlock.getInputTargetBlock('DO0');
 		if (innerBlock.type === 'controls_if' && !doBlock) { // Check if the "do" block of an if statement is empty
@@ -364,10 +362,11 @@ function handleConditionsAndLoops(block){
 }
 
 function generateRegexString(regexBlocksList){
+	console.log("generateRegexString init");
 	let regexStringCommand = '';
 
     for (let block of regexBlocksList) {
-		console.log('generateRegexString - Block Type: ', block.type);
+		//console.log('generateRegexString - Block Type: ', block.type);
 		
 		var blockDef = window[block.type + 'Block'];
         // Generate the command for the current block
@@ -385,6 +384,7 @@ function generateRegexString(regexBlocksList){
 }
 
 function getRegexChildenBlocks(startBlock) {
+	console.log("getRegexChildenBlocks init");
     var allBlocks = [];
 
     // Helper function to recursively add child blocks
