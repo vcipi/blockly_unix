@@ -349,13 +349,14 @@ function handleConditionsAndLoops(block){
 			var conditionBlock = innerBlock.getInputTargetBlock('IF0'); // Get the first condition block
 			if (conditionBlock) {
 				blockCode = generator.blockToCode(conditionBlock)[0];
+				blockCode = blockCode.replace(/'/g, '').replace(/;/g, '');
+				blockCode = "'" + blockCode.replace(/\n/g, ' ').replace(/\s+/g, ' ') + "'";
 			}
 		}else {
 			blockCode = generator.blockToCode(innerBlock);
+			blockCode = blockCode.replace(/'/g, '').replace(/;/g, '');
+			blockCode = "'{" + blockCode.replace(/\n/g, ' ').replace(/\s+/g, ' ') + "}'";
 		}
-
-		blockCode = blockCode.replace(/'/g, '').replace(/;/g, '');
-		blockCode = "'{" + blockCode.replace(/\n/g, ' ').replace(/\s+/g, ' ') + "}'";
 
 		console.log("handleConditionsAndLoops - code:", blockCode);
 
