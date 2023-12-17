@@ -3,6 +3,7 @@ var regRangeBlock = {
   category: "Regular Expressions",
   unix_description: [
     {
+      not : "[^[rangeChoice]]", // for example: [^[:upper:]]
       upper: "[[:upper:]]",
       lower: "[[:lower:]]",
       letters: "[[:alpha:]]",
@@ -15,7 +16,7 @@ var regRangeBlock = {
       non_printable: "[[:cntrl:]]",
       graphical: "[[:graph:]]",
       hexadecimal: "[[:xdigit:]]",
-      custom: "[symbol1-symbol2]" // to discuss with Vag
+      //custom: "[symbol1-symbol2]" // to discuss with Vag
     }
   ],
   message0: "Range matching %1",
@@ -38,6 +39,14 @@ var regRangeBlock = {
         [ "hexadecimal", "hexadecimal" ],
         [ "Custom Range", "custom" ]
       ]
+    }
+  ],
+  message1: "Not %1",
+  args1: [
+    {
+      type: "field_checkbox",
+      name: "not",
+      checked: false // by default it's disabled
     }
   ],
   colour: 510,
