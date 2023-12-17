@@ -156,7 +156,11 @@ function handleBlock(block) {
 	}
 
 	//in case of the awk the regexStringValue is already included in the command so we dont need it
-	if(blockCategory==="awk"){regexStringValue='';}
+	if(blockCategory==="awk"){
+		regexStringValue='';
+		let contains = commandParts.some(element => element && element.includes("-F'"))
+		if (!contains) {commandParts[0] = "'" + commandParts[0];}
+	}
 
     // Build the string command from parts
 	let commandString;
@@ -348,12 +352,12 @@ function handleConditionsAndLoops(block){
 			if (conditionBlock) {
 				blockCode = generator.blockToCode(conditionBlock)[0];
 				blockCode = blockCode.replace(/'/g, '').replace(/;/g, '');
-				blockCode = "'" + blockCode.replace(/\n/g, ' ').replace(/\s+/g, ' ') + "'";
+				blockCode = blockCode.replace(/\n/g, ' ').replace(/\s+/g, ' ') + "'";
 			}
 		}else {
 			blockCode = generator.blockToCode(innerBlock);
 			blockCode = blockCode.replace(/'/g, '').replace(/;/g, '');
-			blockCode = "'{" + blockCode.replace(/\n/g, ' ').replace(/\s+/g, ' ') + "}'";
+			blockCode = "{" + blockCode.replace(/\n/g, ' ').replace(/\s+/g, ' ') + "}'";
 		}
 
 		console.log("handleConditionsAndLoops - code:", blockCode);

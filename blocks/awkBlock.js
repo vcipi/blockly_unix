@@ -3,9 +3,9 @@ var awkBlock = {
   category: "awk",
   unix_description: [
     {
-    awkInput_delimiter : "-F'str'",  // Change to awk_delimiter
+    awkInput_delimiter : "-F'str' '",  // Change to awk_delimiter
     awkOutput_delimiter : 'OFS"str"',  // Change to awk_delimiter
-	  regPattern : "'{patt",
+	  regPattern : "{patt",
 	  awk_cols : "{print str}}'",
     }
   ],
