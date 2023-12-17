@@ -6,7 +6,7 @@ var catBlock = {
 
     }
   ],
-  message0: "Concatenate in file %1\n",
+  message0: "Show file %1\n",
   args0: [{
       type: "input_value",
       name: "FILENAME",
@@ -16,7 +16,7 @@ var catBlock = {
   colour: 876,
   previousStatement: "Action",
   nextStatement: "Action",
-  tooltip: "Cut out in a file",
+  tooltip: "Show a file",
   helpUrl: "" // URL to further information or documentation.
 };
 

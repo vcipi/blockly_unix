@@ -1,12 +1,17 @@
 var cdBlock = {
   type: "cd",
-  message0: "Change directory to %1",
   category: "File and Directory Operations",
+  unix_description: [
+    {
+
+    }
+  ],
+  message0: "Change directory to %1",
   args0: [
     {
       type: "field_input",
-      name: "change_dir",
-      text: "............" // empty text for user to define path
+      name: "directory",
+	  text: "............" // empty text for user to define path
     }
   ],
   colour: 400,

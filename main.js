@@ -459,14 +459,14 @@ function getMultiplePrints(block) {
 				singlePrint = handleBlock(inputBlock);
 			}
 			else{
-				singlePrint = inputBlock.getFieldValue('TEXT');
+				singlePrint = '"' + inputBlock.getFieldValue('TEXT') + '"';
 			}
             if (singlePrint) {
                 prints.push(singlePrint);
             }
         }
     }
-    return prints.join(' ');
+    return prints.join(',');
 }
 
 generator.forBlock['column'] = function(block) {

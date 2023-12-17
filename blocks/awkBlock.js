@@ -4,7 +4,7 @@ var awkBlock = {
   unix_description: [
     {
     awkInput_delimiter : "-F'str'",  // Change to awk_delimiter
-    awkOutput_delimiter : '-OFS"str"',  // Change to awk_delimiter
+    awkOutput_delimiter : 'OFS"str"',  // Change to awk_delimiter
 	  regPattern : "'{patt",
 	  awk_cols : "{print str}}'",
     }
