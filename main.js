@@ -482,6 +482,9 @@ function getMultiplePrints(block) {
 			else if(inputBlock.type == 'regPattern'){
 				singlePrint = inputBlock.getFieldValue('regPattern');
 			}
+			else if(inputBlock.type == 'regOr'){
+				singlePrint = getMultiplePatterns(inputBlock);
+			}
 			else if(inputBlock.type == 'regOutput'){
 				singlePrint = handleBlock(inputBlock);
 			}
@@ -510,6 +513,11 @@ generator.forBlock['multiplePrint'] = function(block) {
 generator.forBlock['regPattern'] = function(block) {
     var text = block.getFieldValue('regPattern');
     var code = `'${text}'`;
+    return [code, generator.ORDER_ATOMIC];
+};
+
+generator.forBlock['regOr'] = function(block) {
+    var code = getMultiplePatterns(block)
     return [code, generator.ORDER_ATOMIC];
 };
 
