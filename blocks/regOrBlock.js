@@ -1,5 +1,5 @@
 var regOrBlock = {
-  type: "regOr",
+	type: "regOr",
 	category: "Regular Expressions",
     message0: "%{BKY_REGOR_CREATE_WITH} %1",
     args0: [

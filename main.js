@@ -104,22 +104,15 @@ function handleBlock(block) {
   
     // Fetch the attached filename block's value
     var inputBlock = block.getInputTargetBlock('FILENAME');
-    // If there's a connected block, and it's of type 'filename', get the field value
-    var filenameValue = (inputBlock && inputBlock.type === 'filename')
-        ? inputBlock.getFieldValue('FILENAME')
-        : '';
-    console.log("HANDLEBLOCK - filenameValue:", filenameValue);
 	
-    // If there's a connected block, and it's of type 'filename', get the field value
-    var filenameValuestr = (inputBlock && inputBlock.type === 'filenamesCreate')
-		? getFileNames(inputBlock)
-		: ''
-    console.log("HANDLEBLOCK - filenameValuestr:", filenameValuestr);
-	
-	if(filenameValuestr !== '' && filenameValue === ''){
-		filenameValue = filenameValuestr;
-		console.log("handleMainBlocks - after filenameValue:", filenameValue);
-	}	
+	var filenameValue='';
+	if(inputBlock && inputBlock.type === 'filename'){
+		filenameValue = inputBlock.getFieldValue('FILENAME');
+		console.log("HANDLEBLOCK - filenameValue:", filenameValue);
+	}else if(inputBlock && inputBlock.type === 'filenamesCreate'){
+		filenameValue = getFileNames(inputBlock);
+		console.log("HANDLEBLOCK - MultiplefilenameValue:", filenameValue);
+	}
 	
 	// Fetch the attached regex block
     var inputPatternBlock = block.getInputTargetBlock('regPattern');
@@ -128,8 +121,11 @@ function handleBlock(block) {
 	var patternValue='';
 	var conditionValue='';
 	if(inputPatternBlock && inputPatternBlock.type === 'regPattern'){
-		patternValue = inputPatternBlock.getFieldValue('regPattern').replace(new RegExp(" ", 'g'), "|")
+		patternValue = inputPatternBlock.getFieldValue('regPattern')
 		console.log("HANDLEBLOCK - patternValue:", patternValue);
+	}else if(inputPatternBlock && inputPatternBlock.type === 'regOr'){
+		patternValue = getMultiplePatterns(inputPatternBlock);
+		console.log("HANDLEBLOCK - MultiplepatternValue:", patternValue);
 	}else if (inputPatternBlock && inputPatternBlock.type === 'condOutput'){
 		conditionValue = handleConditionsAndLoops(inputPatternBlock);
 		console.log("HANDLEBLOCK - conditionValue", conditionValue);
@@ -231,10 +227,14 @@ function handleMainBlocks(block,blockDefinition,filenameValue,patternValue,regex
 				  }
 				  else {
 					  inputBlock = block.getInputTargetBlock(input.name)
-					  inputValue = inputBlock.getFieldValue("TEXT");
+					  var inputBlockDefinition = window[inputBlock.type + 'Block'];
+					  
+					  inputValue = (inputBlockDefinition && inputBlockDefinition.unix_description)
+								? inputBlockDefinition.unix_description[0]['TEXT'].replace('str',inputBlock.getFieldValue('TEXT'))
+								: inputBlock.getFieldValue("TEXT");
 					  inputValueStr = getMultiplePrints(inputBlock);
-					  //console.log("handleMainBlocks -  inputValue:", inputValue);
-					  //console.log("handleMainBlocks -  inputValueStr:", inputValueStr);
+					  console.log("handleMainBlocks -  inputValue:", inputValue);
+					  console.log("handleMainBlocks -  inputValueStr:", inputValueStr);
 					  if(inputValueStr !== '' && inputValue == null){
 						  inputValue = inputValueStr;
 						  //console.log("handleMainBlocks - after inputValue:", inputValue);
@@ -283,6 +283,13 @@ function handleRegexBlocks(block,blockDefinition,patternValue){
 				  value = (patternValue)
 						? blockDefinition.unix_description[0][field.name].replace("patt",patternValue)
 						: '';
+			  }else if (field.name === 'not' && field.getValue() === 'TRUE'){ //custom for regRangeBlock
+					commandParts = commandParts.map(element => {
+						if (element) { // Check if the element is not undefined
+							return element.replace("[[:", "[^[:");
+						}
+						return element; // Return the element as is if it's undefined
+					});
 			  }
 			  else{
 				  value = (field.getValue() === 'TRUE')
@@ -396,7 +403,7 @@ function getRegexChildenBlocks(startBlock) {
         if (block) {
 			var blockDefinition = window[block.type + 'Block'];
             // Check if the block's category is 'Regular Expressions'
-            if (block.type != 'regPattern' && blockDefinition) {
+            if ((block.type != 'regPattern' && block.type != 'regOr')  && blockDefinition) {
 				if(blockDefinition.category === 'Regular Expressions'){
 					allBlocks.push(block);
 				}
@@ -442,6 +449,22 @@ function getFileNames(block) {
         }
     }
     return fileNames.join(' ');
+}
+
+function getMultiplePatterns(block) {
+	
+	console.log("getMultiplePatterns - init");
+    let patterns = [];
+    for (let i = 0; i < block.itemCount_; i++) {
+        let inputBlock = block.getInputTargetBlock('ADD' + i);
+        if (inputBlock) {
+            let patt = inputBlock.getFieldValue('regPattern');
+            if (patt) {
+                patterns.push(patt);
+            }
+        }
+    }
+    return patterns.join('|');
 }
 
 function getMultiplePrints(block) {

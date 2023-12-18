@@ -3,7 +3,7 @@ var regRangeBlock = {
   category: "Regular Expressions",
   unix_description: [
     {
-      not : "[^[rangeChoice]]", // for example: [^[:upper:]]
+      //not : "[^[rangeChoice]]", // for example: [^[:upper:]]
       upper: "[[:upper:]]",
       lower: "[[:lower:]]",
       letters: "[[:alpha:]]",
