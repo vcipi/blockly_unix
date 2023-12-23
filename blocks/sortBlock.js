@@ -16,7 +16,7 @@ var sortBlock = {
   args0: [{
 	  type: "input_value",
       name: "FILENAME",
-	  check: "String" 
+	  check: ["filename" , "filenamesCreate",]
   }],
   message1: "descending order %1",
   args1: [

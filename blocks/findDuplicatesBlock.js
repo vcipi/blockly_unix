@@ -10,7 +10,7 @@ var findDuplicatesBlock = {
   args0: [{
 	  type: "input_value",
       name: "FILENAME",
-	  check: "String" 
+	  check: ["filename" , "filenamesCreate",]
   }],
 
   // output: "String",

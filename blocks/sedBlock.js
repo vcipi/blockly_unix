@@ -12,7 +12,7 @@ var sedBlock = {
   args0: [{
       type: "input_value",
       name: "FILENAME",
-	  check: "String" 
+	  check: ["filename" , "filenamesCreate",] 
   }],
   message1: "search pattern %1 is Regex %2\n",
   args1: [{

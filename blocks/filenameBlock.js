@@ -8,7 +8,7 @@ var filenameBlock = {
       text: "default.txt" // default text for the input
     }
   ],
-  output: "String",
+  output: "filename",
   colour: 230,
   //nextStatement: "Action",
   tooltip: "Represents a filename.",

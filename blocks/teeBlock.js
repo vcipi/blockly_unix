@@ -10,7 +10,7 @@ var teeBlock = {
   args0: [{
       type: "input_value",
       name: "FILENAME",
-	  check: "String" 
+	  check: ["filename" , "filenamesCreate",] 
   }],
   message1: "append to file %1",
   args1: [
