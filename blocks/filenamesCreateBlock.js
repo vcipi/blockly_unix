@@ -10,6 +10,7 @@ var filenamesCreateBlock = {
     ],
     output: "filenamesCreate",
     style: "list_blocks", 
+    nextStatement: "Action",
     helpUrl: "%{BKY_FILES_CREATE_WITH_HELPURL}",
     tooltip: "%{BKY_FILES_CREATE_WITH_TOOLTIP}",
     mutator: "new_list_create_with_mutator_File",
