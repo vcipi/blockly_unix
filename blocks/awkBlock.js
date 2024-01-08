@@ -5,6 +5,7 @@ var awkBlock = {
     {
     awkInput_delimiter : "-F'str' '",  // Change to awk_delimiter
     awkOutput_delimiter : 'OFS"str"',  // Change to awk_delimiter
+    input_variable : '-v"', 
 	  regPattern : "{patt",
 	  awk_cols : "{print str}}'",
     }
@@ -32,15 +33,22 @@ var awkBlock = {
       align: "RIGHT"
     }
   ],
-  message3: "pattern or condition %1\n",
-  args3: [{
+  message3: "variable input%1\n",
+  args3: [
+    {
+      type: "field_checkbox",
+      name: "input_variable",
+      checked: false // by default it's disabled
+    }
+  ],
+  message4: "pattern or condition %1\n",
+  args4: [{
     type: "input_value",
     name: "regPattern",
     check: "String" 
   }],
-
-  message4: "columns to print %1",
-  args4: [
+  message5: "columns to print %1",
+  args5: [
     {
       type: "input_value",
       name: "awk_cols",

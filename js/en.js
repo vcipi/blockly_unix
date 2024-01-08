@@ -4,6 +4,10 @@
 
 var Blockly = Blockly || { Msg: Object.create(null) };
 
+Blockly.Msg["ARRAY_CREATE_WITH"] = "Create array with";
+Blockly.Msg["ARRAY_CREATE_WITH_TOOLTIP"] = "Add element to array";
+Blockly.Msg["ARRAY_CREATE_EMPTY_TITLE"] = "Create list of elements";
+Blockly.Msg["ARRAY_CREATE_WITH_HELPURL"] = "";
 Blockly.Msg["ADD_COMMENT"] = "Add Comment";
 Blockly.Msg["CANNOT_DELETE_VARIABLE_PROCEDURE"] = "Can't delete the variable '%1' because it's part of the definition of the function '%2'";
 Blockly.Msg["CHANGE_VALUE_TITLE"] = "Change value:";
