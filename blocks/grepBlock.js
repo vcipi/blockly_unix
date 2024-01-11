@@ -14,12 +14,8 @@ var grepBlock = {
 	  //regPattern: 'patt'
     }
   ],
-  message0: "Search in file %1",
-  args0: [{
-      type: "input_value",
-      name: "FILENAME",
-	  check: ["filename" , "filenamesCreate",] 
-  }],
+  message0: "Search in file",
+
   message1: "the pattern %1",
   args1:   [{
 

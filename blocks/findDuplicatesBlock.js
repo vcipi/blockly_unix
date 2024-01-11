@@ -1,17 +1,12 @@
 var findDuplicatesBlock = { 
   type: "findDuplicates",
-  message0: "Find duplicates in file%1\n",
+  message0: "Find duplicates in file\n",
   category: "Data Processing",
   unix_description: [
     {
       duplicates: "-d" // uniq -d
     }
   ],
-  args0: [{
-	  type: "input_value",
-      name: "FILENAME",
-	  check: ["filename" , "filenamesCreate",]
-  }],
 
   // output: "String",
   colour: 240,

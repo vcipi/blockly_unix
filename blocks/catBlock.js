@@ -6,12 +6,7 @@ var catBlock = {
 
     }
   ],
-  message0: "Show file %1\n",
-  args0: [{
-      type: "input_value",
-      name: "FILENAME",
-	  check: ["filename" , "filenamesCreate",]
-  }],
+  message0: "Show file\n",
 
   colour: 876,
   previousStatement: "Action",

@@ -1,6 +1,6 @@
 var tailBlock = {
   type: "tail",
-  message0: "Tail of file %1",
+  message0: "Tail of file",
   category: "Data Processing",
   unix_description: [
     {
@@ -10,11 +10,7 @@ var tailBlock = {
 
     }
   ],
-  args0: [{
-      type: "input_value",
-      name: "FILENAME",
-	  check: ["filename" , "filenamesCreate",]
-  }],
+
   message1: "metric %1",
   args1: [
     {

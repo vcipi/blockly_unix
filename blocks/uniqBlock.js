@@ -1,6 +1,6 @@
 var uniqBlock = {
   type: "uniq",
-  message0: "Remove duplicate lines in file %1\n",
+  message0: "Remove duplicate lines in file\n",
   category: "Data Processing",
   unix_description: [
     {
@@ -9,11 +9,7 @@ var uniqBlock = {
 
     }
   ],
-  args0: [{
-	  type: "input_value",
-      name: "FILENAME",
-	  check: ["filename" , "filenamesCreate",] 
-  }],
+
   message1: "count the occurencies of \n duplicates lines removed %1",
   args1: [{
     type: "field_checkbox",

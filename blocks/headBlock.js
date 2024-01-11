@@ -1,6 +1,6 @@
 var headBlock = {
   type: "head",
-  message0: "Head of file %1",
+  message0: "Head of file",
   category: "Data Processing",
   unix_description: [
     {
@@ -11,11 +11,11 @@ var headBlock = {
 
     }
   ],
-  args0: [{
-      type: "input_value",
-      name: "FILENAME",
-	  check: ["filename" , "filenamesCreate",]
-  }],
+  // args0: [{
+      // type: "input_value",
+      // name: "FILENAME",
+	  // check: ["filename" , "filenamesCreate",]
+  // }],
   message1: "metric %1",
   args1: [
     {
@@ -57,7 +57,7 @@ var headBlock = {
   nextStatement: "Action",
   colour: 160,
   extensions: [
-    'integer_validation',
+    'integer_validation', 'disallow_multiple_filenames',
   ],
   helpUrl: "" // URL to further information or documentation.
 };

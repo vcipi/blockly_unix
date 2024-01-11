@@ -1,6 +1,6 @@
 var lsBlock = {
   type: "ls",
-  message0: "List files & directories %1",
+  message0: "List files & directories",
   category: "File and Directory Operations",
   unix_description: [
     {
@@ -11,11 +11,7 @@ var lsBlock = {
 
     }
   ],
-  args0: [{
-	  type: "input_value",
-      name: "FILENAME", // we should put FILENAME or directory. Go in main 88-93 rows. To discuss with Vag
-	  check: "String" 
-  }],
+
   message1: "show details %1",
   args1: [
     {

@@ -10,12 +10,8 @@ var awkBlock = {
 	  awk_cols : "{print str}}'",
     }
   ],
-  message0: "Text data processing in file %1\n",
-  args0: [{
-      type: "input_value",
-      name: "FILENAME",
-	  check: ["filename" , "filenamesCreate",]
-  }],
+  message0: "Text data processing in file\n",
+
   message1: "delimeter %1",
   args1: [
     {

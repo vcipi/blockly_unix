@@ -25,7 +25,10 @@ document.getElementById('executeButton').addEventListener('click', function onEx
 		//console.log("currentBlock.type:", currentBlock.type);
         // Generate the command for the current block
         try {
-			if(blockDef.category === "I/O Redirection"|| blockDef.category === "Regular Expressions"){
+			if(currentBlock.type == 'filename' || currentBlock.type == 'filenamesCreate'){
+				console.log('Filename Block initiated');
+			}
+			else if(blockDef.category === "I/O Redirection"|| blockDef.category === "Regular Expressions"){
 				generatedCommand += handleBlock(currentBlock);
 			}else{
 				generatedCommand += (generatedCommand ? " | " : "") + handleBlock(currentBlock);
@@ -101,17 +104,11 @@ function handleBlock(block) {
     var blockDefinition = window[blockType + 'Block'];  // Construct the name of the block definition variable and access it
 	var blockCategory = blockDefinition.category;
 	console.log("HANDLEBLOCK - Block Category:", blockCategory);
-  
-    // Fetch the attached filename block's value
-    var inputBlock = block.getInputTargetBlock('FILENAME');
 	
+	var aboveBlock = block.getPreviousBlock();
 	var filenameValue='';
-	if(inputBlock && inputBlock.type === 'filename'){
-		filenameValue = inputBlock.getFieldValue('FILENAME');
-		console.log("HANDLEBLOCK - filenameValue:", filenameValue);
-	}else if(inputBlock && inputBlock.type === 'filenamesCreate'){
-		filenameValue = getFileNames(inputBlock);
-		console.log("HANDLEBLOCK - MultiplefilenameValue:", filenameValue);
+	if(aboveBlock && (aboveBlock.type == 'filename' || aboveBlock.type == 'filenamesCreate')){
+		filenameValue = handleFilenamesBlocks(aboveBlock)
 	}
 	
 	// Fetch the attached regex block
@@ -148,7 +145,7 @@ function handleBlock(block) {
 		commandParts = handleRegexBlocks(block,blockDefinition,patternValue);
 	}
 	else{
-		commandParts = handleMainBlocks(block,blockDefinition,filenameValue,patternValue,regexStringValue);
+		commandParts = handleMainBlocks(block,blockDefinition,patternValue,regexStringValue);
 	}
 
 	//in case of the awk the regexStringValue is already included in the command so we dont need it
@@ -177,7 +174,7 @@ function handleBlock(block) {
     return commandString;
 }
 
-function handleMainBlocks(block,blockDefinition,filenameValue,patternValue,regexStringValue){
+function handleMainBlocks(block,blockDefinition,patternValue,regexStringValue){
 		console.log("handleMainBlocks init");
 		let commandParts = [];
 		
@@ -451,6 +448,21 @@ function getFileNames(block) {
     return fileNames.join(' ');
 }
 
+function handleFilenamesBlocks(block) {
+	
+	console.log("handleFilenamesBlocks - init");
+	var filename='';
+	if(block && block.type === 'filename'){
+		filename = block.getFieldValue('FILENAME');
+		console.log("handleFilenamesBlocks - filename:", filename);
+	}else if(block && block.type === 'filenamesCreate'){
+		filename = getFileNames(block);
+		console.log("handleFilenamesBlocks - MultiplefilenameValue:", filename);
+	}
+	
+	return filename;
+}
+
 function getMultiplePatterns(block) {
 	
 	console.log("getMultiplePatterns - init");
@@ -567,6 +579,19 @@ Blockly.Extensions.register('integer_validation', function() {
       }
     });
   });
+});
+
+Blockly.Extensions.register('disallow_multiple_filenames', function() {
+    this.setOnChange(function(changeEvent) {
+        if (changeEvent.type === Blockly.Events.BLOCK_MOVE && changeEvent.blockId === this.id) {
+            var connectedBlock = this.getPreviousBlock();
+            if (connectedBlock && connectedBlock.type === 'filenamesCreate') {
+                // Disconnect the disallowed block
+                this.previousConnection.disconnect();
+                console.warn('Disallowed block type cannot be connected here.');
+            }
+        }
+    });
 });
 //***********************************
 //EXTENSIONS FOR VALIDATIONS - END

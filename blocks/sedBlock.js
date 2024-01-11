@@ -8,12 +8,8 @@ var sedBlock = {
       globally: "g"
     }
   ],
-  message0: "Stream edit in a file %1\n",
-  args0: [{
-      type: "input_value",
-      name: "FILENAME",
-	  check: ["filename" , "filenamesCreate",] 
-  }],
+  message0: "Stream edit in a file\n",
+
   message1: "search pattern %1 is Regex %2\n",
   args1: [{
     type: "input_value",

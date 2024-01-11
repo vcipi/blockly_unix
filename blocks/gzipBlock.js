@@ -7,14 +7,8 @@ var gzipBlock = {
 	  compress_level: "???" //add only before the level of compression the command requires a string eg. in sort the column requires -k (sort -k3 test.csv)
     }
   ],
-  message0: "File compress/decompress %1",
-  args0: [
-    {
-      type: "field_input",
-      name: "FILENAME",
-      text: "default.txt" // default text for the input
-    }
-  ],
+  message0: "File compress/decompress",
+
   message1: "keep original file %1",
   args1: [
     {

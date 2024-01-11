@@ -6,12 +6,8 @@ var teeBlock = {
     append : "-a"
     }
   ],
-  message0: "Save to file &\n and continue processing %1\n",
-  args0: [{
-      type: "input_value",
-      name: "FILENAME",
-	  check: ["filename" , "filenamesCreate",] 
-  }],
+  message0: "Save to file &\n and continue processing\n",
+
   message1: "append to file %1",
   args1: [
     {

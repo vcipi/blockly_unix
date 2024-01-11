@@ -8,7 +8,6 @@ var filenamesCreateBlock = {
         name: "EMPTY",
       },
     ],
-    output: "filenamesCreate",
     style: "list_blocks", 
     nextStatement: "Action",
     helpUrl: "%{BKY_FILES_CREATE_WITH_HELPURL}",

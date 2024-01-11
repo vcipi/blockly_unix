@@ -1,6 +1,6 @@
 var sortBlock = {
   type: "sort",
-  message0: "Sort file%1",
+  message0: "Sort file",
   category: "Data Processing",
   unix_description: [
     {
@@ -13,11 +13,6 @@ var sortBlock = {
 
     }
   ],
-  args0: [{
-	  type: "input_value",
-      name: "FILENAME",
-	  check: ["filename" , "filenamesCreate",]
-  }],
   message1: "descending order %1",
   args1: [
     {

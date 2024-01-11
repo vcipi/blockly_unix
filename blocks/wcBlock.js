@@ -1,6 +1,6 @@
 var wcBlock = {
   type: "wc",
-  message0: "Word count of file %1",
+  message0: "Word count of file",
   category: "Data Processing",
   unix_description: [
     {
@@ -11,11 +11,7 @@ var wcBlock = {
 
     }
   ],
-  args0: [{
-      type: "input_value",
-      name: "FILENAME",
-	  check: ["filename" , "filenamesCreate",]
-  }],
+
   message1: "line count %1",
   args1: [
     {

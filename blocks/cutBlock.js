@@ -6,12 +6,8 @@ var cutBlock = {
 
     }
   ],
-  message0: "Cut out in file %1\n",
-  args0: [{
-      type: "input_value",
-      name: "FILENAME",
-	  check: ["filename" , "filenamesCreate",]
-  }],
+  message0: "Cut out in file\n",
+
   message1: "pattern %1",
   args1: [{
     type: "input_value",

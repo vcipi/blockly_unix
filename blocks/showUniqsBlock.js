@@ -1,17 +1,12 @@
 var showUniqsBlock = {
   type: "showUniqs",
-  message0: "Show only the unique lines in file %1\n",
+  message0: "Show only the unique lines in file\n",
   category: "Data Processing",
   unix_description: [
     {
       uniq : '-u' // uniq -u
     }
   ],
-  args0: [{
-	  type: "input_value",
-      name: "FILENAME",
-	  check: ["filename" , "filenamesCreate",] 
-  }],
 
   // output: "String",
   colour: 240,
