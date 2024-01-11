@@ -113,6 +113,19 @@ function handleBlock(block) {
 	
 	// Fetch the attached regex block
     var inputPatternBlock = block.getInputTargetBlock('regPattern');
+	var beginBlock = block.getInputTargetBlock('begin');
+	console.log("begin", beginBlock);
+	var endBlock = block.getInputTargetBlock('end');
+	console.log("end", endBlock);
+
+	if(beginBlock){
+		beginValue = handleBeginEnd(beginBlock);
+	};
+
+	if(endBlock){
+		endValue = handleBeginEnd(endBlock);
+	};
+
 	//console.log("inputPatternBlock:", inputPatternBlock.type);
     // If there's a connected block, and it's of type 'Regex', get the field value
 	var patternValue='';
@@ -163,6 +176,17 @@ function handleBlock(block) {
 	}else if(blockCategory === "Regular Expressions") {
 		commandString = regexStringValue + commandParts.join('');
 	}
+	else if (blockCategory === "awk") {
+
+		let beginIndex = commandParts.indexOf('BEGIN');
+		let endIndex = commandParts.indexOf('END');
+
+		let begin = beginIndex !== -1 ? commandParts[beginIndex] : null;
+		let end = endIndex !== -1 ? commandParts[endIndex] : null;
+
+		commandString = blockType + ' ' + commandParts[0] + ' ' + begin + ' ' + beginValue + ' ' + conditionValue + 
+					' ' + regexStringValue + ' ' + end + ' ' + endValue + ' ' + filenameValue;
+	}
 	else{
 		commandString = blockType + ' ' + commandParts.join(' ') + ' ' + conditionValue + ' ' + regexStringValue + ' ' + filenameValue;
 	}
@@ -173,6 +197,32 @@ function handleBlock(block) {
 
     return commandString;
 }
+
+function handleBeginEnd(block){
+	console.log("handleBegin init");
+	var blockCode;
+	//console.log("handleConditionsAndLoops - block :", block.type);
+	var innerBlock = block.getInputTargetBlock('DO');
+	//console.log("handleConditionsAndLoops - innerBlock :", innerBlock);
+	
+	var doBlock = innerBlock.getInputTargetBlock('DO0');
+	if (innerBlock.type === 'controls_if' && !doBlock) { // Check if the "do" block of an if statement is empty
+		var conditionBlock = innerBlock.getInputTargetBlock('IF0'); // Get the first condition block
+		if (conditionBlock) {
+			blockCode = generator.blockToCode(conditionBlock)[0];
+			blockCode = blockCode.replace(/'/g, '').replace(/;/g, '');
+			blockCode = blockCode.replace(/\n/g, ' ').replace(/\s+/g, ' ') + "'";
+		}
+	}else {
+		blockCode = generator.blockToCode(innerBlock);
+		blockCode = blockCode.replace(/'/g, '').replace(/;/g, '');
+		blockCode = "{" + blockCode.replace(/\n/g, ' ').replace(/\s+/g, ' ') + "}'";
+	}
+
+	console.log("handleBegin - code:", blockCode);
+
+	return blockCode;
+};
 
 function handleMainBlocks(block,blockDefinition,patternValue,regexStringValue){
 		console.log("handleMainBlocks init");

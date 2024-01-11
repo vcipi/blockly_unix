@@ -10,6 +10,7 @@
 	<!-- <script src="https://unpkg.com/@blockly/block-plus-minus"></script> -->
 
 	<!-- BLOCKS DEFINITION -->
+    <script src="blocks/beginEndBlock.js"></script>
 	<script src="blocks/filenameBlock.js"></script>
 	<script src="blocks/headBlock.js"></script>
 	<script src="blocks/tailBlock.js"></script>
@@ -49,6 +50,7 @@
     <script src="blocks/columnBlock.js"></script>
     <script src="blocks/headersBlock.js"></script>
     <script src="blocks/variableBlock.js"></script>
+    <script src="blocks/variablePassBlock.js"></script>
     <script src="blocks/teeBlock.js"></script>
     <script src="blocks/arrayCreateBlock.js"></script>
     <script src="blocks/fileEndStartBlock.js"></script>
@@ -127,6 +129,8 @@
                 <block type="regWhitespace"></block>
             </category>
             <category name="Awk" colour="#D800FF">
+                <block type="variablePass"></block>
+                <block type="beginEnd"></block>
                 <block type="awk"></block>
 				<block type="condOutput"></block>
                 <block type="controls_if"></block>

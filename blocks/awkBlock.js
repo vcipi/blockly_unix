@@ -8,10 +8,17 @@ var awkBlock = {
     input_variable : '-v"', 
 	  regPattern : "{patt",
 	  awk_cols : "{print str}}'",
+    begin : "BEGIN",
+    end : "END"
     }
+    
   ],
-  message0: "Text data processing in file\n",
-
+  message0: "Text data processing in file %1\n",
+  args0: [{
+      type: "input_value",
+      name: "FILENAME",
+	  check: ["filename" , "filenamesCreate",]
+  }],
   message1: "delimeter %1",
   args1: [
     {
@@ -37,14 +44,26 @@ var awkBlock = {
       checked: false // by default it's disabled
     }
   ],
-  message4: "pattern or condition %1\n",
+  message3: "Do before lines process %1\n",
+  args3: [{
+    type: "input_value",
+    name: "begin",
+    check: "String" 
+  }],
+  message4: "action %1\n",
   args4: [{
     type: "input_value",
     name: "regPattern",
     check: "String" 
   }],
-  message5: "columns to print %1",
-  args5: [
+  message5: "Do after lines process %1\n",
+  args5: [{
+    type: "input_value",
+    name: "end",
+    check: "String" 
+  }],
+  message6: "columns to print %1",
+  args6: [
     {
       type: "input_value",
       name: "awk_cols",
