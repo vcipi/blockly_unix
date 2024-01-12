@@ -118,10 +118,12 @@ function handleBlock(block) {
 	var endBlock = block.getInputTargetBlock('end');
 	console.log("end", endBlock);
 
+	var beginValue='';
 	if(beginBlock){
 		beginValue = handleBeginEnd(beginBlock);
 	};
 
+	var endValue='';
 	if(endBlock){
 		endValue = handleBeginEnd(endBlock);
 	};
@@ -137,7 +139,7 @@ function handleBlock(block) {
 		patternValue = getMultiplePatterns(inputPatternBlock);
 		console.log("HANDLEBLOCK - MultiplepatternValue:", patternValue);
 	}else if (inputPatternBlock && inputPatternBlock.type === 'condOutput'){
-		conditionValue = handleConditionsAndLoops(inputPatternBlock);
+		conditionValue = handleConditionsAndLoops(inputPatternBlock, blockType);
 		console.log("HANDLEBLOCK - conditionValue", conditionValue);
 	}
 	
@@ -181,11 +183,11 @@ function handleBlock(block) {
 		let beginIndex = commandParts.indexOf('BEGIN');
 		let endIndex = commandParts.indexOf('END');
 
-		let begin = beginIndex !== -1 ? commandParts[beginIndex] : null;
-		let end = endIndex !== -1 ? commandParts[endIndex] : null;
-
-		commandString = blockType + ' ' + commandParts[0] + ' ' + begin + ' ' + beginValue + ' ' + conditionValue + 
-					' ' + regexStringValue + ' ' + end + ' ' + endValue + ' ' + filenameValue;
+		let begin = beginIndex !== -1 ? commandParts[beginIndex] : '';
+		let end = endIndex !== -1 ? commandParts[endIndex] : '';
+		console.log("commands:", commandParts);
+		commandString = blockType +  ' ' + commandParts[0] + ' ' + begin + ' ' + beginValue + ' ' + conditionValue + 
+					' ' + regexStringValue + ' ' + end + ' ' + endValue + ' ' + commandParts[0] + ' ' + filenameValue;
 	}
 	else{
 		commandString = blockType + ' ' + commandParts.join(' ') + ' ' + conditionValue + ' ' + regexStringValue + ' ' + filenameValue;
@@ -216,7 +218,7 @@ function handleBeginEnd(block){
 	}else {
 		blockCode = generator.blockToCode(innerBlock);
 		blockCode = blockCode.replace(/'/g, '').replace(/;/g, '');
-		blockCode = "{" + blockCode.replace(/\n/g, ' ').replace(/\s+/g, ' ') + "}'";
+		blockCode = "{" + blockCode.replace(/\n/g, ' ').replace(/\s+/g, ' ') + "}";
 	}
 
 	console.log("handleBegin - code:", blockCode);
@@ -393,7 +395,7 @@ function handleRegexBlocks(block,blockDefinition,patternValue){
 		return commandParts;
 }
 
-function handleConditionsAndLoops(block){
+function handleConditionsAndLoops(block, blockType){
 		console.log("handleConditionsAndLoops init");
 		var blockCode;
 		//console.log("handleConditionsAndLoops - block :", block.type);
@@ -406,12 +408,22 @@ function handleConditionsAndLoops(block){
 			if (conditionBlock) {
 				blockCode = generator.blockToCode(conditionBlock)[0];
 				blockCode = blockCode.replace(/'/g, '').replace(/;/g, '');
+				if(blockType == 'awk'){
+				blockCode = blockCode.replace(/\n/g, ' ').replace(/\s+/g, ' ');
+				}
+				else {
 				blockCode = blockCode.replace(/\n/g, ' ').replace(/\s+/g, ' ') + "'";
+				}
 			}
 		}else {
 			blockCode = generator.blockToCode(innerBlock);
 			blockCode = blockCode.replace(/'/g, '').replace(/;/g, '');
-			blockCode = "{" + blockCode.replace(/\n/g, ' ').replace(/\s+/g, ' ') + "}'";
+			if(blockType == 'awk'){
+				blockCode = "{" + blockCode.replace(/\n/g, ' ').replace(/\s+/g, ' ') + "}";
+			}
+			else {
+				blockCode = "{" + blockCode.replace(/\n/g, ' ').replace(/\s+/g, ' ') + "}'";
+			}
 		}
 
 		console.log("handleConditionsAndLoops - code:", blockCode);
