@@ -1,6 +1,6 @@
 var wcBlock = {
   type: "wc",
-  message0: "Word count of file",
+  message0: "Count in file",
   category: "Data Processing",
   unix_description: [
     {
@@ -12,7 +12,7 @@ var wcBlock = {
     }
   ],
 
-  message1: "line count %1",
+  message1: "lines count %1",
   args1: [
     {
       type: "field_checkbox",

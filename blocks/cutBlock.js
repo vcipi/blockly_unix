@@ -3,18 +3,37 @@ var cutBlock = {
   category: "File and Directory Operations",
   unix_description: [
     {
-
+      delimiter : "-d'str'", 
+      columns : "-f'str'",
+      chars : "-c'str'"
     }
   ],
   message0: "Cut out in file\n",
-
-  message1: "pattern %1",
+  message1: "delimiter %1",
   args1: [{
-    type: "input_value",
-    name: "regPattern",
-    check: "String" 
+    type: "field_input",
+    name: "delimiter", 
+    text: "",
   }],
-  colour: 611,
+  message2: "define columns %1\n",
+  args2: [{
+    type: "field_input",
+    name: "columns", 
+    text: "",
+  }],
+  message3: "substring start %1 end %2",
+  args3: [{
+    type: "field_input",
+    name: "chars", 
+    text: "",
+  },
+  {
+    type: "field_input",
+    name: "chars", 
+    text: "",
+  }
+  ],
+  colour: 320,
   previousStatement: "Action",
   nextStatement: "Action",
   tooltip: "Cut out in a file",

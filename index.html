@@ -55,6 +55,10 @@
     <script src="blocks/arrayCreateBlock.js"></script>
     <script src="blocks/fileEndStartBlock.js"></script>
     <script src="blocks/fileWildcardBlock.js"></script>
+    <script src="blocks/echoBlock.js"></script>
+    <script src="blocks/calculateBlock.js"></script>
+    <script src="blocks/doBlock.js"></script>
+    <script src="blocks/multipleVariablesBlock.js"></script>
     
 	<!-- END OF BLOCK DEFINITION -->
 
@@ -99,6 +103,7 @@
             </category>
             <category name="File and Directory Operations" colour="#457D4B">
                 <block type="ls"></block>
+                <block type="echo"></block>
                 <block type="cd"></block>
                 <block type="mkdir"></block>
                 <block type="gzip"></block>
@@ -130,6 +135,9 @@
             </category>
             <category name="Awk" colour="#D800FF">
                 <block type="variablePass"></block>
+                <block type="multipleVariables"></block>
+                <block type="do"></block>
+                <block type="calculate"></block>
                 <block type="beginEnd"></block>
                 <block type="awk"></block>
 				<block type="condOutput"></block>
@@ -180,6 +188,7 @@
 					</value>
 				</block>
             </category>
+            <category name="%{BKY_CATVARIABLES}" colour="%{BKY_VARIABLES_HUE}" custom="VARIABLE"></category>
            
         </xml>
     `;
