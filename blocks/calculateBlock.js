@@ -22,7 +22,7 @@ var calculateBlock = {
   args2: [
     {
       type: "field_dropdown",
-      name: "metric_type",
+      name: "operation",
       options: [
         [ "add", "add" ],
         [ "multiply", "multiply" ]
