@@ -1,6 +1,6 @@
 var findBlock = {
   type: "find",
-  message0: "Find files in\n",
+  message0: "Find files in file hierarchy \n",
   category: "File and Directory Operations",
   unix_description: [
     {
@@ -16,20 +16,47 @@ var findBlock = {
       reverse: "-r",
       Kbs : "K",
       Mbs : "M",
-      Gbs : "G"
+      Gbs : "G",
+      current : ".",
+      parent : "..",
+      grandparent : "../.." ,
+      subdirs : "-maxdepth 1",
+      patt : "patt"
+
     }
   ],
 
-  message1: "directory %1",
+  message1: "search in %1 directory ",
   args1: [
+    {
+      type: "field_dropdown",
+      name: "dir",
+      options: [
+        [ "choose", "choose" ],
+        [ "current", "current" ],
+        [ "parent", "parent" ],
+        [ "grandparent", "grandparent" ]
+      ]
+    }
+  ],
+  message2: "Do not include subdirectories %1 ",
+  args2: [
+    {
+      type: "field_checkbox",
+      name: "subdirs",
+      checked: true // by default it's enabled
+    }
+  ],
+  message3: "Define other directory %1",
+  args3: [
     {
       type: "field_input",
       name: "path", 
       text: "",
     }
   ],
-  message2: "modified last %1 %2",
-  args2: [
+  message4: "modified last %1 %2",
+  args4: [
     {
       type: "field_dropdown",
       name: "modified",
@@ -45,8 +72,8 @@ var findBlock = {
       text: ""
     }
   ],
-  message3: "accessed last %1 %2",
-  args3: [
+  message5: "accessed last %1 %2",
+  args5: [
     {
       type: "field_dropdown",
       name: "accessed",
@@ -62,8 +89,8 @@ var findBlock = {
       text: ""
     }
   ],
-  message4: "metadata changed last %1 %2",
-  args4: [
+  message6: "metadata changed last %1 %2",
+  args6: [
     {
       type: "field_dropdown",
       name: "changed",
@@ -79,8 +106,8 @@ var findBlock = {
       text: "",
     }
   ],
-  message5: "size %1 than %2 %3",
-  args5: [
+  message7: "size %1 than %2 %3",
+  args7: [
     {
       type: "field_dropdown",
       name: "size",
@@ -106,12 +133,11 @@ var findBlock = {
       ]
     }
   ],
-  message6: "with name like %1",
-  args6: [
+  message8: "with name like %1",
+  args8: [
     {
       type: "input_value",
-      name: "FILENAME",
-	    check: ["filename" , "filenamesCreate",]
+      name: "patt"
     }
   ],
 
@@ -119,7 +145,7 @@ var findBlock = {
   colour: 450,
   previousStatement: "Action",
   nextStatement: "Action",
-  tooltip: "list directory contents",
+  tooltip: "Find files in directories and subdirectories",
   helpUrl: "" // URL to further information or documentation.
 };
 

@@ -2,8 +2,8 @@ var fileEndStartBlock = {
   type: "fileEndStart",
   unix_description: [
     {
-      starts: "patt*",
-      ends: "*patt",
+      starts: "str*",
+      ends: "*str",
     }
   ],
   message0: "Filename %1  %2",
@@ -18,15 +18,15 @@ var fileEndStartBlock = {
     },
     {
       type: "field_input",
-      name: "filename",
+      name: "str",
 	    text: "............" // empty text for user to define filename
     }
   ],
   
-  output: "filename",
+  output: "string",
   colour: 550,
   nextStatement: "Action",
-  tooltip: "Represents a filename.",
+  tooltip: "wildcard searching in filenames",
   helpUrl: "" // URL to further information or documentation.
 };
 

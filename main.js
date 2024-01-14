@@ -179,15 +179,16 @@ function handleBlock(block) {
 		commandString = regexStringValue + commandParts.join('');
 	}
 	else if (blockCategory === "awk") {
-
 		let beginIndex = commandParts.indexOf('BEGIN');
 		let endIndex = commandParts.indexOf('END');
+		let inputDelimIndex = commandParts.findIndex(element => typeof element === 'string' && element.includes("-F"));
 
 		let begin = beginIndex !== -1 ? commandParts[beginIndex] : '';
 		let end = endIndex !== -1 ? commandParts[endIndex] : '';
+		let inputDelim = inputDelimIndex !== -1 ? commandParts[inputDelimIndex] : '';
 		console.log("commands:", commandParts);
-		commandString = blockType +  ' ' + commandParts[0] + ' ' + begin + ' ' + beginValue + ' ' + conditionValue + 
-					' ' + regexStringValue + ' ' + end + ' ' + endValue + ' ' + commandParts[0] + ' ' + filenameValue;
+		commandString = blockType +  ' ' + inputDelim + ' ' + "'" + ' ' + begin + ' ' + beginValue + ' ' + conditionValue + 
+					' ' + regexStringValue + ' ' + end + ' ' + endValue + ' ' + "'" + ' ' + filenameValue;
 	}
 	else{
 		commandString = blockType + ' ' + commandParts.join(' ') + ' ' + conditionValue + ' ' + regexStringValue + ' ' + filenameValue;
