@@ -5,7 +5,8 @@ var cutBlock = {
     {
       delimiter : "-d'str'", 
       columns : "-f'str'",
-      chars : "-c'str'"
+      charsStart : "-c str",
+      charsEnd : "-c-str"
     }
   ],
   message0: "Cut out in file\n",
@@ -24,12 +25,12 @@ var cutBlock = {
   message3: "substring start %1 end %2",
   args3: [{
     type: "field_input",
-    name: "chars", 
+    name: "charsStart", 
     text: "",
   },
   {
     type: "field_input",
-    name: "chars", 
+    name: "charsEnd", 
     text: "",
   }
   ],

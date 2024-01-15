@@ -195,6 +195,11 @@ function handleBlock(block) {
 	}
 
 	console.log("HANDLEBLOCK - command built:", commandString);
+	//for the moment used for correctly using the cut block with the -c parameter
+	commandString = commandString.replace(/(\d+)\s+-c-(\d+)/g, "$1-$2");
+	
+	//for the moment used for correctly using the find block 
+	commandString = commandString.replace(/([-+])\s+(\d+)/g, "$1$2").replace(/([+-])(\d+)\s+([A-Z])/g, "$1$2$3");
 	
     // Here you can add any custom logic for special cases
 
@@ -410,10 +415,10 @@ function handleConditionsAndLoops(block, blockType){
 				blockCode = generator.blockToCode(conditionBlock)[0];
 				blockCode = blockCode.replace(/'/g, '').replace(/;/g, '');
 				if(blockType == 'awk'){
-				blockCode = blockCode.replace(/\n/g, ' ').replace(/\s+/g, ' ');
+					blockCode = blockCode.replace(/\n/g, ' ').replace(/\s+/g, ' ');
 				}
 				else {
-				blockCode = blockCode.replace(/\n/g, ' ').replace(/\s+/g, ' ') + "'";
+					blockCode = blockCode.replace(/\n/g, ' ').replace(/\s+/g, ' ') + "'";
 				}
 			}
 		}else {
