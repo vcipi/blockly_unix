@@ -3,14 +3,49 @@ Blockly.JavaScript = new Blockly.Generator('JavaScript');
 var generator = javascript.javascriptGenerator;
 
 // Global replacement map
-const replacementMap = {
-  "findDuplicates": "uniq -d",
-  "showUniqs": "uniq -u",
-  //"or":"||",
-  "and" : "&&",
-  "window.alert" : "print"
-  // Add more key-value pairs as needed
-};
+const replacementMap = new Map([
+    ["findDuplicates", "uniq -d"],
+    ["showUniqs", "uniq -u"],
+    // "or": "||",
+    ["and", "&&"],
+    ["window.alert", "print"],
+    // Add more key-value pairs as needed
+]);
+
+// used for correctly using the cut block with the -c parameter
+let regexKey = /(\d+)\s+-c-(\d+)/g;
+replacementMap.set(regexKey, (str) => {
+										regexKey.lastIndex = 0; // Reset lastIndex for global regex
+										let match = regexKey.exec(str);
+										return match ? `${match[1]}-${match[2]}` : null;
+									  }
+);
+
+// used for correctly using the find block
+let regexKeyFind = /([-+])\s+(\d+)/g;
+replacementMap.set(regexKeyFind, (str) => {
+										regexKeyFind.lastIndex = 0; // Reset lastIndex for global regex
+										let match = regexKeyFind.exec(str);
+										return match ? `${match[1]}${match[2]}` : null;
+									  }
+);
+
+// used for correctly using the find block
+let regexKeyFind1 = /([+-])(\d+)\s+([A-Z])/g;
+replacementMap.set(regexKeyFind1, (str) => {
+										regexKeyFind1.lastIndex = 0; // Reset lastIndex for global regex
+										let match = regexKeyFind1.exec(str);
+										return match ? `${match[1]}${match[2]}${match[3]}` : null;
+									  }
+);
+
+// used for printing variables changes without the extra generic javascript check
+replacementMap.set(/\(typeof .+ === number \? .+ : 0\) /g, "");
+
+// used for printing correctly variable's changes
+replacementMap.set(/= \+1/g, "++");
+replacementMap.set(/= \+/g, "+=");
+
 
 document.getElementById('executeButton').addEventListener('click', function onExecuteButtonClick() {
 
@@ -195,11 +230,6 @@ function handleBlock(block) {
 	}
 
 	console.log("HANDLEBLOCK - command built:", commandString);
-	//for the moment used for correctly using the cut block with the -c parameter
-	commandString = commandString.replace(/(\d+)\s+-c-(\d+)/g, "$1-$2");
-	
-	//for the moment used for correctly using the find block 
-	commandString = commandString.replace(/([-+])\s+(\d+)/g, "$1$2").replace(/([+-])(\d+)\s+([A-Z])/g, "$1$2$3");
 	
     // Here you can add any custom logic for special cases
 
@@ -494,10 +524,22 @@ function getRegexChildenBlocks(startBlock) {
 
 // Function to replace keywords in a command
 function replaceKeywords(command) {
-  Object.keys(replacementMap).forEach((key) => {
-    command = command.replace(new RegExp(key, 'g'), replacementMap[key]);
-  });
-  return command;
+    replacementMap.forEach((value, key) => {
+        if (typeof key === 'string' || key instanceof String) {
+            // If the key is a string, use it in a RegExp
+            command = command.replace(new RegExp(key, 'g'), value);
+        } else if (key instanceof RegExp) {
+            // If the key is a RegExp, use it directly
+            command = command.replace(key, (match) => {
+                // If the value is a function, call it with the match
+                if (typeof value === 'function') {
+                    return value(match);
+                }
+                return value;
+            });
+        }
+    });
+    return command;
 }
 
 function getFileNames(block) {

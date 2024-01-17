@@ -13,7 +13,7 @@ var columnBlock = {
         'name': 'TEXT'
       },
     ],
-    'output': 'String',
+    'output': null,
     // 'style': 'logic_blocks',
     'colour': 260,
     'tooltip': 'put column',
