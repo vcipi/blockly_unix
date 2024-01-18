@@ -253,7 +253,7 @@ function handleBeginEnd(block){
 		}
 	}else {
 		blockCode = generator.blockToCode(innerBlock);
-		blockCode = blockCode.replace(/'/g, '').replace(/;/g, '');
+		blockCode = blockCode.replace(/'/g, '');
 		blockCode = "{" + blockCode.replace(/\n/g, ' ').replace(/\s+/g, ' ') + "}";
 	}
 
