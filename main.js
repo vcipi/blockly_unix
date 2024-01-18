@@ -40,7 +40,7 @@ replacementMap.set(regexKeyFind1, (str) => {
 );
 
 // used for printing variables changes without the extra generic javascript check
-replacementMap.set(/\(typeof .+ === number \? .+ : 0\) /g, "");
+	replacementMap.set(/\(typeof (.+?) === number \? (.+?) : 0\) /g, "");
 
 // used for printing correctly variable's changes
 replacementMap.set(/= \+1/g, "++");
@@ -80,7 +80,7 @@ document.getElementById('executeButton').addEventListener('click', function onEx
         // Move to the next connected block
         currentBlock = currentBlock.getNextBlock();
     }
-
+	console.log('generatedcommand_test:', generatedCommand);
 	generatedCommand = replaceKeywords(generatedCommand);
 
     // Combine the constructed UNIX command and filename
@@ -443,17 +443,19 @@ function handleConditionsAndLoops(block, blockType){
 			var conditionBlock = innerBlock.getInputTargetBlock('IF0'); // Get the first condition block
 			if (conditionBlock) {
 				blockCode = generator.blockToCode(conditionBlock)[0];
-				blockCode = blockCode.replace(/'/g, '').replace(/;/g, '');
+				blockCode = blockCode.replace(/'/g, '');//.replace(/;/g, '');
 				if(blockType == 'awk'){
+					
 					blockCode = blockCode.replace(/\n/g, ' ').replace(/\s+/g, ' ');
 				}
 				else {
+					console.log("innerblock_test", innerBlock)
 					blockCode = blockCode.replace(/\n/g, ' ').replace(/\s+/g, ' ') + "'";
 				}
 			}
 		}else {
 			blockCode = generator.blockToCode(innerBlock);
-			blockCode = blockCode.replace(/'/g, '').replace(/;/g, '');
+			blockCode = blockCode.replace(/'/g, '');//.replace(/;/g, '');
 			if(blockType == 'awk'){
 				blockCode = "{" + blockCode.replace(/\n/g, ' ').replace(/\s+/g, ' ') + "}";
 			}
