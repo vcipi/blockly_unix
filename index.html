@@ -95,7 +95,7 @@
                 <block type="fileEndStart"></block>
                 <block type="fileWildcard"></block>
                 <block type="arrayCreate"></block>
-                <block type="headers"></block>
+                <!-- <block type="headers"></block> -->
                 <block type="head"></block>
                 <block type="tail"></block>
                 <block type="wc"></block>
@@ -133,22 +133,23 @@
                 <block type="regRange"></block>
                 <block type="regQuant"></block>
                 <block type="regAnyOne"></block>
-                <block type="regDigit"></block>
-                <block type="regWordChar"></block>
-                <block type="regWhitespace"></block>
+               <!-- <block type="regDigit"></block> -->
+               <!-- <block type="regWordChar"></block> -->
+               <!-- <block type="regWhitespace"></block> -->
                 <block type="regLookahead"></block>
                 <block type="regCommon"></block>
             </category>
             <category name="Awk" colour="#D800FF">
-                <block type="variablePass"></block>
-                <block type="multipleVariables"></block>
+               <!-- <block type="variablePass"></block> -->
+               <!-- <block type="multipleVariables"></block> -->
                 <block type="do"></block>
-                <block type="calculate"></block>
+              <!-- <block type="calculate"></block> -->
                 <block type="beginEnd"></block>
                 <block type="awk"></block>
 				<block type="condOutput"></block>
                 <block type="controls_if"></block>
                 <block type="logic_compare"></block>
+                <block type="math_number"></block>
 				<block type="math_arithmetic">
 					<value name="A">
 					  <shadow type="math_number">
@@ -198,17 +199,87 @@
            
         </xml>
     `;
-    
+            
+    Blockly.Themes.Halloween = Blockly.Theme.defineTheme('halloween', {
+        'base': Blockly.Themes.Classic,
+        // 'categoryStyles': {
+        //     'list_category': {
+        //     'colour': "#4a148c"
+        //     },
+        //     'logic_category': {
+        //     'colour': "#8b4513",
+        //     },
+        //     'loop_category': {
+        //     'colour': "#85E21F",
+        //     },
+        //     'text_category': {
+        //     'colour': "#FE9B13",
+        //     },
+        // },
+        'blockStyles': {
+            'filename_style': {
+            'colourPrimary': "#4a148c",
+            'colourSecondary':"#AD7BE9",
+            'colourTertiary':"#CDB6E9",
+            },
+            'logic_blocks': {
+            'colourPrimary': "#8b4513",
+            'colourSecondary':"#ff0000",
+            'colourTertiary':"#C5EAFF"
+            },
+            'loop_blocks': {
+            'colourPrimary': "#85E21F",
+            'colourSecondary':"#ff0000",
+            'colourTertiary':"#C5EAFF"
+            },
+            'text_blocks': {
+            'colourPrimary': "#FE9B13",
+            'colourSecondary':"#ff0000",
+            'colourTertiary':"#C5EAFF"
+            },
+        },
+        // 'componentStyles': {
+        //     'workspaceBackgroundColour': '#ff7518',
+        //     'toolboxBackgroundColour': '#F9C10E',
+        //     'toolboxForegroundColour': '#fff',
+        //     'flyoutBackgroundColour': '#252526',
+        //     'flyoutForegroundColour': '#ccc',
+        //     'flyoutOpacity': 1,
+        //     'scrollbarColour': '#ff0000',
+        //     'insertionMarkerColour': '#fff',
+        //     'insertionMarkerOpacity': 0.3,
+        //     'scrollbarOpacity': 0.4,
+        //     'cursorColour': '#d0d0d0',
+        //     'blackBackground': '#333'
+        // }
+        });
+
+
+
     var workspace = Blockly.inject('blocklyDiv', {
         toolbox: toolboxXML,
+        theme: Blockly.Themes.Halloween,
 		trashcan: true,
-		move: {
-			scrollbars: true,  // Enables or disables scrollbars on the workspace
-			drag: true,        // Allows workspace to be moved (dragged) with the mouse
-			wheel: true        // Enables or disables scrolling with the mouse wheel
-		}
+        collapse : true, 
+        comments : true, 
+        disable : false, 
+        maxBlocks : Infinity, 
+        move: {
+            scrollbars: true,  // Enables or disables scrollbars on the workspace
+            drag: true,        // Allows workspace to be moved (dragged) with the mouse
+            wheel: true        // Enables or disables scrolling with the mouse wheel
+        },
+        zoom : {
+            controls : true, 
+            wheel : true, 
+            startScale : 1, 
+            maxScale : 3, 
+            minScale : 0.3, 
+            scaleSpeed : 1.2
+        }
     });
 </script>
 <script src="main.js"></script>
 </body>
 </html>
+

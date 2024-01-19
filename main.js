@@ -49,6 +49,9 @@ replacementMap.set(/== \//g, "~ /");
 replacementMap.set(/\/ ==/g, "/ ~");
 replacementMap.set(/,(\d+)\.(\d+)/g, "");
 
+// used for eliminating unwanted spaces in sed
+replacementMap.set(/(\/[^\/]*)\s/, "/");
+
 
 document.getElementById('executeButton').addEventListener('click', function onExecuteButtonClick() {
 
@@ -151,6 +154,8 @@ function handleBlock(block) {
 	
 	// Fetch the attached regex block
     var inputPatternBlock = block.getInputTargetBlock('regPattern');
+	var inputreplaceTextBlock = block.getInputTargetBlock('regReplaceText');
+	console.log("regReplaceText", inputreplaceTextBlock);
 	var beginBlock = block.getInputTargetBlock('begin');
 	console.log("begin", beginBlock);
 	var endBlock = block.getInputTargetBlock('end');
@@ -180,8 +185,7 @@ function handleBlock(block) {
 		conditionValue = handleConditionsAndLoops(inputPatternBlock, blockType);
 		console.log("HANDLEBLOCK - conditionValue", conditionValue);
 	}
-	
-		
+
 	//get all the regex children blocks of the main block
 	var regexBlocks = getRegexChildenBlocks(block);
 	//console.log("HANDLEBLOCK - regexBlocks[] length:", regexBlocks.length);
@@ -208,6 +212,11 @@ function handleBlock(block) {
 		if (!contains) {commandParts[0] = "'" + commandParts[0];}
 	}
 
+	//in case of the sed command the regexStringValue is already included in the command so we dont need it
+	if(blockType==="sed"){
+		regexStringValue='';
+	}
+
     // Build the string command from parts
 	let commandString;
 	
@@ -229,6 +238,7 @@ function handleBlock(block) {
 					' ' + regexStringValue + ' ' + end + ' ' + endValue + ' ' + "'" + ' ' + filenameValue;
 	}
 	else{
+		console.log("commands:", commandParts);
 		commandString = blockType + ' ' + commandParts.join(' ') + ' ' + conditionValue + ' ' + regexStringValue + ' ' + filenameValue;
 	}
 
@@ -942,6 +952,4 @@ const plusImage_File =
 //*************************
 //MUTATORS FOR LISTS - END
 //*************************
-
-
 

@@ -28,7 +28,8 @@ var fileContainsBlock = {
   ],
   
   output: "filename",
-  colour: 160,
+  // colour: 160,
+  style : "filename_style",
   nextStatement: "Action",
   tooltip: "Represents a wildcard for filenames. For wildcard in start or end leave relevant field empty",
   helpUrl: "" // URL to further information or documentation.

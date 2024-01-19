@@ -9,7 +9,8 @@ var filenameBlock = {
     }
   ],
   output: "filename",
-  colour: 230,
+  // colour: 230,
+  style : "filename_style",
   nextStatement: "Action",
   tooltip: "Represents a filename.",
   helpUrl: "" // URL to further information or documentation.

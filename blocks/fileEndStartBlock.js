@@ -24,7 +24,8 @@ var fileEndStartBlock = {
   ],
   
   output: "string",
-  colour: 550,
+  // colour: 550,
+  style : "filename_style",
   nextStatement: "Action",
   tooltip: "wildcard searching in filenames",
   helpUrl: "" // URL to further information or documentation.
