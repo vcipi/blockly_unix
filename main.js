@@ -40,11 +40,13 @@ replacementMap.set(regexKeyFind1, (str) => {
 );
 
 // used for printing variables changes without the extra generic javascript check
-	replacementMap.set(/\(typeof (.+?) === number \? (.+?) : 0\) /g, "");
+replacementMap.set(/\(typeof (.+?) === number \? (.+?) : 0\) /g, "");
 
 // used for printing correctly variable's changes
 replacementMap.set(/= \+1/g, "++");
 replacementMap.set(/= \+/g, "+=");
+replacementMap.set(/== \//g, "~ /");
+replacementMap.set(/\/ ==/g, "/ ~");
 
 
 document.getElementById('executeButton').addEventListener('click', function onExecuteButtonClick() {
@@ -438,9 +440,11 @@ function handleConditionsAndLoops(block, blockType){
 		var innerBlock = block.getInputTargetBlock('DO');
 		//console.log("handleConditionsAndLoops - innerBlock :", innerBlock);
 		
+		var conditionBlock = innerBlock.getInputTargetBlock('IF0'); // Get the first condition block
 		var doBlock = innerBlock.getInputTargetBlock('DO0');
+		
 		if (innerBlock.type === 'controls_if' && !doBlock) { // Check if the "do" block of an if statement is empty
-			var conditionBlock = innerBlock.getInputTargetBlock('IF0'); // Get the first condition block
+			//console.log("handleConditionsAndLoops - conditionBlock:", conditionBlock.type);
 			if (conditionBlock) {
 				blockCode = generator.blockToCode(conditionBlock)[0];
 				blockCode = blockCode.replace(/'/g, '');//.replace(/;/g, '');
@@ -597,6 +601,7 @@ function getMultiplePrints(block) {
     let prints = [];
     for (let i = 0; i < block.itemCount_; i++) {
         let inputBlock = block.getInputTargetBlock('ADD' + i);
+		console.log("getMultiplePrints - inputBlock Type: ", inputBlock.type);
         if (inputBlock) {
 			let singlePrint;
 			var blockDefinition = window[inputBlock.type + 'Block'];
@@ -611,6 +616,23 @@ function getMultiplePrints(block) {
 			}
 			else if(inputBlock.type == 'regOutput'){
 				singlePrint = handleBlock(inputBlock);
+			}
+			else if(inputBlock.type == 'variables_get'){
+
+				// Retrieve the variable ID from the block
+				var variableId = inputBlock.getFieldValue('VAR');
+
+				// Get the variable model from the workspace
+				var variableModel = Blockly.getMainWorkspace().getVariableById(variableId);
+
+				if (variableModel) {
+					// Get the name of the variable
+					singlePrint = variableModel.name;
+					console.log('Variable name:', singlePrint);
+				} else {
+					console.log('Variable not found');
+				}
+				
 			}
 			else{
 				singlePrint = '"' + inputBlock.getFieldValue('TEXT') + '"';
@@ -654,6 +676,39 @@ generator.forBlock['text'] = function(block) {
     var textValue = block.getFieldValue('TEXT');
     var code = '"' + textValue + '"';
     return [code, generator.ORDER_ATOMIC];
+};
+
+generator.forBlock['logic_compare'] = function(block) {
+			
+	var leftBlock = block.getInputTargetBlock('A');
+	var rightBlock = block.getInputTargetBlock('B');
+    var leftBlockCode = generator.valueToCode(block, 'A', generator.ORDER_ATOMIC);
+    var rightBlockCode = generator.valueToCode(block, 'B', generator.ORDER_ATOMIC);
+	
+	if (leftBlock && leftBlock.type === "regOutput" && leftBlockCode){
+		leftBlockCode = '/' + leftBlockCode + '/';
+	}
+	
+	if (rightBlock && rightBlock.type === "regOutput" && rightBlockCode){
+		rightBlockCode = '/' + rightBlockCode + '/';
+	}
+
+    // Construct the final code for the logic_compare block
+    var operator = block.getFieldValue('OP');
+	
+	// Map the field value to the corresponding symbol
+    var operators = {
+        "EQ": "==",
+        "NEQ": "!=",
+        "LT": "<",
+        "LTE": "<=",
+        "GT": ">",
+        "GTE": ">="
+    };
+    var operatorSymbol = operators[operator];
+	
+    var code = leftBlockCode + ' ' + operatorSymbol + ' ' + rightBlockCode;
+    return [code, generator.ORDER_RELATIONAL];
 };
 
 
