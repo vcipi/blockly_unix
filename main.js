@@ -47,6 +47,7 @@ replacementMap.set(/= \+1/g, "++");
 replacementMap.set(/= \+/g, "+=");
 replacementMap.set(/== \//g, "~ /");
 replacementMap.set(/\/ ==/g, "/ ~");
+replacementMap.set(/,(\d+)\.(\d+)/g, "");
 
 
 document.getElementById('executeButton').addEventListener('click', function onExecuteButtonClick() {
@@ -633,6 +634,9 @@ function getMultiplePrints(block) {
 					console.log('Variable not found');
 				}
 				
+			}
+			else if (inputBlock.type == 'math_arithmetic'){
+				singlePrint = generator.blockToCode(inputBlock);
 			}
 			else{
 				singlePrint = '"' + inputBlock.getFieldValue('TEXT') + '"';
