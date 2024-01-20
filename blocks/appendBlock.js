@@ -4,7 +4,7 @@ var appendBlock = {
   category: "I/O Redirection",  
   unix_description: [
     {
-      append_filename : '>> '
+      append_filename : '>> str'
     }
   ],
   args0: [
