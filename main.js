@@ -185,6 +185,11 @@ function handleBlock(block) {
 		conditionValue = handleConditionsAndLoops(inputPatternBlock, blockType);
 		console.log("HANDLEBLOCK - conditionValue", conditionValue);
 	}
+	
+	if (conditionValue === '' && blockType === 'condOutput'){
+		conditionValue = handleConditionsAndLoops(block, blockType);
+		console.log("HANDLEBLOCK -  MAIN conditionValue", conditionValue);
+	}
 
 	//get all the regex children blocks of the main block
 	var regexBlocks = getRegexChildenBlocks(block);
@@ -222,8 +227,12 @@ function handleBlock(block) {
 	
 	if(blockCategory==="I/O Redirection" ){
 		commandString = commandParts.join(' ');
-	}else if(blockCategory === "Regular Expressions") {
+	}
+	else if(blockCategory === "Regular Expressions") {
 		commandString = regexStringValue + commandParts.join('');
+	}
+	else if(blockType === 'condOutput'){
+		commandString = conditionValue.replace(/{(.+?) }'/g, "$1");
 	}
 	else if (blockCategory === "awk") {
 		let beginIndex = commandParts.indexOf('BEGIN');
@@ -612,7 +621,7 @@ function getMultiplePrints(block) {
     let prints = [];
     for (let i = 0; i < block.itemCount_; i++) {
         let inputBlock = block.getInputTargetBlock('ADD' + i);
-		console.log("getMultiplePrints - inputBlock Type: ", inputBlock.type);
+		//console.log("getMultiplePrints - inputBlock Type: ", inputBlock.type);
         if (inputBlock) {
 			let singlePrint;
 			var blockDefinition = window[inputBlock.type + 'Block'];
@@ -690,6 +699,16 @@ generator.forBlock['text'] = function(block) {
     var textValue = block.getFieldValue('TEXT');
     var code = '"' + textValue + '"';
     return [code, generator.ORDER_ATOMIC];
+};
+
+generator.forBlock['arrayCreate'] = function(block) {
+	var elements = [];
+    for (var i = 0; i < block.itemCount_; i++) {
+        var elementCode = generator.valueToCode(block, 'ADD' + i, generator.ORDER_NONE);
+        elements.push(elementCode);
+    }
+    var listString = elements.join(' '); // Join elements with space
+    return ['(' + listString + ')', generator.ORDER_ATOMIC];
 };
 
 generator.forBlock['logic_compare'] = function(block) {
