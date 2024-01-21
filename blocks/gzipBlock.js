@@ -4,17 +4,27 @@ var gzipBlock = {
   unix_description: [
     {
       keep: "-k",
-	  compress_level: "???" //add only before the level of compression the command requires a string eg. in sort the column requires -k (sort -k3 test.csv)
+      decompress: "-d"
+	    //compress_level: "???" //add only before the level of compression the command requires a string eg. in sort the column requires -k (sort -k3 test.csv)
     }
   ],
-  message0: "File compress/decompress",
-
+  message0: "%1 File",
+  args0: [
+    {
+      type: "field_dropdown",
+      name: "gzip",
+      options: [
+        [ "compress", "compress" ],
+        [ "decompress", "decompress" ]
+      ]
+    }
+  ],
   message1: "keep original file %1",
   args1: [
     {
       type: "field_checkbox",
       name: "keep",
-      checked: false // by default it's disabled
+      checked: true // by default it's disabled
     }
   ],
   message2: "level of compression %1",
@@ -28,12 +38,13 @@ var gzipBlock = {
 
     }
   ],
-  output: "String",
+  //output: "String",
   colour: 270,  
   extensions: [
     'integer_validation',
   ],
-  // nextStatement: "Action",
+  previousStatement: "Action",
+  nextStatement: "Action",
   tooltip: "File compress/decompress",
   helpUrl: "" // URL to further information or documentation.
 };

@@ -16,6 +16,15 @@ var teeBlock = {
       checked: false // by default it's disabled
     }
   ],
+
+  message2: "give file name\n %1",
+  args2: [
+    {
+      type: "field_input",
+      name: "filename",
+	    text: "............" 
+    }
+  ],
   colour: 510,
   previousStatement: "Action",
   nextStatement: "Action",

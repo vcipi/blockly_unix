@@ -91,6 +91,10 @@ replacementMap.set(/\/\s{1,}/g, "/");
 replacementMap.set(/\/\'\s{1,}g/g, "/g'");
 
 var filenameBlocks = ['filename', 'filenamesCreate', 'fileEndStart'];
+//used for gzip
+replacementMap.set(/\s.?-k\s{1,}/g, "-k");
+
+
 document.getElementById('executeButton').addEventListener('click', function onExecuteButtonClick() {
 
 	console.log("Top blocks:", workspace.getTopBlocks());
