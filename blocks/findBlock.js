@@ -1,6 +1,5 @@
 var findBlock = {
   type: "find",
-  message0: "Find files in file hierarchy \n",
   category: "File and Directory Operations",
   unix_description: [
     {
@@ -21,11 +20,15 @@ var findBlock = {
       parent : "..",
       grandparent : "../.." ,
       subdirs : "-maxdepth 1",
-      patt : "patt"
+      regPattern : "patt",
+      file : "-type f",
+      directory : "-type d",
+      both : ""
 
     }
   ],
 
+  message0: "Find in file hierarchy \n",
   message1: "search in %1 directory ",
   args1: [
     {
@@ -39,24 +42,36 @@ var findBlock = {
       ]
     }
   ],
-  message2: "Do not include subdirectories %1 ",
+  message2: "for %1 ",
   args2: [
+    {
+      type: "field_dropdown",
+      name: "type",
+      options: [
+        [ "files", "file" ],
+        [ "directories", "directory" ],
+        [ "both", "both" ]
+      ]
+    }
+  ],
+  message3: "Do not include subdirectories %1 ",
+  args3: [
     {
       type: "field_checkbox",
       name: "subdirs",
       checked: true // by default it's enabled
     }
   ],
-  message3: "Define other directory %1",
-  args3: [
+  message4: "Define other directory %1",
+  args4: [
     {
       type: "field_input",
       name: "path", 
       text: "",
     }
   ],
-  message4: "modified last %1 %2",
-  args4: [
+  message5: "modified last %1 %2",
+  args5: [
     {
       type: "field_dropdown",
       name: "modified",
@@ -72,8 +87,8 @@ var findBlock = {
       text: ""
     }
   ],
-  message5: "accessed last %1 %2",
-  args5: [
+  message6: "accessed last %1 %2",
+  args6: [
     {
       type: "field_dropdown",
       name: "accessed",
@@ -89,8 +104,8 @@ var findBlock = {
       text: ""
     }
   ],
-  message6: "metadata changed last %1 %2",
-  args6: [
+  message7: "metadata changed last %1 %2",
+  args7: [
     {
       type: "field_dropdown",
       name: "changed",
@@ -106,8 +121,8 @@ var findBlock = {
       text: "",
     }
   ],
-  message7: "size %1 than %2 %3",
-  args7: [
+  message8: "size %1 than %2 %3",
+  args8: [
     {
       type: "field_dropdown",
       name: "size",
@@ -133,11 +148,11 @@ var findBlock = {
       ]
     }
   ],
-  message8: "with name like %1",
-  args8: [
+  message9: "with name like %1",
+  args9: [
     {
       type: "input_value",
-      name: "patt"
+      name: "regPattern"
     }
   ],
 

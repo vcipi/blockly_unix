@@ -14,7 +14,7 @@ var grepBlock = {
 	    regPattern: 'patt'
     }
   ],
-  message0: "Search in file",
+  message0: "Search in file or directory ",
 
   message1: "the pattern %1",
   args1:   [{

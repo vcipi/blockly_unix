@@ -49,8 +49,9 @@ replacementMap.set(/== \//g, "~ /");
 replacementMap.set(/\/ ==/g, "/ ~");
 replacementMap.set(/,(\d+)\.(\d+)/g, "");
 
-// used for eliminating unwanted spaces in sed
-replacementMap.set(/(\/[^\/]*)\s/, "/");
+// used for sed
+replacementMap.set(/\/\s{1,}/g, "/");
+replacementMap.set(/\/\'\s{1,}g/g, "/g'");
 
 
 document.getElementById('executeButton').addEventListener('click', function onExecuteButtonClick() {
