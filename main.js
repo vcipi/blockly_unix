@@ -1,6 +1,43 @@
-Blockly.JavaScript.init(workspace);
-Blockly.JavaScript = new Blockly.Generator('JavaScript');
 var generator = javascript.javascriptGenerator;
+
+window.onload = function() {
+    initBlockly();  // Initialize your Blockly workspace
+};
+
+function initBlockly() {
+    loadWorkspace(); // Load the workspace after initialization
+}
+
+function loadWorkspace() {
+    var xml_text = localStorage.getItem('blocklyWorkspace');
+    if (xml_text) {
+        console.log("blocklyWorkspace found in local storage.");
+        try {
+            var parser = new DOMParser();
+            var xml = parser.parseFromString(xml_text, "text/xml");
+            Blockly.Xml.domToWorkspace(xml.documentElement, Blockly.getMainWorkspace());
+            console.log("Blockly workspace loaded successfully.");
+        } catch (e) {
+            console.error("Error parsing XML from local storage:", e);
+        }
+    } else {
+        console.log("No saved blocklyWorkspace found in local storage.");
+    }
+}
+
+function onWorkspaceChange(event) {
+	console.log("Saving Workspace...");
+    saveWorkspace();
+}
+Blockly.getMainWorkspace().addChangeListener(onWorkspaceChange);
+
+function saveWorkspace() {
+    var xml = Blockly.Xml.workspaceToDom(Blockly.getMainWorkspace());
+    var xmlText = Blockly.Xml.domToText(xml);
+    localStorage.setItem('blocklyWorkspace', xmlText);
+}
+window.addEventListener('beforeunload', saveWorkspace);
+
 
 // Global replacement map
 const replacementMap = new Map([
@@ -53,7 +90,7 @@ replacementMap.set(/,(\d+)\.(\d+)/g, "");
 replacementMap.set(/\/\s{1,}/g, "/");
 replacementMap.set(/\/\'\s{1,}g/g, "/g'");
 
-
+var filenameBlocks = ['filename', 'filenamesCreate', 'fileEndStart'];
 document.getElementById('executeButton').addEventListener('click', function onExecuteButtonClick() {
 
 	console.log("Top blocks:", workspace.getTopBlocks());
@@ -67,7 +104,7 @@ document.getElementById('executeButton').addEventListener('click', function onEx
 		//console.log("currentBlock.type:", currentBlock.type);
         // Generate the command for the current block
         try {
-			if(currentBlock.type == 'filename' || currentBlock.type == 'filenamesCreate'){
+			if(filenameBlocks.includes(currentBlock.type) ){
 				console.log('Filename Block initiated');
 			}
 			else if(blockDef.category === "I/O Redirection"|| blockDef.category === "Regular Expressions"){
@@ -149,7 +186,7 @@ function handleBlock(block) {
 	
 	var aboveBlock = block.getPreviousBlock();
 	var filenameValue='';
-	if(aboveBlock && (aboveBlock.type == 'filename' || aboveBlock.type == 'filenamesCreate')){
+	if(aboveBlock && (filenameBlocks.includes(aboveBlock.type))){
 		filenameValue = handleFilenamesBlocks(aboveBlock)
 	}
 	
@@ -595,6 +632,11 @@ function handleFilenamesBlocks(block) {
 	}else if(block && block.type === 'filenamesCreate'){
 		filename = getFileNames(block);
 		console.log("handleFilenamesBlocks - MultiplefilenameValue:", filename);
+	}else{
+		dropdownSelection = block.getFieldValue('metric_type');
+		input = block.getFieldValue('FILENAME');
+		filename = window[block.type + 'Block'].unix_description[0][dropdownSelection].replace("str", input);
+		console.log("handleFilenamesBlocks - WildcardsfilenameValue:", filename);
 	}
 	
 	return filename;

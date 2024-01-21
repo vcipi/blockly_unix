@@ -18,8 +18,8 @@ var fileEndStartBlock = {
     },
     {
       type: "field_input",
-      name: "str",
-	    text: "............" // empty text for user to define filename
+      name: "FILENAME",
+	    text: "...." // empty text for user to define filename
     }
   ],
   
