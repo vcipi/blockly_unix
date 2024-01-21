@@ -1,3 +1,5 @@
+Blockly.JavaScript.init(workspace);
+Blockly.JavaScript = new Blockly.Generator('JavaScript');
 var generator = javascript.javascriptGenerator;
 
 window.onload = function() {
@@ -90,10 +92,17 @@ replacementMap.set(/,(\d+)\.(\d+)/g, "");
 replacementMap.set(/\/\s{1,}/g, "/");
 replacementMap.set(/\/\'\s{1,}g/g, "/g'");
 
-var filenameBlocks = ['filename', 'filenamesCreate', 'fileEndStart'];
 //used for gzip
 replacementMap.set(/\s.?-k\s{1,}/g, "-k");
 
+replacementMap.set(/}}\'\s+END/g, "}} END");
+replacementMap.set(/}\s\'{/g, "} {");
+replacementMap.set(/\'\s+\'/g, "'");
+replacementMap.set(/\|\s+\|\s+awk/g, " awk");
+replacementMap.set(/\|\s+\|/g, " |");
+
+
+var filenameBlocks = ['filename', 'filenamesCreate', 'fileEndStart'];
 
 document.getElementById('executeButton').addEventListener('click', function onExecuteButtonClick() {
 
@@ -111,7 +120,7 @@ document.getElementById('executeButton').addEventListener('click', function onEx
 			if(filenameBlocks.includes(currentBlock.type) ){
 				console.log('Filename Block initiated');
 			}
-			else if(blockDef.category === "I/O Redirection"|| blockDef.category === "Regular Expressions"){
+			else if(blockDef && (blockDef.category === "I/O Redirection" || blockDef.category === "Regular Expressions")){
 				generatedCommand += handleBlock(currentBlock);
 			}else{
 				generatedCommand += (generatedCommand ? " | " : "") + handleBlock(currentBlock);
@@ -185,7 +194,7 @@ function handleBlock(block) {
     var blockType = block.type;
 	console.log("HANDLEBLOCK - Block Type:", blockType);
     var blockDefinition = window[blockType + 'Block'];  // Construct the name of the block definition variable and access it
-	var blockCategory = blockDefinition.category;
+	var blockCategory = (blockDefinition) ? blockDefinition.category : '';
 	console.log("HANDLEBLOCK - Block Category:", blockCategory);
 	
 	var aboveBlock = block.getPreviousBlock();
@@ -247,8 +256,24 @@ function handleBlock(block) {
 	
 	if (blockCategory === "Regular Expressions"){
 		commandParts = handleRegexBlocks(block,blockDefinition,patternValue);
-	}
-	else{
+	}else if(blockType === "variables_set"){
+		var variableId = block.getFieldValue('VAR');
+
+		// Get the variable model from the workspace
+		var variableModel = Blockly.getMainWorkspace().getVariableById(variableId);
+
+		if (variableModel) {
+			// Get the name of the variable
+			variable_name = variableModel.name;
+			variable_value = (block.getInputTargetBlock("VALUE").getFieldValue("NUM") !== null)
+							? block.getInputTargetBlock("VALUE").getFieldValue("NUM")
+							: "\"" + block.getInputTargetBlock("VALUE").getFieldValue("TEXT") +"\"";
+			console.log('HANDLEBLOCK - Variable name:', variable_name);
+			console.log('HANDLEBLOCK - Variable value:', variable_value);
+		} else {
+			console.log('Variable not found');
+		}
+	}else{
 		commandParts = handleMainBlocks(block,blockDefinition,patternValue,regexStringValue);
 	}
 
@@ -276,6 +301,9 @@ function handleBlock(block) {
 	else if(blockType === 'condOutput'){
 		commandString = conditionValue.replace(/{(.+?) }'/g, "$1");
 	}
+	else if(blockType === 'variables_set'){
+		commandString = variable_name + '=' + variable_value + "|";
+	}
 	else if (blockCategory === "awk") {
 		let beginIndex = commandParts.indexOf('BEGIN');
 		let endIndex = commandParts.indexOf('END');
@@ -284,9 +312,18 @@ function handleBlock(block) {
 		let begin = beginIndex !== -1 ? commandParts[beginIndex] : '';
 		let end = endIndex !== -1 ? commandParts[endIndex] : '';
 		let inputDelim = inputDelimIndex !== -1 ? commandParts[inputDelimIndex] : '';
+		
 		console.log("commands:", commandParts);
-		commandString = blockType +  ' ' + inputDelim + ' ' + "'" + ' ' + begin + ' ' + beginValue + ' ' + conditionValue + 
-					' ' + regexStringValue + ' ' + end + ' ' + endValue + ' ' + "'" + ' ' + filenameValue;
+		if (conditionValue !== ""){
+			commandString = blockType +  ' ' + inputDelim + ' ' + "'" + ' ' + begin + ' ' + beginValue + ' ' + conditionValue + 
+						' ' + regexStringValue + ' ' + end + ' ' + endValue + ' ' + "'" + ' ' + filenameValue;
+		}else{
+			let filteredArray = commandParts.filter(item => item !== '' && item !== null && item !== undefined && !item.includes('undefined')&& !item.includes('BEGIN') && !item.includes('END'));
+			console.log("commands:", filteredArray);
+			// commandString = blockType +  ' ' + filteredArray.join(' ');
+			commandString = blockType +  ' ' + inputDelim + ' ' + "'" + ' ' + begin + ' ' + beginValue + ' ' + filteredArray.join(' ') + 
+						' ' + regexStringValue + ' ' + end + ' ' + endValue + ' ' + "'" + ' ' + filenameValue;
+		}
 	}
 	else{
 		console.log("commands:", commandParts);
@@ -300,31 +337,6 @@ function handleBlock(block) {
     return commandString;
 }
 
-function handleBeginEnd(block){
-	console.log("handleBegin init");
-	var blockCode;
-	//console.log("handleConditionsAndLoops - block :", block.type);
-	var innerBlock = block.getInputTargetBlock('DO');
-	//console.log("handleConditionsAndLoops - innerBlock :", innerBlock);
-	
-	var doBlock = innerBlock.getInputTargetBlock('DO0');
-	if (innerBlock.type === 'controls_if' && !doBlock) { // Check if the "do" block of an if statement is empty
-		var conditionBlock = innerBlock.getInputTargetBlock('IF0'); // Get the first condition block
-		if (conditionBlock) {
-			blockCode = generator.blockToCode(conditionBlock)[0];
-			blockCode = blockCode.replace(/'/g, '').replace(/;/g, '');
-			blockCode = blockCode.replace(/\n/g, ' ').replace(/\s+/g, ' ') + "'";
-		}
-	}else {
-		blockCode = generator.blockToCode(innerBlock);
-		blockCode = blockCode.replace(/'/g, '');
-		blockCode = "{" + blockCode.replace(/\n/g, ' ').replace(/\s+/g, ' ') + "}";
-	}
-
-	console.log("handleBegin - code:", blockCode);
-
-	return blockCode;
-};
 
 function handleMainBlocks(block,blockDefinition,patternValue,regexStringValue){
 		console.log("handleMainBlocks init");
@@ -494,6 +506,32 @@ function handleRegexBlocks(block,blockDefinition,patternValue){
 	
 		return commandParts;
 }
+
+function handleBeginEnd(block){
+	console.log("handleBegin init");
+	var blockCode;
+	//console.log("handleBeginEnd - block :", block.type);
+	var innerBlock = block.getInputTargetBlock('DO');
+	//console.log("handleBeginEnd - innerBlock :", innerBlock);
+	
+	var doBlock = innerBlock.getInputTargetBlock('DO0');
+	if (innerBlock.type === 'controls_if' && !doBlock) { // Check if the "do" block of an if statement is empty
+		var conditionBlock = innerBlock.getInputTargetBlock('IF0'); // Get the first condition block
+		if (conditionBlock) {
+			blockCode = generator.blockToCode(conditionBlock)[0];
+			blockCode = blockCode.replace(/'/g, '').replace(/;/g, '');
+			blockCode = blockCode.replace(/\n/g, ' ').replace(/\s+/g, ' ') + "'";
+		}
+	}else {
+		blockCode = generator.blockToCode(innerBlock);
+		blockCode = blockCode.replace(/'/g, '');
+		blockCode = "{" + blockCode.replace(/\n/g, ' ').replace(/\s+/g, ' ') + "}";
+	}
+
+	console.log("handleBegin - code:", blockCode);
+
+	return blockCode;
+};
 
 function handleConditionsAndLoops(block, blockType){
 		console.log("handleConditionsAndLoops init");
@@ -738,6 +776,11 @@ generator.forBlock['regOr'] = function(block) {
 };
 
 generator.forBlock['regOutput'] = function(block) {
+    var code = handleBlock(block);
+    return [code, generator.ORDER_ATOMIC];
+};
+
+generator.forBlock['awk'] = function(block) {
     var code = handleBlock(block);
     return [code, generator.ORDER_ATOMIC];
 };

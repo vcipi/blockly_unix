@@ -6,19 +6,14 @@ var awkBlock = {
     awkInput_delimiter : "-F'str' ",  // Change to awk_delimiter
     awkOutput_delimiter : 'OFS"str"',  // Change to awk_delimiter
     input_variable : '-v"', 
-	  regPattern : "{patt",
-	  awk_cols : "{print str}}'",
+	regPattern : "'{patt",
+	awk_cols : "{print str}}'",
     begin : "BEGIN",
     end : "END"
     }
     
   ],
-  message0: "Text data processing in file %1\n",
-  args0: [{
-      type: "input_value",
-      name: "FILENAME",
-	  check: ["filename" , "filenamesCreate",]
-  }],
+  message0: "Text data processing",
   message1: "delimeter %1",
   args1: [
     {

@@ -4,6 +4,7 @@ var sedBlock = {
   unix_description: [
     {
       regPattern: "'s/patt/",
+      singleStr: "'/str/",
       regReplaceText: "str/'",
       regex: '-E',
       globally: "g"
@@ -24,14 +25,20 @@ var sedBlock = {
     check: "String" 
   }
   ],
-  message3: "text to change %1\n",
+  message3: "or single string %1\n",
   args3: [{
+    type: "field_input",
+    name: "singleStr",
+  }
+  ],
+  message4: "text to change %1\n",
+  args4: [{
     type: "field_input",
     name: "regReplaceText",
     text: "changeText" // default text for the input
   }],
-  message4: "in all occurencies of the pattern %1",
-  args4: [{
+  message5: "in all occurencies of the pattern %1",
+  args5: [{
     type: "field_checkbox",
     name: "globally",
     checked: false // by default it's disabled
