@@ -9,8 +9,8 @@ var cutBlock = {
       charsEnd : "-c-str"
     }
   ],
-  message0: "Cut out in file\n",
-  message1: "delimiter %1",
+  message0: "Cut out in file or string\n",
+  message1: "delimiter %1\n",
   args1: [{
     type: "field_input",
     name: "delimiter", 
@@ -37,7 +37,10 @@ var cutBlock = {
   colour: 320,
   previousStatement: "Action",
   nextStatement: "Action",
-  tooltip: "Cut out in a file",
+  tooltip: "Cut out in a file or a string. For consecutive cuts use comma(,) , for range cuts use hyphen (-)",
+  extensions: [
+    'cut_validation', 'integer_validation', 'disallow_multiple_filenames'
+  ],
   helpUrl: "" // URL to further information or documentation.
 };
 

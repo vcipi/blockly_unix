@@ -20,10 +20,11 @@ var findBlock = {
       parent : "..",
       grandparent : "../.." ,
       subdirs : "-maxdepth 1",
-      regPattern : "patt",
+      regPattern : "-name 'patt'",
       file : "-type f",
       directory : "-type d",
-      both : ""
+      both : "",
+      exec : "-exec comman {} \\;"
 
     }
   ],
@@ -153,6 +154,14 @@ var findBlock = {
     {
       type: "input_value",
       name: "regPattern"
+    }
+  ],
+  message10: "execute following command in\n all files found %1",
+  args10: [
+    {
+      type: "field_checkbox",
+      name: "exec",
+      checked: false // by default it's disabled
     }
   ],
 

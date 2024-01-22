@@ -95,6 +95,10 @@ replacementMap.set(/\/\'\s{1,}g/g, "/g'");
 //used for gzip
 replacementMap.set(/\s.?-k\s{1,}/g, "-k");
 
+//used for exec parameter in find
+replacementMap.set(/{}.\\;.*?\|.*/g, "{} \\;");
+
+
 replacementMap.set(/}}\'\s+END/g, "}} END");
 replacementMap.set(/}\s\'{/g, "} {");
 replacementMap.set(/\'\s+\'/g, "'");
@@ -137,7 +141,11 @@ document.getElementById('executeButton').addEventListener('click', function onEx
         // Move to the next connected block
         currentBlock = currentBlock.getNextBlock();
     }
+
+	// find -exec parameter
+	generatedCommand = generatedCommand.replace('comman', lastChildBlockType);
 	console.log('generatedcommand_test:', generatedCommand);
+	
 	generatedCommand = replaceKeywords(generatedCommand);
 
     // Combine the constructed UNIX command and filename
@@ -189,10 +197,24 @@ Blockly.JavaScript.forBlock['filename'] = function(block) {
     return [JSON.stringify(filename), Blockly.JavaScript.ORDER_NONE];
 };
 
+var lastChildBlockType;
+
 function handleBlock(block) {
 	
     var blockType = block.type;
 	console.log("HANDLEBLOCK - Block Type:", blockType);
+
+	// get last child of find command for exec paramter
+	if (blockType === 'find'){
+	var childBlocks = block.getChildren();
+	// Check if there are child blocks
+	if (childBlocks && childBlocks.length > 0) {
+	// Access the last child block type
+	lastChildBlockType = childBlocks[childBlocks.length - 1].type;
+	console.log(lastChildBlockType)}
+	};
+
+
     var blockDefinition = window[blockType + 'Block'];  // Construct the name of the block definition variable and access it
 	var blockCategory = (blockDefinition) ? blockDefinition.category : '';
 	console.log("HANDLEBLOCK - Block Category:", blockCategory);
@@ -883,6 +905,39 @@ Blockly.Extensions.register('disallow_multiple_filenames', function() {
         }
     });
 });
+
+Blockly.Extensions.register('cut_validation', function() {
+	var thisBlock = this;
+  
+	// Register a change listener on the workspace
+	thisBlock.workspace.addChangeListener(function(event) {
+	  // Check if the change involves this block
+	  if (event.blockId === thisBlock.id) {
+		// Validate based on the conditions you specified
+		var columnsValue = thisBlock.getFieldValue("columns").trim();
+		var charsStartValue = thisBlock.getFieldValue("charsStart").trim();
+		var charsEndValue = thisBlock.getFieldValue("charsEnd").trim();
+		var delimiterValue = thisBlock.getFieldValue("delimiter").trim();
+  
+		if (columnsValue !== "" && (charsStartValue !== "" || charsEndValue !== "")) {
+		  // Set warning text since conditions are violated.
+		  thisBlock.setWarningText('Can not choose columns and chars at the same time.\n' +
+		   'Columns are used for cut in files, chars are used for cut in strings');
+		} 	
+		else if (delimiterValue !== "" && (charsStartValue !== "" || charsEndValue !== "")) {
+			// Set warning text since conditions are violated.
+			thisBlock.setWarningText('Can not choose delimiter and chars at the same time.\n' +
+			'Delimiter is used for cut in files, chars are used for cut in strings');
+		  } 
+		else {
+		  // Clear warning text since conditions are satisfied.
+		  thisBlock.setWarningText(null);
+		}
+	  }
+	});
+  });
+  
+  
 //***********************************
 //EXTENSIONS FOR VALIDATIONS - END
 //***********************************
