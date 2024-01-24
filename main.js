@@ -104,6 +104,7 @@ replacementMap.set(/}\s\'{/g, "} {");
 replacementMap.set(/\'\s+\'/g, "'");
 replacementMap.set(/\|\s+\|\s+awk/g, " awk");
 replacementMap.set(/\|\s+\|/g, " |");
+replacementMap.set(/,0\s+\|/g, " |");
 
 
 var filenameBlocks = ['filename', 'filenamesCreate', 'fileEndStart'];
@@ -287,9 +288,16 @@ function handleBlock(block) {
 		if (variableModel) {
 			// Get the name of the variable
 			variable_name = variableModel.name;
-			variable_value = (block.getInputTargetBlock("VALUE").getFieldValue("NUM") !== null)
-							? block.getInputTargetBlock("VALUE").getFieldValue("NUM")
-							: "\"" + block.getInputTargetBlock("VALUE").getFieldValue("TEXT") +"\"";
+			var variable_value = "";
+			
+			if(block.getInputTargetBlock("VALUE").getFieldValue("NUM") !== null){
+				variable_value = block.getInputTargetBlock("VALUE").getFieldValue("NUM");
+			}else if(block.getInputTargetBlock("VALUE").getFieldValue("TEXT") !== null){
+				variable_value = generator.forBlock['text'](block.getInputTargetBlock("VALUE"));
+			}else if(block.getInputTargetBlock("VALUE").type === "arrayCreate"){
+				variable_value = generator.forBlock['arrayCreate'](block.getInputTargetBlock("VALUE"));
+			}
+
 			console.log('HANDLEBLOCK - Variable name:', variable_name);
 			console.log('HANDLEBLOCK - Variable value:', variable_value);
 		} else {
@@ -324,7 +332,7 @@ function handleBlock(block) {
 		commandString = conditionValue.replace(/{(.+?) }'/g, "$1");
 	}
 	else if(blockType === 'variables_set'){
-		commandString = variable_name + '=' + variable_value + "|";
+		commandString = variable_name + '=' + variable_value + " |";
 	}
 	else if (blockCategory === "awk") {
 		let beginIndex = commandParts.indexOf('BEGIN');
