@@ -4,11 +4,37 @@
 
 var Blockly = Blockly || { Msg: Object.create(null) };
 
+Blockly.Msg["ADD_COMMENT"] = "Add Comment";
+Blockly.Msg["APPEND"] = "Append result to";
+Blockly.Msg["APPEND_TOOLTIP"] = "Appends the result into an already existing file";
+Blockly.Msg["APPEND_HELPURL"] = "https://www.google.com/";
 Blockly.Msg["ARRAY_CREATE_WITH"] = "Create array with";
 Blockly.Msg["ARRAY_CREATE_WITH_TOOLTIP"] = "Add element to array";
 Blockly.Msg["ARRAY_CREATE_EMPTY_TITLE"] = "Create list of elements";
 Blockly.Msg["ARRAY_CREATE_WITH_HELPURL"] = "";
-Blockly.Msg["ADD_COMMENT"] = "Add Comment";
+Blockly.Msg["AWK_TEXT_DATA_PROCESSING"] = "Text data processing";
+Blockly.Msg["AWK_INPUT_DELIMITER"] = "Input delimiter";
+Blockly.Msg["AWK_OUTPUT_DELIMITER"] = "Output delimiter";
+Blockly.Msg["AWK_VARIABLE_INPUT"] = "Variable input";
+Blockly.Msg["AWK_BEGIN"] = "Execute once before data is processed";
+Blockly.Msg["AWK_ACTION"] = "Action";
+Blockly.Msg["AWK_END"] = "Execute once after data is processed";
+Blockly.Msg["AWK_PRINT"] = "columns to print";
+Blockly.Msg["AWK_TOOLTIP"] = "pattern-directed scanning and processing language";
+Blockly.Msg["AWK_HELPURL"] = "https://www.google.com/";
+Blockly.Msg["BEGIN_END"] = "Execute once\n before/after data processing";
+Blockly.Msg["BEGIN_END_TOOLTIP"] = "pattern-directed scanning and processing language";
+Blockly.Msg["BEGIN_END_HELPURL"] = "https://www.google.com/";
+Blockly.Msg["CAT"] = "Show file";
+Blockly.Msg["CAT_LINE_NUMBERS"] = "With line numbers";
+Blockly.Msg["CAT_TOOLTIP"] = "Concatenate and print files";
+Blockly.Msg["CAT_HELPURL"] = "https://www.google.com/";
+
+Blockly.Msg["CD"] = "Change directory to";
+Blockly.Msg["CD_TOOLTIP"] = "Concatenate and print files";
+Blockly.Msg["CD_HELPURL"] = "https://www.google.com/";
+
+
 Blockly.Msg["CANNOT_DELETE_VARIABLE_PROCEDURE"] = "Can't delete the variable '%1' because it's part of the definition of the function '%2'";
 Blockly.Msg["CHANGE_VALUE_TITLE"] = "Change value:";
 Blockly.Msg["CLEAN_UP"] = "Clean up Blocks";

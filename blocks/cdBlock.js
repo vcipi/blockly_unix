@@ -6,7 +6,7 @@ var cdBlock = {
 
     }
   ],
-  message0: "Change directory to %1",
+  message0: "%{BKY_CD} %1",
   args0: [
     {
       type: "field_input",
@@ -16,8 +16,8 @@ var cdBlock = {
   ],
   colour: 400,
   // nextStatement: "Action",
-  tooltip: "change your directory",
-  helpUrl: "" // URL to further information or documentation.
+  tooltip: "%{BKY_CD_TOOLTIP}",
+  helpUrl: "%{BKY_CD_HELPURL}" // URL to further information or documentation.
 };
 
 Blockly.defineBlocksWithJsonArray([cdBlock]);

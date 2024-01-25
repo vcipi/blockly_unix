@@ -13,8 +13,8 @@ var awkBlock = {
     }
     
   ],
-  message0: "Text data processing",
-  message1: "delimeter %1",
+  message0: "%{BKY_AWK_TEXT_DATA_PROCESSING}",
+  message1: "%{BKY_AWK_INPUT_DELIMITER} %1",
   args1: [
     {
       type: "field_input",
@@ -22,7 +22,7 @@ var awkBlock = {
       text: "" 
     }
   ],
-  message2: "output delimeter %1\n",
+  message2: "%{BKY_AWK_OUTPUT_DELIMITER} %1\n",
   args2: [
     {
       type: "field_input",
@@ -31,7 +31,7 @@ var awkBlock = {
       align: "RIGHT"
     }
   ],
-  message3: "variable input%1\n",
+  message3: "%{BKY_AWK_VARIABLE_INPUT} %1\n",
   args3: [
     {
       type: "field_checkbox",
@@ -39,25 +39,25 @@ var awkBlock = {
       checked: false // by default it's disabled
     }
   ],
-  message3: "Do before lines process %1\n",
+  message3: "%{BKY_AWK_BEGIN} %1\n",
   args3: [{
     type: "input_value",
     name: "begin",
     check: "String" 
   }],
-  message4: "action %1\n",
+  message4: "%{BKY_AWK_ACTION} %1\n",
   args4: [{
     type: "input_value",
     name: "regPattern",
     check: "String" 
   }],
-  message5: "Do after lines process %1\n",
+  message5: "%{BKY_AWK_BEGIN} %1\n",
   args5: [{
     type: "input_value",
     name: "end",
     check: "String" 
   }],
-  message6: "columns to print %1",
+  message6: "%{BKY_AWK_PRINT} %1",
   args6: [
     {
       type: "input_value",
@@ -68,8 +68,8 @@ var awkBlock = {
   colour: 387,
   previousStatement: "Action",
   nextStatement: "Action",
-  tooltip: "pattern-directed scanning and processing language",
-  helpUrl: "" // URL to further information or documentation.
+  tooltip: "%{BKY_AWK_TOOLTIP}",
+  helpUrl: "%{BKY_AWK_HELPURL}" // URL to further information or documentation.
 };
 
 Blockly.defineBlocksWithJsonArray([awkBlock]);

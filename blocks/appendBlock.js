@@ -1,6 +1,6 @@
 var appendBlock = {
   type: "append",
-  message0: "Append result to %1",
+  message0: "%{BKY_APPEND} %1",
   category: "I/O Redirection",  
   unix_description: [
     {
@@ -16,8 +16,8 @@ var appendBlock = {
   ],
   colour: 10,
   previousStatement: "Action",
-  tooltip: "Appends the result into an already existing file",
-  helpUrl: "" // URL to further information or documentation.
+  tooltip: "%{BKY_APPEND_TOOLTIP}",
+  helpUrl: "%{BKY_APPEND_HELPURL}" // URL to further information or documentation.
 };
 
 Blockly.defineBlocksWithJsonArray([appendBlock]);

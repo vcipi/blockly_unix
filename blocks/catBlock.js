@@ -6,8 +6,8 @@ var catBlock = {
       lineNumbers: "-n"
     }
   ],
-  message0: "Show file\n",
-  message1: "with line numbers %1",
+  message0: "%{BKY_CAT}\n",
+  message1: "%{BKY_CAT_LINE_NUMBERS} %1",
   args1: [
     {
       type: "field_checkbox",
