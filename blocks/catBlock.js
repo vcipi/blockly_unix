@@ -19,8 +19,8 @@ var catBlock = {
   colour: 876,
   previousStatement: "Action",
   nextStatement: "Action",
-  tooltip: "Show a file",
-  helpUrl: "" // URL to further information or documentation.
+  tooltip: "%{BKY_CAT_TOOLTIP}",
+  helpUrl: "%{BKY_CAT_HELPURL}" // URL to further information or documentation.
 };
 
 Blockly.defineBlocksWithJsonArray([catBlock]);

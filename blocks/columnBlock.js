@@ -6,18 +6,18 @@ var columnBlock = {
             TEXT: "$str"
         }
       ],
-    'message0': 'column %1',
-    'args0': [
+    message0: '%{BKY_COLUMN} %1',
+    args0: [
       {
-        'type': 'field_input',
-        'name': 'TEXT'
+        type: 'field_input',
+        name: 'TEXT'
       },
     ],
-    'output': null,
+    output: null,
     // 'style': 'logic_blocks',
-    'colour': 260,
-    'tooltip': 'put column',
-    'helpUrl': '',
+    colour: 260,
+    tooltip: "%{BKY_COLUMN_TOOLTIP}",
+    helpUrl: "%{BKY_COLUMN_HELPURL}",
 };
 
 Blockly.defineBlocksWithJsonArray([columnBlock]);

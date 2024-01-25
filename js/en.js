@@ -29,10 +29,30 @@ Blockly.Msg["CAT"] = "Show file";
 Blockly.Msg["CAT_LINE_NUMBERS"] = "With line numbers";
 Blockly.Msg["CAT_TOOLTIP"] = "Concatenate and print files";
 Blockly.Msg["CAT_HELPURL"] = "https://www.google.com/";
-
 Blockly.Msg["CD"] = "Change directory to";
 Blockly.Msg["CD_TOOLTIP"] = "Concatenate and print files";
 Blockly.Msg["CD_HELPURL"] = "https://www.google.com/";
+Blockly.Msg["COLUMN"] = "Column number";
+Blockly.Msg["COLUMN_TOOLTIP"] = "Write a column number";
+Blockly.Msg["COLUMN_HELPURL"] = "https://www.google.com/";
+Blockly.Msg["CONDITION_OUTPUT"] = "Put search condition";
+Blockly.Msg["CONDITION_OUTPUT_TOOLTIP"] = "Construct a search condition with if statements";
+Blockly.Msg["CONDITION_OUTPUT_HELPURL"] = "https://www.google.com/";
+Blockly.Msg["CUT"] = "Cut out in file or string";
+Blockly.Msg["CUT_DEFINE_COLUMNS"] = "Define columns";
+Blockly.Msg["CUT_START"] = "substring start";
+Blockly.Msg["CUT_END"] = "end";
+Blockly.Msg["CUT_TOOLTIP"] = "Cut out in a file or a string.\nFor consecutive cuts use comma(,) , for range cuts use hyphen (-)";
+Blockly.Msg["CUT_HELPURL"] = "https://www.google.com/";
+Blockly.Msg["ECHO"] = "Write to output";
+Blockly.Msg["ECHO_TOOLTIP"] = "Write arguments to standard output";
+Blockly.Msg["ECHO_HELPURL"] = "https://www.google.com/";
+Blockly.Msg["FILE_END_START_WILDCHARS"] = "Filename";
+Blockly.Msg["FILE_END_START_WILDCHARS_TOOLTIP"] = "Define start or end in filenames searching";
+Blockly.Msg["FILE_END_START_WILDCHARS_HELPURL"] = "https://www.google.com/";
+Blockly.Msg["FILENAME"] = "Filename";
+Blockly.Msg["FILENAME_TOOLTIP"] = "Represents a filename";
+Blockly.Msg["FILENAME_HELPURL"] = "https://www.google.com/";
 
 
 Blockly.Msg["CANNOT_DELETE_VARIABLE_PROCEDURE"] = "Can't delete the variable '%1' because it's part of the definition of the function '%2'";

@@ -6,7 +6,7 @@ var echoBlock = {
       echoInput : '"str"'
     }
   ],
-  message0: "write arguments to the standard output\n %1",
+  message0: "%{BKY_ECHO} %1",
   args0: [{
     type: "field_input",
     name: "echoInput", 
@@ -15,8 +15,8 @@ var echoBlock = {
   colour: 110,
   previousStatement: "Action",
   nextStatement: "Action",
-  tooltip: "write arguments to the standard output",
-  helpUrl: "" // URL to further information or documentation.
+  tooltip: "%{BKY_ECHO_TOOLTIP}",
+  helpUrl: "%{BKY_ECHO_HELPURL}" // URL to further information or documentation.
 };
 
 Blockly.defineBlocksWithJsonArray([echoBlock]);

@@ -1,7 +1,7 @@
 var condOutputBlock = {
   type: "condOutput",
   category: "awk",
-  message0: "Put search condition",
+  message0: "%{BKY_CONDITION_OUTPUT}",
   message1: "%1",
   args1: [
     {
@@ -10,8 +10,10 @@ var condOutputBlock = {
     }
   ],
   output: "String",
-  "nextStatement": null,
-  "colour": 320
+  nextStatement: null,
+  colour: 320,
+  tooltip: "%{BKY_CONDITION_OUTPUT_TOOLTIP}",
+  helpUrl: "%{BKY_CONDITION_OUTPUT_HELPURL}" // URL to further information or documentation.
 };
 
 Blockly.defineBlocksWithJsonArray([condOutputBlock]);

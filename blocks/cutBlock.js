@@ -9,20 +9,20 @@ var cutBlock = {
       charsEnd : "-c-str"
     }
   ],
-  message0: "Cut out in file or string\n",
+  message0: "%{BKY_CUT}\n",
   message1: "delimiter %1\n",
   args1: [{
     type: "field_input",
     name: "delimiter", 
     text: "",
   }],
-  message2: "define columns %1\n",
+  message2: "%{BKY_CUT_DEFINE_COLUMNS} %1\n",
   args2: [{
     type: "field_input",
     name: "columns", 
     text: "",
   }],
-  message3: "substring start %1 end %2",
+  message3: "%{BKY_CUT_START} %1 %{BKY_CUT_END} %2",
   args3: [{
     type: "field_input",
     name: "charsStart", 
@@ -37,11 +37,11 @@ var cutBlock = {
   colour: 320,
   previousStatement: "Action",
   nextStatement: "Action",
-  tooltip: "Cut out in a file or a string. For consecutive cuts use comma(,) , for range cuts use hyphen (-)",
+  tooltip: "%{BKY_CUT_TOOLTIP}",
   extensions: [
     'cut_validation', 'integer_validation', 'disallow_multiple_filenames'
   ],
-  helpUrl: "" // URL to further information or documentation.
+  helpUrl: "%{BKY_CUT_HELPURL}" // URL to further information or documentation.
 };
 
 Blockly.defineBlocksWithJsonArray([cutBlock]);

@@ -1,6 +1,6 @@
 var filenameBlock = {
   type: "filename",
-  message0: "Filename %1",
+  message0: "%{BKY_FILENAME} %1",
   args0: [
     {
       type: "field_input",
@@ -12,8 +12,8 @@ var filenameBlock = {
   // colour: 230,
   style : "filename_style",
   nextStatement: "Action",
-  tooltip: "Represents a filename.",
-  helpUrl: "" // URL to further information or documentation.
+  tooltip: "%{BKY_FILENAME_TOOLTIP}",
+  helpUrl: "%{BKY_FILENAME_HELPURL}" // URL to further information or documentation.
 };
 
 Blockly.defineBlocksWithJsonArray([filenameBlock]);

@@ -6,7 +6,7 @@ var fileEndStartBlock = {
       ends: "*str",
     }
   ],
-  message0: "Filename %1  %2",
+  message0: "%{BKY_FILE_END_START_WILDCHARS} %1  %2",
   args0: [
     {
       type: "field_dropdown",
@@ -27,8 +27,8 @@ var fileEndStartBlock = {
   // colour: 550,
   style : "filename_style",
   nextStatement: "Action",
-  tooltip: "wildcard searching in filenames",
-  helpUrl: "" // URL to further information or documentation.
+  tooltip: "%{BKY_FILE_END_START_WILDCHARS_TOOLTIP}",
+  helpUrl: "%{BKY_FILE_END_START_WILDCHARS_HELPURL} " // URL to further information or documentation.
 };
 
 Blockly.defineBlocksWithJsonArray([fileEndStartBlock]);
