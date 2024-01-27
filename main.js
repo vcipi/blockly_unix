@@ -101,7 +101,7 @@ replacementMap.set(/{}.\\;.*?\|.*/g, "{} \\;");
 
 replacementMap.set(/}}\'\s+END/g, "}} END");
 replacementMap.set(/}\s\'{/g, "} {");
-replacementMap.set(/\'\s+\'/g, "'");
+// replacementMap.set(/\'\s+\'/g, "'");
 replacementMap.set(/\|\s+\|\s+awk/g, " awk");
 replacementMap.set(/\|\s+\|/g, " |");
 replacementMap.set(/,0\s+\|/g, " |");
@@ -119,7 +119,6 @@ document.getElementById('executeButton').addEventListener('click', function onEx
     while (currentBlock) {
 		
 		var blockDef = window[currentBlock.type + 'Block'];
-		//console.log("currentBlock.type:", currentBlock.type);
         // Generate the command for the current block
         try {
 			if(filenameBlocks.includes(currentBlock.type) ){
@@ -145,7 +144,6 @@ document.getElementById('executeButton').addEventListener('click', function onEx
 
 	// find -exec parameter
 	generatedCommand = generatedCommand.replace('comman', lastChildBlockType);
-	console.log('generatedcommand_test:', generatedCommand);
 	
 	generatedCommand = replaceKeywords(generatedCommand);
 
@@ -256,6 +254,8 @@ function handleBlock(block) {
 		patternValue = getMultiplePatterns(inputPatternBlock);
 		console.log("HANDLEBLOCK - MultiplepatternValue:", patternValue);
 	}else if (inputPatternBlock && inputPatternBlock.type === 'condOutput'){
+		console.log("inputPatternBlock", inputPatternBlock);
+		console.log("blockType", blockType);
 		conditionValue = handleConditionsAndLoops(inputPatternBlock, blockType);
 		console.log("HANDLEBLOCK - conditionValue", conditionValue);
 	}
@@ -583,7 +583,6 @@ function handleConditionsAndLoops(block, blockType){
 					blockCode = blockCode.replace(/\n/g, ' ').replace(/\s+/g, ' ');
 				}
 				else {
-					console.log("innerblock_test", innerBlock)
 					blockCode = blockCode.replace(/\n/g, ' ').replace(/\s+/g, ' ') + "'";
 				}
 			}
@@ -743,6 +742,12 @@ function getMultiplePrints(block) {
 			if (inputBlock.type == 'column'){
 				singlePrint = blockDefinition.unix_description[0]['TEXT'].replace('str',inputBlock.getFieldValue('TEXT'));
 			}
+			else if (inputBlock.type == 'NR'){
+				singlePrint = blockDefinition.unix_description[0]['recordNumber'];
+			}
+			else if (inputBlock.type == 'NF'){
+				singlePrint = blockDefinition.unix_description[0]['FieldNumber'];
+			}
 			else if(inputBlock.type == 'regPattern'){
 				singlePrint = inputBlock.getFieldValue('regPattern');
 			}
@@ -786,6 +791,16 @@ function getMultiplePrints(block) {
 generator.forBlock['column'] = function(block) {
     var text = block.getFieldValue('TEXT');
     var code = '$' + `'${text}'`;
+    return [code, generator.ORDER_ATOMIC];
+};
+
+generator.forBlock['NR'] = function(block) {
+    var code = 'NR' ;
+    return [code, generator.ORDER_ATOMIC];
+};
+
+generator.forBlock['NF'] = function(block) {
+    var code = 'NF' ;
     return [code, generator.ORDER_ATOMIC];
 };
 
@@ -837,7 +852,6 @@ generator.forBlock['logic_compare'] = function(block) {
 	var rightBlock = block.getInputTargetBlock('B');
     var leftBlockCode = generator.valueToCode(block, 'A', generator.ORDER_ATOMIC);
     var rightBlockCode = generator.valueToCode(block, 'B', generator.ORDER_ATOMIC);
-	
 	if (leftBlock && leftBlock.type === "regOutput" && leftBlockCode){
 		leftBlockCode = '/' + leftBlockCode + '/';
 	}

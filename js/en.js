@@ -47,12 +47,18 @@ Blockly.Msg["CUT_HELPURL"] = "https://www.google.com/";
 Blockly.Msg["ECHO"] = "Write to output";
 Blockly.Msg["ECHO_TOOLTIP"] = "Write arguments to standard output";
 Blockly.Msg["ECHO_HELPURL"] = "https://www.google.com/";
+Blockly.Msg["FIELD_NUMBER"] = "Current field";
+Blockly.Msg["FIELD_NUMBER_TOOLTIP"] = "Represents the current field (column) number";
+Blockly.Msg["FIELD_NUMBER_HELPURL"] = "https://www.google.com/";
 Blockly.Msg["FILE_END_START_WILDCHARS"] = "Filename";
 Blockly.Msg["FILE_END_START_WILDCHARS_TOOLTIP"] = "Define start or end in filenames searching";
 Blockly.Msg["FILE_END_START_WILDCHARS_HELPURL"] = "https://www.google.com/";
 Blockly.Msg["FILENAME"] = "Filename";
 Blockly.Msg["FILENAME_TOOLTIP"] = "Represents a filename";
 Blockly.Msg["FILENAME_HELPURL"] = "https://www.google.com/";
+Blockly.Msg["RECORD_NUMBER"] = "Current record";
+Blockly.Msg["RECORD_NUMBER_TOOLTIP"] = "Represents the current record or (line) number";
+Blockly.Msg["RECORD_NUMBER_HELPURL"] = "https://www.google.com/";
 
 
 Blockly.Msg["CANNOT_DELETE_VARIABLE_PROCEDURE"] = "Can't delete the variable '%1' because it's part of the definition of the function '%2'";
