@@ -11,7 +11,8 @@ var grepBlock = {
       recursive : "-r",
       show_line_nums : "-n",
       multiple_patterns : "-e",
-	    regPattern: 'patt'
+	    regPattern: 'patt',
+      showFiles: '-H'
     }
   ],
   message0: "Search in file or directory ",
@@ -86,7 +87,6 @@ var grepBlock = {
       checked: false // by default it's disabled
     }
   ],
-
   message9: "Search with multiple patterns%1",
   args9: [
     {
@@ -95,6 +95,15 @@ var grepBlock = {
       checked: false // by default it's disabled
     }
   ],
+  message10: "Show filename %1",
+  args10: [
+    {
+      type: "field_checkbox",
+      name: "showFiles",
+      checked: false // by default it's disabled
+    }
+  ],
+  
   
   colour: 646,
   previousStatement: "Action",

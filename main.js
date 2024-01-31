@@ -106,6 +106,10 @@ replacementMap.set(/\|\s+\|\s+awk/g, " awk");
 replacementMap.set(/\|\s+\|/g, " |");
 replacementMap.set(/,0\s+\|/g, " |");
 
+//used for xargs
+replacementMap.set(/xargs(?!.*-I{}).*?\|/g, "xargs ");
+replacementMap.set(/xargs.*-I{}.*?\|/g, "xargs -I{} ");
+
 
 var filenameBlocks = ['filename', 'filenamesCreate', 'fileEndStart'];
 
@@ -144,7 +148,7 @@ document.getElementById('executeButton').addEventListener('click', function onEx
 
 	// find -exec parameter
 	generatedCommand = generatedCommand.replace('comman', lastChildBlockType);
-	
+	console.log("before command:", generatedCommand);
 	generatedCommand = replaceKeywords(generatedCommand);
 
     // Combine the constructed UNIX command and filename
@@ -412,6 +416,7 @@ function handleMainBlocks(block,blockDefinition,patternValue,regexStringValue){
 						: blockDefinition.unix_description[0][field.name] + field.getValue();
 			}
 			else if (input.type === Blockly.INPUT_VALUE ){
+				console.log("***", input.type, input.name, blockDefinition)
 			  if (block.getInputTargetBlock(input.name) && blockDefinition.unix_description[0][input.name]){
 				  if (input.name === 'regPattern'){
 					  value = (patternValue !== '') ? blockDefinition.unix_description[0][input.name].replace("patt",patternValue) : '';
@@ -673,9 +678,15 @@ function replaceKeywords(command) {
                 return value;
             });
         }
-    });
+    })
+	
+	const xargsOnePlaceholder = /xargs.*-I{}.*?/;
+	if (xargsOnePlaceholder.test(command)) {
+		command = command.replace(/(xargs.*?)\|/, '$1{} |');;
+	}
     return command;
 }
+
 
 function getFileNames(block) {
 	

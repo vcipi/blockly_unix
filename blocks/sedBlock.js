@@ -4,13 +4,13 @@ var sedBlock = {
   unix_description: [
     {
       regPattern: "'s/patt/",
-      singleStr: "'/str/",
+      singleStr: "'s/str/",
       regReplaceText: "str/'",
       regex: '-E',
       globally: "g"
     }
   ],
-  message0: "Stream edit in a file\n",
+  message0: "Search and replace in a file\n",
   message1: "is Regex %1\n",
   args1: [{
     type: "field_checkbox",
