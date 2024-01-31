@@ -264,10 +264,19 @@ function handleBlock(block) {
 		console.log("HANDLEBLOCK - conditionValue", conditionValue);
 	}
 	
-	if (conditionValue === '' && blockType === 'condOutput'){
-		conditionValue = handleConditionsAndLoops(block, blockType);
-		console.log("HANDLEBLOCK -  MAIN conditionValue", conditionValue);
-	}
+	// if (conditionValue === '' && blockType === 'loopOutput'){
+		// conditionValue = handleConditionsAndLoops(block, blockType);
+		// conditionValue = replaceKeywords(conditionValue);
+		// console.log("HANDLEBLOCK -  MAIN conditionValue before replacement", conditionValue);
+		// conditionValue= conditionValue
+		// .replace(/\{/, '')
+		// .replace(/(\w+)\s*=\s*(\d+);/, '$1=$2\n') // Handle initialization
+        // .replace(/while\s*\((\w+)\s*([<>=!]+)\s*(\d+)\)\s*\{/, (match, p1, p2, p3) => `while [ $${p1} ${operatorConversion(p2)} $${p3} ] \ndo`) // Handle condition
+        // .replace(/print\(([^)]+)\);/g, 'echo $1\n') // Convert console.log to echo
+        // .replace(/(\w+)\s*\+\+;/, '$1=$(($1 + 1))') // Handle increment
+        // .replace(/\}/, ''); // Close the loop
+		// console.log("HANDLEBLOCK -  MAIN conditionValue", conditionValue);
+	// }
 
 	//get all the regex children blocks of the main block
 	var regexBlocks = getRegexChildenBlocks(block);
@@ -332,9 +341,9 @@ function handleBlock(block) {
 	else if(blockCategory === "Regular Expressions") {
 		commandString = regexStringValue + commandParts.join('');
 	}
-	else if(blockType === 'condOutput'){
-		commandString = conditionValue.replace(/{(.+?) }'/g, "$1");
-	}
+	// else if(blockType === 'loopOutput'){
+		// commandString = conditionValue.replace(/{(.+?) }'/g, "$1");
+	// }
 	else if(blockType === 'variables_set'){
 		commandString = variable_name + '=' + variable_value + " |";
 	}

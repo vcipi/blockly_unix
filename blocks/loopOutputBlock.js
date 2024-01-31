@@ -10,8 +10,8 @@ var loopOutputBlock = {
     }
   ],
   output: "String",
-  "nextStatement": null,
-  "colour": 510
+  nextStatement: null,
+  colour: 510
 };
 
 Blockly.defineBlocksWithJsonArray([loopOutputBlock]);
