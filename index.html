@@ -98,23 +98,13 @@
                 <block type="showUniqs"></block>
                 <block type="cut"></block>
                 <block type="sed"></block>
+                <block type="echo"></block>
             </category>
 
             <category name="File inputs" colour="#5C81A6">
                 <block type="filename"></block>
                 <block type="filenamesCreate"></block>
                 <block type="fileEndStart"></block>
-            </category>
-
-            <category name="Data Processing" colour="#3B7C09">
-                <block type="beginEnd"></block>
-                <block type="awk"></block>
-				<block type="condOutput"></block>
-                <block type="column"></block>
-                <block type="grep"></block>
-                <block type="NR"></block>
-                <block type="NF"></block>
-                <block type="xargs"></block>
             </category>
 
             <category name="File and Directory Operations" colour="#FE9B13">
@@ -148,51 +138,56 @@
                 <block type="regLookahead"></block>
                 <block type="regCommon"></block>
             </category>
-<<<<<<< Updated upstream
-            <category name="Awk" colour="#D800FF">
-               <!-- <block type="variablePass"></block> -->
-               <!-- <block type="multipleVariables"></block> -->
-              <!-- <block type="calculate"></block> -->
+
+            <category name="Data Processing" colour="#3B7C09">
                 <block type="beginEnd"></block>
                 <block type="awk"></block>
 				<block type="condOutput"></block>
-                <!-- <block type="loopOutput"></block> -->
-=======
+                <block type="column"></block>
+                <block type="grep"></block>
+                <block type="NR"></block>
+                <block type="NF"></block>
+                <block type="xargs"></block>
 
-            <category name="Text output" colour="160">
-                <block type="text"></block>
-                <block type="text_print">
-					<value name="TEXT">
-					  <shadow type="text">
-						<field name="TEXT">abc</field>
-					  </shadow>
-					</value>
-				</block>
-                <block type="multiplePrint"></block>
-                <block type="echo"></block>
-            </category>
+                <category name="Text output" colour="160">
+                    <block type="text"></block>
+                    <block type="text_print">
+                        <value name="TEXT">
+                        <shadow type="text">
+                            <field name="TEXT">abc</field>
+                        </shadow>
+                        </value>
+                    </block>
+                    <block type="multiplePrint"></block>
+                </category>
 
-            <category name="Math - logic - loops" colour="#D800FF">
->>>>>>> Stashed changes
-                <block type="controls_if"></block>
-                <block type="logic_compare"></block>
-                <block type="logic_operation"></block>
-                <block type="logic_negate"></block>
-                <block type="controls_whileUntil"></block>
-				<block type="controls_forEach"></block>
-                <block type="math_number"></block>
-				<block type="math_arithmetic">
-					<value name="A">
-					  <shadow type="math_number">
-						<field name="NUM">1</field>
-					  </shadow>
-					</value>
-					<value name="B">
-					  <shadow type="math_number">
-						<field name="NUM">1</field>
-					  </shadow>
-					</value>
-				</block>
+                <category name="Logic" colour="210">
+                    <block type="controls_if"></block>
+                    <block type="logic_compare"></block>
+                    <block type="logic_operation"></block>
+                    <block type="logic_negate"></block>
+                </category>
+
+                <category name="Loops" colour="120">
+                    <block type="controls_whileUntil"></block>
+                    <block type="controls_forEach"></block>
+                </category>
+
+                <category name="Math" colour="230">
+                    <block type="math_number"></block>
+                    <block type="math_arithmetic">
+                        <value name="A">
+                        <shadow type="math_number">
+                            <field name="NUM">1</field>
+                        </shadow>
+                        </value>
+                        <value name="B">
+                        <shadow type="math_number">
+                            <field name="NUM">1</field>
+                        </shadow>
+                        </value>
+                    </block>
+                </category>
             </category>
 
             <category name="Variables" colour="330" custom="VARIABLE"></category>

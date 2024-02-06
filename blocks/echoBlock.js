@@ -12,7 +12,7 @@ var echoBlock = {
     name: "echoInput", 
     text: "",
   }],
-  style: "text_blocks",
+  style: "Text Processing",
   previousStatement: "Action",
   nextStatement: "Action",
   tooltip: "%{BKY_ECHO_TOOLTIP}",
