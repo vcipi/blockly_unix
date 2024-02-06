@@ -8,8 +8,7 @@ var findDuplicatesBlock = {
     }
   ],
 
-  // output: "String",
-  colour: 240,
+  style: "Text Processing",
   previousStatement: "Action",
   nextStatement: "Action",
   tooltip: "find duplicate lines in a file",

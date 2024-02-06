@@ -9,7 +9,7 @@ var multiplePrintBlock = {
       },
     ],
     output: "String",
-    style: "list_blocks", 
+    style: "text_blocks", 
     helpUrl: "%{BKY_PRINT_CREATE_WITH_HELPURL}",
     tooltip: "%{BKY_PRINT_CREATE_WITH_TOOLTIP}",
     mutator: "new_list_create_with_mutator",

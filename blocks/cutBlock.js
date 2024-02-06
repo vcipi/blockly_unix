@@ -34,7 +34,8 @@ var cutBlock = {
     text: "",
   }
   ],
-  colour: 320,
+  
+  style: "Text Processing",
   previousStatement: "Action",
   nextStatement: "Action",
   tooltip: "%{BKY_CUT_TOOLTIP}",

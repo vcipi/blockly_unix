@@ -13,9 +13,8 @@ var NFBlock = {
       name: 'FieldNumber'
     },
   ],
-  colour: 130,
+  style: "Data Processing",
   output: null,
-  // nextStatement: "Action",
   tooltip: "%{BKY_FIELD_NUMBER_TOOLTIP}",
   helpUrl: "%{BKY_FIELD_NUMBER_HELPURL}" // URL to further information or documentation.
 };

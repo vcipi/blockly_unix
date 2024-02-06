@@ -14,8 +14,7 @@ var cdBlock = {
 	  text: "............" // empty text for user to define path
     }
   ],
-  colour: 400,
-  // nextStatement: "Action",
+  style: "File and Directory Operations",
   tooltip: "%{BKY_CD_TOOLTIP}",
   helpUrl: "%{BKY_CD_HELPURL}" // URL to further information or documentation.
 };

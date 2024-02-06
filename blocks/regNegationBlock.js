@@ -13,7 +13,7 @@ var regNegationBlock = {
     check: "String" 
   }],
 
-  colour: 870,
+  style: "Regular Expressions",
   previousStatement: "Action",
   nextStatement: "Action",
   tooltip: "Find the negation of the pattern following",

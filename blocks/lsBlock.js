@@ -44,9 +44,7 @@ var lsBlock = {
       checked: false // by default it's disabled
     }
   ],
-
-  // output: "String",
-  colour: 480,
+  style: "File and Directory Operations",
   previousStatement: "Action",
   nextStatement: "Action",
   tooltip: "list directory contents",

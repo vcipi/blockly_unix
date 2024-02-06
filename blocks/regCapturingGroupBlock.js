@@ -15,7 +15,7 @@ var regCapturingGroupBlock = {
   tooltip: "Define a pattern group",
   previousStatement: "Action",
   nextStatement: "Action",
-  colour: 420,
+  style: "Regular Expressions",
   helpUrl: "" // URL to further information or documentation.
 
 };

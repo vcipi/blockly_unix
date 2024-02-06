@@ -8,7 +8,7 @@ var filenamesCreateBlock = {
         name: "EMPTY",
       },
     ],
-    style: "filename_style",
+    style: "File inputs",
     nextStatement: "Action",
     helpUrl: "%{BKY_FILES_CREATE_WITH_HELPURL}",
     tooltip: "%{BKY_FILES_CREATE_WITH_TOOLTIP}",

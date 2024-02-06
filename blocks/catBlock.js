@@ -16,7 +16,7 @@ var catBlock = {
     }
 
   ],
-  colour: 876,
+  style: "File and Directory Operations",
   previousStatement: "Action",
   nextStatement: "Action",
   tooltip: "%{BKY_CAT_TOOLTIP}",

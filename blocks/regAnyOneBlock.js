@@ -24,7 +24,7 @@ var regAnyOneBlock = {
   tooltip: "Match any one of the defined characters",
   previousStatement: "Action",
   nextStatement: "Action",
-  colour: 340,
+  style: "Regular Expressions",
   helpUrl: "" // URL to further information or documentation.
 
 };

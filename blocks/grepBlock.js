@@ -103,9 +103,7 @@ var grepBlock = {
       checked: false // by default it's disabled
     }
   ],
-  
-  
-  colour: 646,
+  style: "Data Processing",
   previousStatement: "Action",
   nextStatement: "Action",
   tooltip: "search in a file with a pattern",

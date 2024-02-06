@@ -29,7 +29,7 @@ var regQuantBlock = {
     name: "regPattern",
     check: "String" 
   }],
-  colour: 120,
+  style: "Regular Expressions",
   previousStatement: "Action",
   nextStatement: "Action",
   tooltip: "quantifiers of patterns",

@@ -13,9 +13,8 @@ var NRBlock = {
       name: 'recordNumber'
     },
   ],
-  colour: 130,
+  style: "Data Processing",
   output: null,
-  // nextStatement: "Action",
   tooltip: "%{BKY_RECORD_NUMBER_TOOLTIP}",
   helpUrl: "%{BKY_RECORD_NUMBER_HELPURL}" // URL to further information or documentation.
 };

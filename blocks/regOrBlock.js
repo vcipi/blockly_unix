@@ -9,7 +9,7 @@ var regOrBlock = {
       },
     ],
     output: "String",
-    style: "list_blocks", 
+    style: "Regular Expressions",
     helpUrl: "%{BKY_REGOR_CREATE_WITH_HELPURL}",
     tooltip: "%{BKY_REGOR_CREATE_WITH_TOOLTIP}",
     mutator: "new_list_create_with_mutator_OrRegex",

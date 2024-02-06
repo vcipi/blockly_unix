@@ -25,7 +25,7 @@ var teeBlock = {
 	    text: "............" 
     }
   ],
-  colour: 510,
+  style: "I/O Redirection",
   previousStatement: "Action",
   nextStatement: "Action",
   tooltip: "The tee utility copies standard input to standard output, making a copy in zero or more files.",

@@ -14,8 +14,7 @@ var regPatternBlock = {
       text: "type your pattern here..."// default text for the input
     }
   ],
-  output: "String",
-  colour: 570,
+  style: "Regular Expressions",
   nextStatement: "Action",
   tooltip: "Define a pattern to search",
   helpUrl: "" // URL to further information or documentation.

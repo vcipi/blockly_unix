@@ -4,9 +4,8 @@ var sortBlock = {
   category: "Data Processing",
   unix_description: [
     {
-      desc: "-r",
-      // characters_sorting: "-d", Probably not needed. Same output as if left blank
-      numeric_sorting : '-n',
+    desc: "-r",
+    numeric_sorting : '-n',
 	  sort_delimiter : "-t'str'",
 	  sort_column : '-k',
 	  uniq_elements : '-u'
@@ -64,7 +63,8 @@ var sortBlock = {
   extensions: [
     'integer_validation',
   ],
-  colour: 880,
+  
+  style: "Text Processing",
   previousStatement: "Action",
   nextStatement: "Action",
   tooltip: "report or filter out repeated lines in a file",

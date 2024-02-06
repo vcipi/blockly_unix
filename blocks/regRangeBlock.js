@@ -3,7 +3,6 @@ var regRangeBlock = {
   category: "Regular Expressions",
   unix_description: [
     {
-      //not : "[^[rangeChoice]]", // for example: [^[:upper:]]
       upper: "[[:upper:]]",
       lower: "[[:lower:]]",
       letters: "[[:alpha:]]",
@@ -16,7 +15,6 @@ var regRangeBlock = {
       non_printable: "[[:cntrl:]]",
       graphical: "[[:graph:]]",
       hexadecimal: "[[:xdigit:]]",
-      //custom: "[symbol1-symbol2]" // to discuss with Vag
     }
   ],
   message0: "Range matching %1",
@@ -49,7 +47,7 @@ var regRangeBlock = {
       checked: false // by default it's disabled
     }
   ],
-  colour: 510,
+  style: "Regular Expressions",
   previousStatement: "Action",
   nextStatement: "Action",
   tooltip: "Match in the file the designated range of characters",

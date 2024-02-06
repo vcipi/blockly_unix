@@ -33,8 +33,7 @@ var mkdirBlock = {
 	  text: "............" 
   }],
   
-  // output: "String",
-  colour: 250,
+  style: "File and Directory Operations",
   previousStatement: "Action",
   nextStatement: "Action",
   tooltip: "create directory",

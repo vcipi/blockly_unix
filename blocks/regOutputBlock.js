@@ -11,7 +11,7 @@ var regOutputBlock = {
   ],
   output: "String",
   "nextStatement": null,
-  "colour": 120
+  style: "Regular Expressions"
 };
 
 Blockly.defineBlocksWithJsonArray([regOutputBlock]);

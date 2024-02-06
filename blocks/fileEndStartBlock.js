@@ -24,8 +24,7 @@ var fileEndStartBlock = {
   ],
   
   output: "string",
-  // colour: 550,
-  style : "filename_style",
+  style : "File inputs",
   nextStatement: "Action",
   tooltip: "%{BKY_FILE_END_START_WILDCHARS_TOOLTIP}",
   helpUrl: "%{BKY_FILE_END_START_WILDCHARS_HELPURL} " // URL to further information or documentation.

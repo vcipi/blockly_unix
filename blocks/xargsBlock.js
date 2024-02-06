@@ -16,8 +16,7 @@ var xargsBlock = {
       checked: false // by default it's disabled
     }
   ],
-  // output: "String",
-  colour: 480,
+  style: "Data Processing",
   previousStatement: "Action",
   nextStatement: "Action",
   tooltip: "Execute the following command for each item of a list or a file",

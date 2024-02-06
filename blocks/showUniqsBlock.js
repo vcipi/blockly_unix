@@ -8,8 +8,7 @@ var showUniqsBlock = {
     }
   ],
 
-  // output: "String",
-  colour: 240,
+  style: "Text Processing",
   previousStatement: "Action",
   nextStatement: "Action",
   tooltip: "find and show only unique lines in a file",

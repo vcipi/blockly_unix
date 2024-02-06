@@ -14,7 +14,7 @@ var saveBlock = {
       text: "save.csv" // default file for saving
     }
   ],
-  colour: 10,
+  style: "I/O Redirection",
   previousStatement: "Action",
   tooltip: "Saves a file with spectified name and extension and overrides if already exists",
   helpUrl: "" // URL to further information or documentation.

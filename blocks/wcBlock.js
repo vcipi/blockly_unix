@@ -48,8 +48,7 @@ var wcBlock = {
     }
   ],
 
-  // output: "String",
-  colour: 440,
+  style: "Text Processing",
   previousStatement: "Action",
   nextStatement: "Action",
   tooltip: "word, line, character, and byte count in a file",

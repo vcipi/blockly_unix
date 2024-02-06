@@ -42,7 +42,7 @@ var tailBlock = {
   tooltip: "Output the last parts of files",
   previousStatement: "Action",
   nextStatement: "Action",
-  colour: 260,
+  style: "Text Processing",
   extensions: [
     'integer_validation',
   ],

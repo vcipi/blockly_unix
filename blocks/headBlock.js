@@ -11,11 +11,6 @@ var headBlock = {
 
     }
   ],
-  // args0: [{
-      // type: "input_value",
-      // name: "FILENAME",
-	  // check: ["filename" , "filenamesCreate",]
-  // }],
   message1: "metric %1",
   args1: [
     {
@@ -35,27 +30,11 @@ var headBlock = {
       value: 10, // default number of bytes
     }
   ],
-  message3: "Quiet %1",
-  args3: [
-    {
-      type: "field_checkbox",
-      name: "QUIET",
-      checked: false // by default it's disabled
-    }
-  ],
-  message4: "Verbose %1",
-  args4: [
-    {
-      type: "field_checkbox",
-      name: "VERBOSE",
-      checked: false // by default it's disabled
-    }
-  ],
   
   tooltip: "Output the first part of files",
   previousStatement: "Action",
   nextStatement: "Action",
-  colour: 160,
+  style: "Text Processing",
   extensions: [
     'integer_validation', 'disallow_multiple_filenames',
   ],

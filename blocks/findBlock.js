@@ -164,9 +164,8 @@ var findBlock = {
       checked: false // by default it's disabled
     }
   ],
-
-  // output: "String",
-  colour: 450,
+  
+  style: "File and Directory Operations",
   previousStatement: "Action",
   nextStatement: "Action",
   tooltip: "Find files in directories and subdirectories",

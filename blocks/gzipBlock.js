@@ -1,11 +1,10 @@
 var gzipBlock = {
-  type: "gzip", // TO DO. Finish gzip with rest of parameters!
+  type: "gzip", 
   category: "File and Directory Operations",
   unix_description: [
     {
       keep: "-k",
       decompress: "-d"
-	    //compress_level: "???" //add only before the level of compression the command requires a string eg. in sort the column requires -k (sort -k3 test.csv)
     }
   ],
   message0: "%1 File",
@@ -38,8 +37,7 @@ var gzipBlock = {
 
     }
   ],
-  //output: "String",
-  colour: 270,  
+  style: "File and Directory Operations",
   extensions: [
     'integer_validation',
   ],

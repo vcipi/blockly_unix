@@ -41,26 +41,23 @@
 	<script src="blocks/regRangeBlock.js"></script>
 	<script src="blocks/regQuantBlock.js"></script>
 	<script src="blocks/regAnyOneBlock.js"></script>
-	<script src="blocks/regDigitBlock.js"></script>
-	<script src="blocks/regWordCharBlock.js"></script>
-	<script src="blocks/regWhitespaceBlock.js"></script>
 	<script src="blocks/condOutputBlock.js"></script>
     <script src="blocks/multiplePrintBlock.js"></script>
     <script src="blocks/filenamesCreateBlock.js"></script>
     <script src="blocks/columnBlock.js"></script>
     <script src="blocks/headersBlock.js"></script>
-    <script src="blocks/variablePassBlock.js"></script>
     <script src="blocks/teeBlock.js"></script>
-    <script src="blocks/arrayCreateBlock.js"></script>
     <script src="blocks/fileEndStartBlock.js"></script>
-    <script src="blocks/fileWildcardBlock.js"></script>
     <script src="blocks/echoBlock.js"></script>
     <script src="blocks/multipleVariablesBlock.js"></script>
     <script src="blocks/findBlock.js"></script>
     <script src="blocks/regLookaheadBlock.js"></script>
     <script src="blocks/regCommonBlock.js"></script>
     <script src="blocks/touchBlock.js"></script>
+<<<<<<< Updated upstream
     <!-- <script src="blocks/loopOutputBlock.js"></script> -->
+=======
+>>>>>>> Stashed changes
     <script src="blocks/NRBlock.js"></script>
     <script src="blocks/NFBlock.js"></script>
     <script src="blocks/xargsBlock.js"></script>
@@ -91,12 +88,7 @@
 <script>
     var toolboxXML = `
         <xml>
-            <category name="Data Processing" colour="#5C81A6">
-                <block type="filename"></block>
-                <block type="filenamesCreate"></block>
-                <block type="fileEndStart"></block>
-                <!-- <block type="fileWildcard"></block> -->    
-                <block type="arrayCreate"></block>
+            <category name="Text Processing" colour="#4CAF50">
                 <block type="head"></block>
                 <block type="tail"></block>
                 <block type="wc"></block>
@@ -104,29 +96,44 @@
                 <block type="uniq"></block>
                 <block type="findDuplicates"></block>
                 <block type="showUniqs"></block>
+                <block type="cut"></block>
+                <block type="sed"></block>
             </category>
-            <category name="File and Directory Operations" colour="#457D4B">
-                <block type="ls"></block>
-                <block type="xargs"></block>
+
+            <category name="File inputs" colour="#5C81A6">
+                <block type="filename"></block>
+                <block type="filenamesCreate"></block>
+                <block type="fileEndStart"></block>
+            </category>
+
+            <category name="Data Processing" colour="#3B7C09">
+                <block type="beginEnd"></block>
+                <block type="awk"></block>
+				<block type="condOutput"></block>
+                <block type="column"></block>
+                <block type="grep"></block>
                 <block type="NR"></block>
                 <block type="NF"></block>
+                <block type="xargs"></block>
+            </category>
+
+            <category name="File and Directory Operations" colour="#FE9B13">
+                <block type="ls"></block>
                 <block type="find"></block>
-                <block type="echo"></block>
                 <block type="cd"></block>
                 <block type="mkdir"></block>
                 <block type="gzip"></block>
-                <block type="grep"></block>
-                <block type="sed"></block>
-                <block type="cut"></block>
                 <block type="cat"></block>
-                <block type="tee"></block>
                 <block type="touch"></block>
             </category>
-            <category name="I/O Redirection" colour="#FF5733">
+
+            <category name="I/O Redirection" colour=#1976D2>
                 <block type="save"></block>
                 <block type="append"></block>
+                <block type="tee"></block>
             </category>
-            <category name="Regular Expressions" colour="#44AEDD">
+
+            <category name="Regular Expressions" colour="#FF5733">
                 <block type="regOutput"></block>
                 <block type="regPattern"></block>
                 <block type="regOr"></block>
@@ -138,12 +145,10 @@
                 <block type="regRange"></block>
                 <block type="regQuant"></block>
                 <block type="regAnyOne"></block>
-               <!-- <block type="regDigit"></block> -->
-               <!-- <block type="regWordChar"></block> -->
-               <!-- <block type="regWhitespace"></block> -->
                 <block type="regLookahead"></block>
                 <block type="regCommon"></block>
             </category>
+<<<<<<< Updated upstream
             <category name="Awk" colour="#D800FF">
                <!-- <block type="variablePass"></block> -->
                <!-- <block type="multipleVariables"></block> -->
@@ -152,8 +157,29 @@
                 <block type="awk"></block>
 				<block type="condOutput"></block>
                 <!-- <block type="loopOutput"></block> -->
+=======
+
+            <category name="Text output" colour="160">
+                <block type="text"></block>
+                <block type="text_print">
+					<value name="TEXT">
+					  <shadow type="text">
+						<field name="TEXT">abc</field>
+					  </shadow>
+					</value>
+				</block>
+                <block type="multiplePrint"></block>
+                <block type="echo"></block>
+            </category>
+
+            <category name="Math - logic - loops" colour="#D800FF">
+>>>>>>> Stashed changes
                 <block type="controls_if"></block>
                 <block type="logic_compare"></block>
+                <block type="logic_operation"></block>
+                <block type="logic_negate"></block>
+                <block type="controls_whileUntil"></block>
+				<block type="controls_forEach"></block>
                 <block type="math_number"></block>
 				<block type="math_arithmetic">
 					<value name="A">
@@ -167,39 +193,9 @@
 					  </shadow>
 					</value>
 				</block>
-                <block type="logic_operation"></block>
-                <block type="logic_negate"></block>
-                <block type="multiplePrint"></block>
-                <block type="column"></block>
-				<block type="controls_whileUntil"></block>
-				<block type="controls_forEach"></block>
-                <!-- <block type="controls_for"> -->
-                    <!-- <value name="FROM"> -->
-                    <!-- <shadow type="math_number"> -->
-                        <!-- <field name="NUM">1</field> -->
-                    <!-- </shadow> -->
-                    <!-- </value> -->
-                    <!-- <value name="TO"> -->
-                    <!-- <shadow type="math_number"> -->
-                        <!-- <field name="NUM">10</field> -->
-                    <!-- </shadow> -->
-                    <!-- </value> -->
-                    <!-- <value name="BY"> -->
-                    <!-- <shadow type="math_number"> -->
-                        <!-- <field name="NUM">1</field> -->
-                    <!-- </shadow> -->
-                    <!-- </value> -->
-                <!-- </block> -->
-                <block type="text"></block>
-                <block type="text_print">
-					<value name="TEXT">
-					  <shadow type="text">
-						<field name="TEXT">abc</field>
-					  </shadow>
-					</value>
-				</block>
             </category>
-            <category name="%{BKY_CATVARIABLES}" colour="330" custom="VARIABLE"></category>
+
+            <category name="Variables" colour="330" custom="VARIABLE"></category>
            
         </xml>
     `;
@@ -207,9 +203,9 @@
     Blockly.Themes.Halloween = Blockly.Theme.defineTheme('halloween', {
         'base': Blockly.Themes.Classic,
         // 'categoryStyles': {
-        //     'list_category': {
-        //     'colour': "#4a148c"
-        //     },
+        //     'I/O Redirection': {
+        //     'colour': "#FE9B13"
+        //     }},
         //     'logic_category': {
         //     'colour': "#8b4513",
         //     },
@@ -221,23 +217,43 @@
         //     },
         // },
         'blockStyles': {
-            'filename_style': {
-            'colourPrimary': "#4a148c",
-            'colourSecondary':"#AD7BE9",
+            'Text Processing': {
+            'colourPrimary': "#4CAF50",
+            'colourSecondary':"#FFCDD2",
             'colourTertiary':"#CDB6E9",
             },
-            'logic_blocks': {
-            'colourPrimary': "#8b4513",
+            'File inputs': {
+            'colourPrimary': "#5C81A6",
             'colourSecondary':"#ff0000",
             'colourTertiary':"#C5EAFF"
             },
-            'loop_blocks': {
-            'colourPrimary': "#85E21F",
+            'Data Processing': {
+            'colourPrimary': "#3B7C09",
             'colourSecondary':"#ff0000",
             'colourTertiary':"#C5EAFF"
             },
-            'text_blocks': {
+            'File and Directory Operations': {
             'colourPrimary': "#FE9B13",
+            'colourSecondary':"#ff0000",
+            'colourTertiary':"#C5EAFF"
+            },
+            'I/O Redirection': {
+            'colourPrimary': "#1976D2",
+            'colourSecondary':"#ff0000",
+            'colourTertiary':"#C5EAFF"
+            },
+            'Regular Expressions': {
+            'colourPrimary': "#FF5733",
+            'colourSecondary':"#ff0000",
+            'colourTertiary':"#C5EAFF"
+            },
+            'Text output': {
+            'colourPrimary': "#FF5733",
+            'colourSecondary':"#ff0000",
+            'colourTertiary':"#C5EAFF"
+            },
+            'Math - logic - loops': {
+            'colourPrimary': "#D800FF",
             'colourSecondary':"#ff0000",
             'colourTertiary':"#C5EAFF"
             },
@@ -261,6 +277,7 @@
 
 
     var workspace = Blockly.inject('blocklyDiv', {
+        // renderer : 'Zelos',
         toolbox: toolboxXML,
         theme: Blockly.Themes.Halloween,
 		trashcan: true,

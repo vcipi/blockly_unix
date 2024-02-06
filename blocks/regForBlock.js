@@ -33,7 +33,7 @@ var regForBlock = {
   ],
   previousStatement: null,
   nextStatement: null,
-  colour: 499,
+  style: "Regular Expressions",
   tooltip: "",
   helpUrl: ""
 };

@@ -25,7 +25,7 @@ var regLookaheadBlock = {
 
 
   ],
-  colour: 510,
+  style: "Regular Expressions",
   previousStatement: "Action",
   nextStatement: "Action",
   tooltip: "Match a pattern that follows or doesn't follow another pattern",

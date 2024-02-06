@@ -16,8 +16,8 @@ var uniqBlock = {
     name: "occurencies",
     checked: false // by default it's disabled
   }],
-  // output: "String",
-  colour: 220,
+  
+  style: "Text Processing",
   previousStatement: "Action",
   nextStatement: "Action",
   tooltip: "report or filter out repeated lines in a file",

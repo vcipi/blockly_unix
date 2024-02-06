@@ -65,7 +65,7 @@ var awkBlock = {
       text: "" 
     }
   ],
-  colour: 387,
+  style: "Data Processing",
   previousStatement: "Action",
   nextStatement: "Action",
   tooltip: "%{BKY_AWK_TOOLTIP}",

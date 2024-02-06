@@ -7,8 +7,7 @@ var touchBlock = {
     }
   ],
   message0: "Create a file",  
-  // output: "String",
-  colour: 250,
+  style: "File and Directory Operations",
   previousStatement: "Action",
   nextStatement: "Action",
   tooltip: "create directory",

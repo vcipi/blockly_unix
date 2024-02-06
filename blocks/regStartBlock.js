@@ -12,8 +12,7 @@ var regStartBlock = {
     name: "regPattern",
     check: "String" 
   }],
-
-  colour: 610,
+  style: "Regular Expressions",
   previousStatement: "Action",
   nextStatement: "Action",
   tooltip: "start of line",

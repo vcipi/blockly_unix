@@ -14,8 +14,7 @@ var columnBlock = {
       },
     ],
     output: null,
-    // 'style': 'logic_blocks',
-    colour: 260,
+    style: "Data Processing",
     tooltip: "%{BKY_COLUMN_TOOLTIP}",
     helpUrl: "%{BKY_COLUMN_HELPURL}",
 };

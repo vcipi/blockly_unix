@@ -43,7 +43,8 @@ var sedBlock = {
     name: "globally",
     checked: false // by default it's disabled
   }],
-  colour: 590,
+  
+  style: "Text Processing",
   previousStatement: "Action",
   nextStatement: "Action",
   tooltip: "Stream edit in a file",

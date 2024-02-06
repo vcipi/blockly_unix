@@ -27,7 +27,7 @@ var regCommonBlock = {
       ]
     }
   ],
-  colour: 630,
+  style: "Regular Expressions",
   previousStatement: "Action",
   nextStatement: "Action",
   tooltip: "Common regular expression searches",

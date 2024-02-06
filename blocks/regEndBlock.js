@@ -12,8 +12,7 @@ var regEndBlock = {
     name: "regPattern",
     check: "String" 
   }],
-
-  colour: 710,
+  style: "Regular Expressions",
   previousStatement: "Action",
   nextStatement: "Action",
   tooltip: "end of line",

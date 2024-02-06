@@ -14,7 +14,7 @@ var appendBlock = {
       text: "save.csv" // default file for saving
     }
   ],
-  colour: 10,
+  style: "I/O Redirection",
   previousStatement: "Action",
   tooltip: "%{BKY_APPEND_TOOLTIP}",
   helpUrl: "%{BKY_APPEND_HELPURL}" // URL to further information or documentation.
