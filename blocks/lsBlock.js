@@ -1,6 +1,6 @@
 var lsBlock = {
   type: "ls",
-  message0: "List files & directories",
+  message0: "%{BKY_LS_MESSAGE}",
   category: "File and Directory Operations",
   unix_description: [
     {
@@ -12,7 +12,7 @@ var lsBlock = {
     }
   ],
 
-  message1: "show details %1",
+  message1: "%{BKY_LS_SHOW_DETAILS}",
   args1: [
     {
       type: "field_checkbox",
@@ -20,7 +20,7 @@ var lsBlock = {
       checked: false // by default it's disabled
     }
   ],
-  message2: "%1 search in all subdirectories",
+  message2: "%{BKY_LS_SUBDIRECTORIES}",
   args2: [
     {
       type: "field_checkbox",
@@ -28,7 +28,7 @@ var lsBlock = {
       checked: false // by default it's disabled
     }
   ],
-  message3: "show hidden files %1",
+  message3: "%{BKY_LS_HIDDEN}",
   args3: [
     {
       type: "field_checkbox",
@@ -36,7 +36,7 @@ var lsBlock = {
       checked: false // by default it's disabled
     }
   ],
-  message4: "%1 show in reverse order",
+  message4: "%{BKY_LS_REVERSE_ORDER}",
   args4: [
     {
       type: "field_checkbox",
@@ -47,7 +47,7 @@ var lsBlock = {
   style: "File and Directory Operations",
   previousStatement: "Action",
   nextStatement: "Action",
-  tooltip: "list directory contents",
+  tooltip: "%{BKY_LS_TOOLTIP}",
   helpUrl: "" // URL to further information or documentation.
 };
 

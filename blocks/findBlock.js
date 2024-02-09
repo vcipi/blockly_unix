@@ -29,8 +29,8 @@ var findBlock = {
     }
   ],
 
-  message0: "Find in file hierarchy \n",
-  message1: "search in %1 directory ",
+  message0: "%{BKY_FIND} \n",
+  message1: "%{BKY_FIND_DIRECTORY_SEARCH} ",
   args1: [
     {
       type: "field_dropdown",
@@ -43,7 +43,7 @@ var findBlock = {
       ]
     }
   ],
-  message2: "for %1 ",
+  message2: "%{BKY_FIND_CHOOSE_TYPE} ",
   args2: [
     {
       type: "field_dropdown",
@@ -55,7 +55,7 @@ var findBlock = {
       ]
     }
   ],
-  message3: "Do not include subdirectories %1 ",
+  message3: "%{BKY_FIND_SUBDIRECTORIES}",
   args3: [
     {
       type: "field_checkbox",
@@ -63,7 +63,7 @@ var findBlock = {
       checked: true // by default it's enabled
     }
   ],
-  message4: "Define other directory %1",
+  message4: "%{BKY_FIND_DIRECTORY_DEFINE}",
   args4: [
     {
       type: "field_input",
@@ -71,7 +71,7 @@ var findBlock = {
       text: "",
     }
   ],
-  message5: "modified last %1 %2",
+  message5: "%{BKY_FIND_MODIFIED}",
   args5: [
     {
       type: "field_dropdown",
@@ -88,7 +88,7 @@ var findBlock = {
       text: ""
     }
   ],
-  message6: "accessed last %1 %2",
+  message6: "%{BKY_FIND_ACCESSED}",
   args6: [
     {
       type: "field_dropdown",
@@ -105,7 +105,7 @@ var findBlock = {
       text: ""
     }
   ],
-  message7: "metadata changed last %1 %2",
+  message7: "%{BKY_FIND_METADATA}",
   args7: [
     {
       type: "field_dropdown",
@@ -122,7 +122,7 @@ var findBlock = {
       text: "",
     }
   ],
-  message8: "size %1 than %2 %3",
+  message8: "%{BKY_FIND_SIZE}",
   args8: [
     {
       type: "field_dropdown",
@@ -149,14 +149,14 @@ var findBlock = {
       ]
     }
   ],
-  message9: "with name like %1",
+  message9: "%{BKY_FIND_NAME_DEFINE}",
   args9: [
     {
       type: "input_value",
       name: "regPattern"
     }
   ],
-  message10: "execute following command in\n all files found %1",
+  message10: "%{BKY_FIND_EXECUTE_COMMAND}",
   args10: [
     {
       type: "field_checkbox",

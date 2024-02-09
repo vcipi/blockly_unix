@@ -1,6 +1,6 @@
 var headBlock = {
   type: "head",
-  message0: "Head of file",
+  message0: "%{BKY_HEAD_MESSAGE}",
   category: "Data Processing",
   unix_description: [
     {
@@ -11,7 +11,7 @@ var headBlock = {
 
     }
   ],
-  message1: "metric %1",
+  message1: "%{BKY_HEAD_METRIC}",
   args1: [
     {
       type: "field_dropdown",
@@ -22,7 +22,7 @@ var headBlock = {
       ]
     }
   ],
-  message2: "number of %1",
+  message2: "%{BKY_HEAD_NUMBER_OF}",
   args2: [
     {
       type: "field_number",
@@ -31,7 +31,7 @@ var headBlock = {
     }
   ],
   
-  tooltip: "Output the first part of files",
+  tooltip: "%{BKY_HEAD_TOOLTIP}",
   previousStatement: "Action",
   nextStatement: "Action",
   style: "Text Processing",

@@ -1,6 +1,6 @@
 var findDuplicatesBlock = { 
   type: "findDuplicates",
-  message0: "Find duplicates in file\n",
+  message0: "%{BKY_FIND_DUPLICATES}",
   category: "Data Processing",
   unix_description: [
     {
@@ -11,7 +11,7 @@ var findDuplicatesBlock = {
   style: "Text Processing",
   previousStatement: "Action",
   nextStatement: "Action",
-  tooltip: "find duplicate lines in a file",
+  tooltip: "%{BKY_FIND_DUPLICATES_TOOLTIP}",
   helpUrl: "" // URL to further information or documentation.
 };
 

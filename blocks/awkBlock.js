@@ -6,8 +6,8 @@ var awkBlock = {
     awkInput_delimiter : "-F'str' ",  // Change to awk_delimiter
     awkOutput_delimiter : 'OFS"str"',  // Change to awk_delimiter
     input_variable : '-v"', 
-	regPattern : "'{patt",
-	awk_cols : "{print str}}'",
+	  regPattern : "'{patt",
+	  awk_cols : "{print str}}'",
     begin : "BEGIN",
     end : "END"
     }

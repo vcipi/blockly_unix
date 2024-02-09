@@ -15,23 +15,15 @@ var grepBlock = {
       showFiles: '-H'
     }
   ],
-  message0: "Search in file or directory ",
-
-  message1: "the pattern %1",
+  message0: "%{BKY_GREP}",
+  message1: "%{BKY_GREP_PATTERN_DEFINE}",
   args1:   [{
 
 	  type: "input_value",
       name: "regPattern",
 	  check: "String" 
   }],
-  // [
-  //   {
-  //     type: "field_input",
-  //     name: "pattern",
-  //     text: "'pattern'" // default text for the input
-  //   }
-  // ],
-  message2: "regular expression %1",
+  message2: "%{BKY_GREP_REGULAR_EXPRESSION_CHECK}",
   args2: [
     {
       type: "field_checkbox",
@@ -39,7 +31,7 @@ var grepBlock = {
       checked: false // by default it's disabled
     }
   ],
-  message3: "case insensitive %1",
+  message3: "%{BKY_GREP_CASE_INSENSITIVE}",
   args3: [
     {
       type: "field_checkbox",
@@ -47,7 +39,7 @@ var grepBlock = {
       checked: false // by default it's disabled
     }
   ],
-  message4: "whole word search %1",
+  message4: "%{BKY_GREP_WHOLE_WORD_SEARCH}",
   args4: [
     {
       type: "field_checkbox",
@@ -55,7 +47,7 @@ var grepBlock = {
       checked: false // by default it's disabled
     }
   ],
-  message5: "count the matches %1",
+  message5: "%{BKY_GREP_COUNT_MATCHES}",
   args5: [
     {
       type: "field_checkbox",
@@ -63,7 +55,7 @@ var grepBlock = {
       checked: false // by default it's disabled
     }
   ],
-  message6: "show lines that don't match pattern %1",
+  message6: "%{BKY_GREP_PATTERN_NEGATION}",
   args6: [
     {
       type: "field_checkbox",
@@ -71,7 +63,7 @@ var grepBlock = {
       checked: false // by default it's disabled
     }
   ],
-  message7: "Recursively in all subdirectories %1",
+  message7: "%{BKY_GREP_RECURSIVE_SEARCH}",
   args7: [
     {
       type: "field_checkbox",
@@ -79,7 +71,7 @@ var grepBlock = {
       checked: false // by default it's disabled
     }
   ],
-  message8: "Display line numbers for matching lines %1",
+  message8: "%{BKY_GREP_DISPLAY_LINE_NUMBERS}",
   args8: [
     {
       type: "field_checkbox",
@@ -87,7 +79,7 @@ var grepBlock = {
       checked: false // by default it's disabled
     }
   ],
-  message9: "Search with multiple patterns%1",
+  message9: "%{BKY_GREP_MULTIPLE_PATTERN_SEARCH}",
   args9: [
     {
       type: "field_checkbox",
@@ -95,7 +87,7 @@ var grepBlock = {
       checked: false // by default it's disabled
     }
   ],
-  message10: "Show filename %1",
+  message10: "%{BKY_GREP_SHOW_FILENAME}",
   args10: [
     {
       type: "field_checkbox",

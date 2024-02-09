@@ -7,7 +7,7 @@ var gzipBlock = {
       decompress: "-d"
     }
   ],
-  message0: "%1 File",
+  message0: "%{BKY_GZIP_FILE}",
   args0: [
     {
       type: "field_dropdown",
@@ -18,7 +18,7 @@ var gzipBlock = {
       ]
     }
   ],
-  message1: "keep original file %1",
+  message1: "%{BKY_GZIP_KEEP_ORIGINAL_FILE}",
   args1: [
     {
       type: "field_checkbox",
@@ -26,7 +26,7 @@ var gzipBlock = {
       checked: true // by default it's disabled
     }
   ],
-  message2: "level of compression %1",
+  message2: "%{BKY_GZIP_LEVEL_OF_COMPRESSION}",
   args2: [
     {
       type: "field_number",
@@ -43,7 +43,7 @@ var gzipBlock = {
   ],
   previousStatement: "Action",
   nextStatement: "Action",
-  tooltip: "File compress/decompress",
+  tooltip: "%{BKY_GZIP_TOOLTIP}",
   helpUrl: "" // URL to further information or documentation.
 };
 
