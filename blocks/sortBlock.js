@@ -1,7 +1,7 @@
 var sortBlock = {
   type: "sort",
   message0: "Sort file",
-  category: "Data Processing",
+  category: "Text Processing",
   unix_description: [
     {
     desc: "-r",

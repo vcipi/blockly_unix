@@ -1,7 +1,7 @@
 var appendBlock = {
   type: "append",
-  message0: "%{BKY_APPEND} %1",
   category: "I/O Redirection",  
+  message0: "%{BKY_APPEND} %1",
   unix_description: [
     {
       append_filename : '>> str'

@@ -1,7 +1,7 @@
 var wcBlock = {
   type: "wc",
   message0: "Count in file",
-  category: "Data Processing",
+  category: "Text Processing",
   unix_description: [
     {
       lines: "-l",

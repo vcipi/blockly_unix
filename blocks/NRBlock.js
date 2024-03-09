@@ -1,6 +1,6 @@
 var NRBlock = {
   type: "NR",
-  category: "File and Directory Operations",
+  category: "Data Processing",
   unix_description: [
     {
       recordNumber: "NR"

@@ -1,7 +1,7 @@
 var findDuplicatesBlock = { 
   type: "findDuplicates",
   message0: "%{BKY_FIND_DUPLICATES}",
-  category: "Data Processing",
+  category: "Text Processing",
   unix_description: [
     {
       duplicates: "-d" // uniq -d

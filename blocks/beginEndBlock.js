@@ -1,6 +1,6 @@
 var beginEndBlock = {
   type: "beginEnd",
-  category: "awk",
+  category: "Data Processing",
   message0: "%{BKY_BEGIN_END}",
   message1: "%1",
   args1: [

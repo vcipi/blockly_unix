@@ -1,7 +1,7 @@
 var headBlock = {
   type: "head",
   message0: "%{BKY_HEAD_MESSAGE}",
-  category: "Data Processing",
+  category: "Text Processing",
   unix_description: [
     {
       bytes: "-c",

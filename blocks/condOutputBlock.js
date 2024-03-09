@@ -1,6 +1,6 @@
 var condOutputBlock = {
   type: "condOutput",
-  category: "awk",
+  category: "Data Processing",
   message0: "%{BKY_CONDITION_OUTPUT}",
   message1: "%1",
   args1: [

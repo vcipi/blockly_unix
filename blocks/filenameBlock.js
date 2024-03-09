@@ -1,5 +1,6 @@
 var filenameBlock = {
   type: "filename",
+  category: "File inputs",
   message0: "%{BKY_FILENAME} %1",
   args0: [
     {

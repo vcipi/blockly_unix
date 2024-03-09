@@ -1,6 +1,6 @@
 var xargsBlock = {
   type: "xargs",
-  category: "File and Directory Operations",
+  category: "Data processing",
   unix_description: [
     {
       placeholder: "-I{}"

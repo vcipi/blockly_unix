@@ -110,6 +110,10 @@ replacementMap.set(/,0\s+\|/g, " |");
 replacementMap.set(/xargs(?!.*-I{}).*?\|/g, "xargs ");
 replacementMap.set(/xargs.*-I{}.*?\|/g, "xargs -I{} ");
 
+//used for cd
+replacementMap.set(/^cd./g, "cd ./");
+
+
 
 var filenameBlocks = ['filename', 'filenamesCreate', 'fileEndStart'];
 

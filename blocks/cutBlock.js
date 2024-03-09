@@ -1,6 +1,6 @@
 var cutBlock = {
   type: "cut",
-  category: "File and Directory Operations",
+  category: "Text Processing",
   unix_description: [
     {
       delimiter : "-d'str'", 

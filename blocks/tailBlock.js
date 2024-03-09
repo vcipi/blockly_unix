@@ -1,7 +1,7 @@
 var tailBlock = {
   type: "tail",
   message0: "Tail of file",
-  category: "Data Processing",
+  category: "Text Processing",
   unix_description: [
     {
       bytes: "-c",

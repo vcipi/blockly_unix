@@ -1,6 +1,6 @@
 var grepBlock = {
   type: "grep",
-  category: "File and Directory Operations",
+  category: "Data Processing",
   unix_description: [
     {
       regex: "-E",
@@ -16,21 +16,21 @@ var grepBlock = {
     }
   ],
   message0: "%{BKY_GREP}",
-  message1: "%{BKY_GREP_PATTERN_DEFINE}",
-  args1:   [{
-
-	  type: "input_value",
-      name: "regPattern",
-	  check: "String" 
-  }],
-  message2: "%{BKY_GREP_REGULAR_EXPRESSION_CHECK}",
-  args2: [
+  message1: "%{BKY_GREP_REGULAR_EXPRESSION_CHECK}",
+  args1: [
     {
       type: "field_checkbox",
       name: "regex",
       checked: false // by default it's disabled
     }
   ],
+  message2: "%{BKY_GREP_PATTERN_DEFINE}",
+  args2:   [{
+
+	  type: "input_value",
+      name: "regPattern",
+	  check: "String" 
+  }],
   message3: "%{BKY_GREP_CASE_INSENSITIVE}",
   args3: [
     {

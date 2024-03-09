@@ -1,6 +1,6 @@
 var awkBlock = {
   type: "awk",
-  category: "awk",
+  category: "Data Processing",
   unix_description: [
     {
     awkInput_delimiter : "-F'str' ",  // Change to awk_delimiter

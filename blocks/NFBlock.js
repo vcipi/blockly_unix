@@ -1,6 +1,6 @@
 var NFBlock = {
   type: "NF",
-  category: "File and Directory Operations",
+  category: "Data Processing",
   unix_description: [
     {
       FieldNumber: "NF"

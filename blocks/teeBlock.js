@@ -1,6 +1,6 @@
 var teeBlock = {
   type: "tee",
-  category:  "Data Processing",
+  category:  "I/O redirection",
   unix_description: [
     {
     append : "-a"
@@ -8,7 +8,7 @@ var teeBlock = {
   ],
   message0: "Save to file &\n and continue processing\n",
 
-  message1: "append to file %1",
+  message1: "append to file %1\n",
   args1: [
     {
       type: "field_checkbox",
@@ -17,7 +17,7 @@ var teeBlock = {
     }
   ],
 
-  message2: "give file name\n %1",
+  message2: "give file name %1",
   args2: [
     {
       type: "field_input",

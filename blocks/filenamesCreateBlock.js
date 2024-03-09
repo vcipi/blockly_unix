@@ -1,6 +1,6 @@
 var filenamesCreateBlock = {
     type: "filenamesCreate",
-	category: "Data Processing",
+	category: "File inputs",
     message0: "%{BKY_FILES_CREATE_WITH} %1",
     args0: [
       {

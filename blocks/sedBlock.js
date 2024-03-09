@@ -1,6 +1,6 @@
 var sedBlock = {
   type: "sed",
-  category: "File and Directory Operations",
+  category: "Text processing",
   unix_description: [
     {
       regPattern: "'s/patt/",

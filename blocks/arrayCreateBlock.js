@@ -1,6 +1,6 @@
 var arrayCreateBlock = {
     type: "arrayCreate",
-	  category: "Data Processing",
+	  category: "Text Processing",
     message0: "%{BKY_ARRAY_CREATE_WITH} %1",
     args0: [
       {

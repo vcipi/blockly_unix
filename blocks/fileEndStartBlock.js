@@ -1,5 +1,6 @@
 var fileEndStartBlock = {
   type: "fileEndStart",
+  category: "File inputs",
   unix_description: [
     {
       starts: "str*",
@@ -23,7 +24,7 @@ var fileEndStartBlock = {
     }
   ],
   
-  output: "string",
+  output: "fileWildcard",
   style : "File inputs",
   nextStatement: "Action",
   tooltip: "%{BKY_FILE_END_START_WILDCHARS_TOOLTIP}",

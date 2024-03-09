@@ -15,6 +15,7 @@ var regPatternBlock = {
     }
   ],
   style: "Regular Expressions",
+  output: "String",
   nextStatement: "Action",
   tooltip: "Define a pattern to search",
   helpUrl: "" // URL to further information or documentation.

@@ -1,6 +1,6 @@
 var columnBlock = {
     type: "column",
-    category: "awk",
+    category: "Data Processing",
     unix_description: [
         {
             TEXT: "$str"

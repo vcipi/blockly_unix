@@ -1,7 +1,7 @@
 var showUniqsBlock = {
   type: "showUniqs",
   message0: "Show only the unique lines in file\n",
-  category: "Data Processing",
+  category: "Text Processing",
   unix_description: [
     {
       uniq : '-u' // uniq -u

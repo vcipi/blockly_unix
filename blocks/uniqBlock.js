@@ -1,7 +1,7 @@
 var uniqBlock = {
   type: "uniq",
   message0: "Remove duplicate lines in file\n",
-  category: "Data Processing",
+  category: "Text Processing",
   unix_description: [
     {
 	  none: "",

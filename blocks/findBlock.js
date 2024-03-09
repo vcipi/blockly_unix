@@ -153,7 +153,8 @@ var findBlock = {
   args9: [
     {
       type: "input_value",
-      name: "regPattern"
+      name: "regPattern",
+      check: "fileWildcard"
     }
   ],
   message10: "%{BKY_FIND_EXECUTE_COMMAND}",
@@ -166,7 +167,6 @@ var findBlock = {
   ],
   
   style: "File and Directory Operations",
-  previousStatement: "Action",
   nextStatement: "Action",
   tooltip: "Find files in directories and subdirectories",
   helpUrl: "" // URL to further information or documentation.
