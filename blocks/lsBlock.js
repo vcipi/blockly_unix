@@ -45,6 +45,7 @@ var lsBlock = {
     }
   ],
   style: "File and Directory Operations",
+  previousStatement: "Action",
   nextStatement: "Action",
   tooltip: "%{BKY_LS_TOOLTIP}",
   helpUrl: "" // URL to further information or documentation.

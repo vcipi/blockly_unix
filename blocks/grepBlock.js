@@ -24,54 +24,55 @@ var grepBlock = {
       checked: false // by default it's disabled
     }
   ],
-  message2: "%{BKY_GREP_PATTERN_DEFINE}",
-  args2:   [{
-
-	  type: "input_value",
-      name: "regPattern",
-	  check: "String" 
-  }],
-  message3: "%{BKY_GREP_CASE_INSENSITIVE}",
-  args3: [
+  message2: "%{BKY_GREP_CASE_INSENSITIVE}",
+  args2: [
     {
       type: "field_checkbox",
       name: "case_ins",
       checked: false // by default it's disabled
     }
   ],
-  message4: "%{BKY_GREP_WHOLE_WORD_SEARCH}",
-  args4: [
+  message3: "%{BKY_GREP_WHOLE_WORD_SEARCH}",
+  args3: [
     {
       type: "field_checkbox",
       name: "whole_word",
       checked: false // by default it's disabled
     }
   ],
-  message5: "%{BKY_GREP_COUNT_MATCHES}",
-  args5: [
+  message4: "%{BKY_GREP_COUNT_MATCHES}",
+  args4: [
     {
       type: "field_checkbox",
       name: "count_lines",
       checked: false // by default it's disabled
     }
   ],
-  message6: "%{BKY_GREP_PATTERN_NEGATION}",
-  args6: [
+  message5: "%{BKY_GREP_PATTERN_NEGATION}",
+  args5: [
     {
       type: "field_checkbox",
       name: "inverted",
       checked: false // by default it's disabled
     }
   ],
-  message7: "%{BKY_GREP_RECURSIVE_SEARCH}",
-  args7: [
+  message6: "%{BKY_GREP_RECURSIVE_SEARCH}",
+  args6: [
     {
       type: "field_checkbox",
       name: "recursive",
       checked: false // by default it's disabled
     }
   ],
-  message8: "%{BKY_GREP_DISPLAY_LINE_NUMBERS}",
+  message7: "%{BKY_GREP_DISPLAY_LINE_NUMBERS}",
+  args7: [
+    {
+      type: "field_checkbox",
+      name: "show_line_nums",
+      checked: false // by default it's disabled
+    }
+  ],
+  message8: "%{BKY_GREP_MULTIPLE_PATTERN_SEARCH}",
   args8: [
     {
       type: "field_checkbox",
@@ -79,22 +80,21 @@ var grepBlock = {
       checked: false // by default it's disabled
     }
   ],
-  message9: "%{BKY_GREP_MULTIPLE_PATTERN_SEARCH}",
+  message9: "%{BKY_GREP_SHOW_FILENAME}",
   args9: [
-    {
-      type: "field_checkbox",
-      name: "show_line_nums",
-      checked: false // by default it's disabled
-    }
-  ],
-  message10: "%{BKY_GREP_SHOW_FILENAME}",
-  args10: [
     {
       type: "field_checkbox",
       name: "showFiles",
       checked: false // by default it's disabled
     }
   ],
+  message10: "%{BKY_GREP_PATTERN_DEFINE}",
+  args10:   [{
+
+	  type: "input_value",
+      name: "regPattern",
+	  check: "String" 
+  }],
   style: "Data Processing",
   previousStatement: "Action",
   nextStatement: "Action",

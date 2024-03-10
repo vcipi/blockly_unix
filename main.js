@@ -325,7 +325,7 @@ function handleBlock(block) {
 	}
 
 	//in case of the awk the regexStringValue is already included in the command so we dont need it
-	if(blockCategory==="awk"){
+	if(blockCategory==="Data Processing"){
 		regexStringValue='';
 		let contains = commandParts.some(element => element && element.includes("-F'"))
 		if (!contains) {commandParts[0] = "'" + commandParts[0];}
@@ -351,7 +351,7 @@ function handleBlock(block) {
 	else if(blockType === 'variables_set'){
 		commandString = variable_name + '=' + variable_value + " |";
 	}
-	else if (blockCategory === "awk") {
+	else if (blockCategory === "Data Processing") {
 		let beginIndex = commandParts.indexOf('BEGIN');
 		let endIndex = commandParts.indexOf('END');
 		let inputDelimIndex = commandParts.findIndex(element => typeof element === 'string' && element.includes("-F"));
