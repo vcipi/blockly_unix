@@ -1,6 +1,6 @@
 var showUniqsBlock = {
   type: "showUniqs",
-  message0: "Show only the unique lines in file\n",
+  message0: "%{BKY_SHOWUNIQS}",
   category: "Text Processing",
   unix_description: [
     {
@@ -11,8 +11,8 @@ var showUniqsBlock = {
   style: "Text Processing",
   previousStatement: "Action",
   nextStatement: "Action",
-  tooltip: "find and show only unique lines in a file",
-  helpUrl: "" // URL to further information or documentation.
+  tooltip: "%{BKY_SHOWUNIQS_TOOLTIP}",
+  helpUrl: "%{BKY_SHOWUNIQS_HELPURL}" // URL to further information or documentation.
 };
 
 Blockly.defineBlocksWithJsonArray([showUniqsBlock]);

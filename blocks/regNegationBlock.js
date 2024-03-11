@@ -6,7 +6,7 @@ var regNegationBlock = {
         regPattern: "[^patt]"
     }
   ],
-  message0: "Negate following pattern %1\n",
+  message0: "%{BKY_REGNEGATION}",
   args0: [{
     type: "input_value",
     name: "regPattern",
@@ -16,8 +16,8 @@ var regNegationBlock = {
   style: "Regular Expressions",
   previousStatement: "Action",
   nextStatement: "Action",
-  tooltip: "Find the negation of the pattern following",
-  helpUrl: "" // URL to further information or documentation.
+  tooltip: "%{BKY_REGNEGATION_TOOLTIP}",
+  helpUrl: "%{BKY_REGNEGATION_HELPURL}" // URL to further information or documentation.
 };
 
 Blockly.defineBlocksWithJsonArray([regNegationBlock]);

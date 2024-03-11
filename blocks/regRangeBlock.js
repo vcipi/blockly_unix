@@ -17,7 +17,7 @@ var regRangeBlock = {
       hexadecimal: "[[:xdigit:]]",
     }
   ],
-  message0: "Range matching %1",
+  message0: "%{BKY_REGRANGE}",
   args0: [
     {
       type: "field_dropdown",
@@ -39,7 +39,7 @@ var regRangeBlock = {
       ]
     }
   ],
-  message1: "Not %1",
+  message1: "%{BKY_REGRANGE_NOT}",
   args1: [
     {
       type: "field_checkbox",
@@ -50,8 +50,8 @@ var regRangeBlock = {
   style: "Regular Expressions",
   previousStatement: "Action",
   nextStatement: "Action",
-  tooltip: "Match in the file the designated range of characters",
-  helpUrl: "" // URL to further information or documentation.
+  tooltip: "%{BKY_REGRANGE_TOOLTIP}",
+  helpUrl: "%{BKY_REGRANGE_HELPURL}" // URL to further information or documentation.
 };
 
 Blockly.defineBlocksWithJsonArray([regRangeBlock]);

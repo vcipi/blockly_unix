@@ -9,8 +9,8 @@ var regQuantBlock = {
       anyCharExceptNewLine : "."
     }
   ],
-  message0: "Check occurencies of pattern \n",
-  message1: "%1",
+  message0: "%{BKY_REGQUANT}",
+  message1: "%{BKY_REGQUANT_1}",
   args1:   [
     {
       type: "field_dropdown",
@@ -23,7 +23,7 @@ var regQuantBlock = {
       ]
     }
   ],
-  message2: "pattern %1",
+  message2: "%{BKY_REGQUANT_PATTERN}",
   args2: [{
     type: "input_value",
     name: "regPattern",
@@ -32,10 +32,10 @@ var regQuantBlock = {
   style: "Regular Expressions",
   previousStatement: "Action",
   nextStatement: "Action",
-  tooltip: "quantifiers of patterns",
+  tooltip: "%{BKY_REGQUANT_TOOLTIP}",
   extensions: [
     'integer_validation',
   ],
-  helpUrl: "" // URL to further information or documentation.
+  helpUrl: "%{BKY_REGQUANT_HELPURL}" // URL to further information or documentation.
 };
 Blockly.defineBlocksWithJsonArray([regQuantBlock]);

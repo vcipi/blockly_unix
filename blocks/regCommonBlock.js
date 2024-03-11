@@ -11,8 +11,8 @@ var regCommonBlock = {
       YYYYMMDD : "(19|20)\d{2}[\/-](0[1-9]|1[0-2])[\/-](0[1-9]|[12][0-9]|3[01])"
     }
   ],
-  message0: "Common searches",
-  message1: "Match %1",
+  message0: "%{BKY_REGCOMMON}",
+  message1: "%{BKY_REGCOMMON_MATCH}",
   args1: [
     {
       type: "field_dropdown",
@@ -30,8 +30,8 @@ var regCommonBlock = {
   style: "Regular Expressions",
   previousStatement: "Action",
   nextStatement: "Action",
-  tooltip: "Common regular expression searches",
-  helpUrl: "" // URL to further information or documentation.
+  tooltip: "%{BKY_REGCOMMON_TOOLTIP}",
+  helpUrl: "%{BKY_REGCOMMON_HELPURL}" // URL to further information or documentation.
 };
 
 Blockly.defineBlocksWithJsonArray([regCommonBlock]);

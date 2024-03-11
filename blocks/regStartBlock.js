@@ -6,7 +6,7 @@ var regStartBlock = {
       regPattern: "^patt"
     }
   ],
-  message0: "Line starts with %1\n",
+  message0: "%{BKY_REGSTART}",
   args0: [{
     type: "input_value",
     name: "regPattern",
@@ -15,8 +15,8 @@ var regStartBlock = {
   style: "Regular Expressions",
   previousStatement: "Action",
   nextStatement: "Action",
-  tooltip: "start of line",
-  helpUrl: "" // URL to further information or documentation.
+  tooltip: "%{BKY_REGSTART_TOOLTIP}",
+  helpUrl: "%{BKY_REGSTART_HELPURL}" // URL to further information or documentation.
 };
 
 Blockly.defineBlocksWithJsonArray([regStartBlock]);

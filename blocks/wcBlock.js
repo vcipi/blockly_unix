@@ -1,6 +1,6 @@
 var wcBlock = {
   type: "wc",
-  message0: "Count in file",
+  message0: "%{BKY_WC}",
   category: "Text Processing",
   unix_description: [
     {
@@ -12,7 +12,7 @@ var wcBlock = {
     }
   ],
 
-  message1: "lines count %1",
+  message1: "%{BKY_WC_LINES}",
   args1: [
     {
       type: "field_checkbox",
@@ -21,7 +21,7 @@ var wcBlock = {
     }
   ],
 
-  message2: "words count %1",
+  message2: "%{BKY_WC_WORDS}",
   args2: [
     {
       type: "field_checkbox",
@@ -30,7 +30,7 @@ var wcBlock = {
     }
   ],
 
-  message3: "bytes count %1",
+  message3: "%{BKY_WC_BYTES}",
   args3: [
     {
       type: "field_checkbox",
@@ -39,7 +39,7 @@ var wcBlock = {
     }
   ],
 
-  message4: "chars count %1",
+  message4: "%{BKY_WC_CHARS}",
   args4: [
     {
       type: "field_checkbox",
@@ -51,8 +51,8 @@ var wcBlock = {
   style: "Text Processing",
   previousStatement: "Action",
   nextStatement: "Action",
-  tooltip: "word, line, character, and byte count in a file",
-  helpUrl: "" // URL to further information or documentation.
+  tooltip: "%{BKY_WC_TOOLTIP}",
+  helpUrl: "%{BKY_WC_HELPURL}" // URL to further information or documentation.
 };
 
 Blockly.defineBlocksWithJsonArray([wcBlock]);

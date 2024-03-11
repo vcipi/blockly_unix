@@ -6,7 +6,7 @@ var regPatternBlock = {
     //????????? 
     }
   ],
-  message0: "Pattern %1",
+  message0: "%{BKY_REGPATTERN}",
   args0: [
     {
       type: "field_input",
@@ -18,8 +18,8 @@ var regPatternBlock = {
   style: "Regular Expressions",
   output: "String",
   nextStatement: "Action",
-  tooltip: "Define a pattern to search",
-  helpUrl: "" // URL to further information or documentation.
+  tooltip: "%{BKY_REGPATTERN_TOOLTIP}",
+  helpUrl: "%{BKY_REGPATTERN_HELPURL}" // URL to further information or documentation.
 };
 
 

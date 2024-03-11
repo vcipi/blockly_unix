@@ -1,6 +1,6 @@
 var tailBlock = {
   type: "tail",
-  message0: "Tail of file",
+  message0: "%{BKY_TAIL}",
   category: "Text Processing",
   unix_description: [
     {
@@ -11,7 +11,7 @@ var tailBlock = {
     }
   ],
 
-  message1: "metric %1",
+  message1: "%{BKY_TAIL_METRIC}",
   args1: [
     {
       type: "field_dropdown",
@@ -22,7 +22,7 @@ var tailBlock = {
       ]
     }
   ],
-  message2: "number of %1",
+  message2: "%{BKY_TAIL_NUMBER_OF}",
   args2: [
     {
       type: "field_number",
@@ -30,7 +30,7 @@ var tailBlock = {
       value: 10, // default number of bytes
     }
   ],
-  message3: "descending order %1",
+  message3: "%{BKY_TAIL_DESC}",
   args3: [
     {
       type: "field_checkbox",
@@ -39,14 +39,14 @@ var tailBlock = {
     }
   ],
   
-  tooltip: "Output the last parts of files",
+  tooltip: "%{BKY_TAIL_TOOLTIP}",
   previousStatement: "Action",
   nextStatement: "Action",
   style: "Text Processing",
   extensions: [
     'integer_validation',
   ],
-  helpUrl: "" // URL to further information or documentation.
+  helpUrl: "%{BKY_TAIL_HELPURL}" // URL to further information or documentation.
 };
 
 Blockly.defineBlocksWithJsonArray([tailBlock]);

@@ -538,6 +538,111 @@ Blockly.Msg["PROCEDURES_DEFRETURN_TITLE"] = Blockly.Msg["PROCEDURES_DEFNORETURN_
 Blockly.Msg["TEXT_APPEND_VARIABLE"] = Blockly.Msg["VARIABLES_DEFAULT_NAME"];
 Blockly.Msg["TEXT_CREATE_JOIN_ITEM_TITLE_ITEM"] = Blockly.Msg["VARIABLES_DEFAULT_NAME"];
 
+Blockly.Msg["REGANYONE"] = "Match any of %1 characters";
+Blockly.Msg["REGANYONE_NOT"] = "Not %1";
+Blockly.Msg["REGANYONE_TOOLTIP"] = "Match any one of the defined characters";
+Blockly.Msg["REGANYONE_HELPURL"] = "https://www.google.com/";
+Blockly.Msg["REGCAPTURINGGROUP"] = "Group the pattern %1\n";
+Blockly.Msg["REGCAPTURINGGROUP_TOOLTIP"] = "Define a pattern group";
+Blockly.Msg["REGCAPTURINGGROUP_HELPURL"] = "https://www.google.com/";
+Blockly.Msg["REGCOMMON"] = "Common searches";
+Blockly.Msg["REGCOMMON_MATCH"] = "Match %1";
+Blockly.Msg["REGCOMMON_TOOLTIP"] = "Common regular expression searches";
+Blockly.Msg["REGCOMMON_HELPURL"] = "https://www.google.com/";
+Blockly.Msg["REGEND"] = "Lines ends with %1\n";
+Blockly.Msg["REGEND_TOOLTIP"] = "End of line";
+Blockly.Msg["REGEND_HELPURL"] = "https://www.google.com/";
+Blockly.Msg["REGFOR"] = "Match the pattern From %1\n To %2 times OR To infinite %3\n(for exactly n times 'From' and 'To' values must be equal)";
+Blockly.Msg["REGFOR_1"] = "%1";
+Blockly.Msg["REGFOR_TOOLTIP"] = "More than one pattern matches.";
+Blockly.Msg["REGFOR_HELPURL"] = "https://www.google.com/";
+Blockly.Msg["REGLOOKAHEAD"] = "pattern %1 followed by %2";
+Blockly.Msg["REGLOOKAHEAD_TOOLTIP"] = "Match a pattern that follows or doesn't follow another pattern";
+Blockly.Msg["REGLOOKAHEAD_HELPURL"] = "https://www.google.com/";
+Blockly.Msg["REGNEGATION"] = "Negate following pattern %1\n";
+Blockly.Msg["REGNEGATION_TOOLTIP"] = "Find the negation of the pattern following";
+Blockly.Msg["REGNEGATION_HELPURL"] = "https://www.google.com/";
+Blockly.Msg["REGOUTPUT"] = "Put Regex";
+Blockly.Msg["REGOUTPUT_1"] = "%1";
+Blockly.Msg["REGOUTPUT_TOOLTIP"] = "Include your Regex here.";
+Blockly.Msg["REGOUTPUT_HELPURL"] = "https://www.google.com/";
+Blockly.Msg["REGPATTERN"] = "Pattern %1";
+Blockly.Msg["REGPATTERN_TOOLTIP"] = "Define a pattern to search";
+Blockly.Msg["REGPATTERN_HELPURL"] = "https://www.google.com/";
+Blockly.Msg["REGQUANT"] = "Check occurencies of pattern \n";
+Blockly.Msg["REGQUANT_1"] = "%1";
+Blockly.Msg["REGQUANT_PATTERN"] = "pattern %1";
+Blockly.Msg["REGQUANT_TOOLTIP"] = "Quantifiers of patterns";
+Blockly.Msg["REGQUANT_HELPURL"] = "https://www.google.com/";
+Blockly.Msg["REGRANGE"] = "Range matching %1";
+Blockly.Msg["REGRANGE_NOT"] = "Not %1";
+Blockly.Msg["REGRANGE_TOOLTIP"] = "Match in the file the designated range of characters";
+Blockly.Msg["REGRANGE_HELPURL"] = "https://www.google.com/";
+Blockly.Msg["REGSTART"] = "Line starts with %1\n";
+Blockly.Msg["REGSTART_TOOLTIP"] = "Start of line";
+Blockly.Msg["REGSTART_HELPURL"] = "https://www.google.com/";
+
+Blockly.Msg["SAVE"] = "Save result to %1";
+Blockly.Msg["SAVE_TOOLTIP"] = "Saves a file with spectified name and extension and overrides if already exists";
+Blockly.Msg["SAVE_HELPURL"] = "https://www.google.com/";
+
+Blockly.Msg["SED"] = "Search and replace in a file\n";
+Blockly.Msg["SED_REGEX"] = "is Regex %1\n";
+Blockly.Msg["SED_PATTERN"] = "search pattern %1\n";
+Blockly.Msg["SED_STRING"] = "or single string %1\n";
+Blockly.Msg["SED_TEXT"] = "text to change %1\n";
+Blockly.Msg["SED_INALL"] = "in all occurencies of the pattern %1";
+Blockly.Msg["SED_TOOLTIP"] = "Stream edit in a file";
+Blockly.Msg["SED_HELPURL"] = "https://www.google.com/";
+
+Blockly.Msg["SHOWUNIQS"] = "Show only the unique lines in file\n";
+Blockly.Msg["SHOWUNIQS_TOOLTIP"] = "Find and show only unique lines in a file";
+Blockly.Msg["SHOWUNIQS_HELPURL"] = "https://www.google.com/";
+
+Blockly.Msg["SORT"] = "Sort file";
+Blockly.Msg["SORT_DESC"] = "descending order %1";
+Blockly.Msg["SORT_BASED"] = "based on %1";
+Blockly.Msg["SORT_DELIM"] = "delimeter %1";
+Blockly.Msg["SORT_COLS"] = "column to sort %1";
+Blockly.Msg["SORT_UNIQ"] = "unique elements output %1";
+Blockly.Msg["SORT_TOOLTIP"] = "report or filter out repeated lines in a file";
+Blockly.Msg["SORT_HELPURL"] = "https://www.google.com/";
+
+Blockly.Msg["TAIL"] = "Tail of file";
+Blockly.Msg["TAIL_METRIC"] = "metric %1";
+Blockly.Msg["TAIL_NUMBER_OF"] = "number of %1";
+Blockly.Msg["TAIL_DESC"] = "descending order %1";
+Blockly.Msg["TAIL_TOOLTIP"] = "Output the last parts of files"
+Blockly.Msg["TAIL_HELPURL"] = "https://www.google.com/";
+
+Blockly.Msg["TEE"] = "Save to file &\n and continue processing\n";
+Blockly.Msg["TEE_APPEND"] = "append to file %1\n";
+Blockly.Msg["TEE_NAME"] = "give file name %1";
+Blockly.Msg["TEE_TOOLTIP"] = "The tee utility copies standard input to standard output, making a copy in zero or more files."
+Blockly.Msg["TEE_HELPURL"] = "https://www.google.com/";
+
+Blockly.Msg["TOUCH"] = "Create a file";
+Blockly.Msg["TOUCH_TOOLTIP"] = "create directory"
+Blockly.Msg["TOUCH_HELPURL"] = "https://www.google.com/";
+
+Blockly.Msg["UNIQ"] = "Remove duplicate lines in file\n";
+Blockly.Msg["UNIQ_COUNT"] = "count the occurencies of \n duplicates lines removed %1";
+Blockly.Msg["UNIQ_TOOLTIP"] = "Report or filter out repeated lines in a file"
+Blockly.Msg["UNIQ_HELPURL"] = "https://www.google.com/";
+
+Blockly.Msg["WC"] = "Count in file";
+Blockly.Msg["WC_LINES"] = "lines count %1";
+Blockly.Msg["WC_WORDS"] = "words count %1";
+Blockly.Msg["WC_BYTES"] = "bytes count %1";
+Blockly.Msg["WC_CHARS"] = "chars count %1";
+Blockly.Msg["WC_TOOLTIP"] = "word, line, character, and byte count in a file";
+Blockly.Msg["WC_HELPURL"] = "https://www.google.com/";
+
+Blockly.Msg["XARGS"] = "Execute following command\n for each item";
+Blockly.Msg["XARGS_PLACEHOLDER"] = "use a palceholder %1";
+Blockly.Msg["XARGS_TOOLTIP"] = "Execute the following command for each item of a list or a file"
+Blockly.Msg["XARGS_HELPURL"] = "https://www.google.com/";
+
 Blockly.Msg["MATH_HUE"] = "230";
 Blockly.Msg["LOOPS_HUE"] = "120";
 Blockly.Msg["LISTS_HUE"] = "260";

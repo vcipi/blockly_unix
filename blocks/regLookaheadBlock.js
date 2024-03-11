@@ -7,7 +7,7 @@ var regLookaheadBlock = {
       negative : "(?! patt)"
     }
   ],
-  message0: "pattern %1 followed by %2",
+  message0: "%{BKY_REGLOOKAHEAD}",
   args0: [
     {
       type: "field_dropdown",
@@ -28,8 +28,8 @@ var regLookaheadBlock = {
   style: "Regular Expressions",
   previousStatement: "Action",
   nextStatement: "Action",
-  tooltip: "Match a pattern that follows or doesn't follow another pattern",
-  helpUrl: "" // URL to further information or documentation.
+  tooltip: "%{BKY_REGLOOKAHEAD_TOOLTIP}",
+  helpUrl: "%{BKY_REGLOOKAHEAD_HELPURL}" // URL to further information or documentation.
 };
 
 Blockly.defineBlocksWithJsonArray([regLookaheadBlock]);

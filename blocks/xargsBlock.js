@@ -7,8 +7,8 @@ var xargsBlock = {
 
     }
   ],
-  message0: "Execute following command\n for each item",
-  message1: "use a palceholder %1",
+  message0: "%{BKY_XARGS}",
+  message1: "%{BKY_XARGS_PLACEHOLDER}",
   args1: [
     {
       type: "field_checkbox",
@@ -19,8 +19,8 @@ var xargsBlock = {
   style: "Data Processing",
   previousStatement: "Action",
   nextStatement: "Action",
-  tooltip: "Execute the following command for each item of a list or a file",
-  helpUrl: "" // URL to further information or documentation.
+  tooltip: "%{BKY_XARGS_TOOLTIP}",
+  helpUrl: "%{BKY_XARGS_HELPURL}" // URL to further information or documentation.
 };
 
 Blockly.defineBlocksWithJsonArray([xargsBlock]);

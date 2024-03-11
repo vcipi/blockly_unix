@@ -6,9 +6,9 @@ var teeBlock = {
     append : "-a"
     }
   ],
-  message0: "Save to file &\n and continue processing\n",
+  message0: "%{BKY_TEE}",
 
-  message1: "append to file %1\n",
+  message1: "%{BKY_TEE_APPEND}",
   args1: [
     {
       type: "field_checkbox",
@@ -17,7 +17,7 @@ var teeBlock = {
     }
   ],
 
-  message2: "give file name %1",
+  message2: "%{BKY_TEE_NAME}",
   args2: [
     {
       type: "field_input",
@@ -28,8 +28,8 @@ var teeBlock = {
   style: "I/O Redirection",
   previousStatement: "Action",
   nextStatement: "Action",
-  tooltip: "The tee utility copies standard input to standard output, making a copy in zero or more files.",
-  helpUrl: "" // URL to further information or documentation.
+  tooltip: "%{BKY_TEE_TOOLTIP}",
+  helpUrl: "%{BKY_TEE_HELPURL}" // URL to further information or documentation.
 };
 
 Blockly.defineBlocksWithJsonArray([teeBlock]);

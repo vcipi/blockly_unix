@@ -6,17 +6,17 @@ var regCapturingGroupBlock = {
     }
   ],
   category: "Regular Expressions",
-  message0: "Group the pattern %1\n",
+  message0: "%{BKY_REGCAPTURINGGROUP}",
   args0: [{
     type: "input_value",
     name: "regPattern",
     check: "String" 
   }],
-  tooltip: "Define a pattern group",
+  tooltip: "%{BKY_REGCAPTURINGGROUP_TOOLTIP}",
   previousStatement: "Action",
   nextStatement: "Action",
   style: "Regular Expressions",
-  helpUrl: "" // URL to further information or documentation.
+  helpUrl: "%{BKY_REGCAPTURINGGROUP_HELPURL}" // URL to further information or documentation.
 
 };
 

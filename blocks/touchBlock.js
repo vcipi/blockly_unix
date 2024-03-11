@@ -6,12 +6,12 @@ var touchBlock = {
 
     }
   ],
-  message0: "Create a file",  
+  message0: "%{BKY_TOUCH}",  
   style: "File and Directory Operations",
   previousStatement: "Action",
   nextStatement: "Action",
-  tooltip: "create directory",
-  helpUrl: "" // URL to further information or documentation.
+  tooltip: "%{BKY_TOUCH_TOOLTIP}",
+  helpUrl: "%{BKY_TOUCH_HELPURL}" // URL to further information or documentation.
 };
 
 Blockly.defineBlocksWithJsonArray([touchBlock]);

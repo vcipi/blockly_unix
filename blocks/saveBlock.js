@@ -1,6 +1,6 @@
 var saveBlock = {
   type: "save",
-  message0: "Save result to %1",
+  message0: "%{BKY_SAVE}",
   category: "I/O Redirection",
   unix_description: [
     {
@@ -16,8 +16,8 @@ var saveBlock = {
   ],
   style: "I/O Redirection",
   previousStatement: "Action",
-  tooltip: "Saves a file with spectified name and extension and overrides if already exists",
-  helpUrl: "" // URL to further information or documentation.
+  tooltip: "%{BKY_SAVE_TOOLTIP}",
+  helpUrl: "%{BKY_SAVE_HELPURL}" // URL to further information or documentation.
 };
 
 Blockly.defineBlocksWithJsonArray([saveBlock]);

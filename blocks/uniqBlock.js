@@ -1,6 +1,6 @@
 var uniqBlock = {
   type: "uniq",
-  message0: "Remove duplicate lines in file\n",
+  message0: "%{BKY_UNIQ}",
   category: "Text Processing",
   unix_description: [
     {
@@ -10,7 +10,7 @@ var uniqBlock = {
     }
   ],
 
-  message1: "count the occurencies of \n duplicates lines removed %1",
+  message1: "%{BKY_UNIQ_COUNT}",
   args1: [{
     type: "field_checkbox",
     name: "occurencies",
@@ -20,8 +20,8 @@ var uniqBlock = {
   style: "Text Processing",
   previousStatement: "Action",
   nextStatement: "Action",
-  tooltip: "report or filter out repeated lines in a file",
-  helpUrl: "" // URL to further information or documentation.
+  tooltip: "%{BKY_UNIQ_TOOLTIP}",
+  helpUrl: "%{BKY_UNIQ_HELPURL}" // URL to further information or documentation.
 };
 
 Blockly.defineBlocksWithJsonArray([uniqBlock]);

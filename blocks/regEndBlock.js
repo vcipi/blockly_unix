@@ -6,7 +6,7 @@ var regEndBlock = {
       regPattern: "patt$"
     }
   ],
-  message0: "Lines ends with %1\n",
+  message0: "%{BKY_REGEND}",
   args0: [{
     type: "input_value",
     name: "regPattern",
@@ -15,8 +15,8 @@ var regEndBlock = {
   style: "Regular Expressions",
   previousStatement: "Action",
   nextStatement: "Action",
-  tooltip: "end of line",
-  helpUrl: "" // URL to further information or documentation.
+  tooltip: "%{BKY_REGEND_TOOLTIP}",
+  helpUrl: "%{BKY_REGEND_HELPURL}" // URL to further information or documentation.
 };
 
 Blockly.defineBlocksWithJsonArray([regEndBlock]);

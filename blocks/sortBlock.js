@@ -1,6 +1,6 @@
 var sortBlock = {
   type: "sort",
-  message0: "Sort file",
+  message0: "%{BKY_SORT}",
   category: "Text Processing",
   unix_description: [
     {
@@ -12,7 +12,7 @@ var sortBlock = {
 
     }
   ],
-  message1: "descending order %1",
+  message1: "%{BKY_SORT_DESC}",
   args1: [
     {
       type: "field_checkbox",
@@ -20,7 +20,7 @@ var sortBlock = {
       checked: false // by default it's disabled
     }
   ],
-  message2: "based on %1",
+  message2: "%{BKY_SORT_BASED}",
   args2: [
     {
       type: "field_dropdown",
@@ -31,7 +31,7 @@ var sortBlock = {
       ]
     }
   ],
-  message3: "delimeter %1",
+  message3: "%{BKY_SORT_DELIM}",
   args3: [
     {
       type: "field_input",
@@ -40,7 +40,7 @@ var sortBlock = {
     }
   ],
 
-  message4: "column to sort %1",
+  message4: "%{BKY_SORT_COLS}",
   args4: [
     {
       type: "field_number",
@@ -51,7 +51,7 @@ var sortBlock = {
       precision: 1 // allow only integers
     }
   ],
-  message5: "unique elements output %1",
+  message5: "%{BKY_SORT_UNIQ}",
   args5: [
     {
       type: "field_checkbox",
@@ -67,8 +67,8 @@ var sortBlock = {
   style: "Text Processing",
   previousStatement: "Action",
   nextStatement: "Action",
-  tooltip: "report or filter out repeated lines in a file",
-  helpUrl: "" // URL to further information or documentation.
+  tooltip: "%{BKY_SORT_TOOLTIP}",
+  helpUrl: "%{BKY_SORT_HELPURL}" // URL to further information or documentation.
 };
 
 Blockly.defineBlocksWithJsonArray([sortBlock]);

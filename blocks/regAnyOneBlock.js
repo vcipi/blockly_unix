@@ -7,13 +7,13 @@ var regAnyOneBlock = {
     }
   ],
   category: "Regular Expressions",
-  message0: "Match any of %1 characters",
+  message0: "%{BKY_REGANYONE}",
   args0: [{
     type: "input_value",
     name: "regPattern",
     check: "String" 
   }],
-  message1: "Not %1",
+  message1: "%{BKY_REGANYONE_NOT}",
   args1:  [
     {
       type: "field_checkbox",
@@ -21,11 +21,11 @@ var regAnyOneBlock = {
       checked: false
     }
   ],
-  tooltip: "Match any one of the defined characters",
+  tooltip: "%{BKY_REGANYONE_TOOLTIP}",
   previousStatement: "Action",
   nextStatement: "Action",
   style: "Regular Expressions",
-  helpUrl: "" // URL to further information or documentation.
+  helpUrl: "%{BKY_REGANYONE_HELPURL}" // URL to further information or documentation.
 
 };
 
