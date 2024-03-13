@@ -211,14 +211,17 @@ function handleBlock(block) {
     var blockType = block.type;
 	console.log("HANDLEBLOCK - Block Type:", blockType);
 
+	var wildcardFilenameValue ='';
 	// get last child of find command for exec paramter
 	if (blockType === 'find'){
-	var childBlocks = block.getChildren();
-	// Check if there are child blocks
-	if (childBlocks && childBlocks.length > 0) {
-	// Access the last child block type
-	lastChildBlockType = childBlocks[childBlocks.length - 1].type;
-	console.log(lastChildBlockType)}
+		var childBlocks = block.getChildren();
+			// Check if there are child blocks
+			if (childBlocks && childBlocks.length > 0) {
+			// Access the last child block type
+			lastChildBlockType = childBlocks[0].type;
+			wildcardFilenameValue = "-name " + handleFilenamesBlocks(childBlocks[0]);
+			console.log(lastChildBlockType)
+		}
 	};
 
 
@@ -362,7 +365,7 @@ function handleBlock(block) {
 	}
 	else{
 		console.log("commands:", commandParts);
-		commandString = blockType + ' ' + commandParts.join(' ') + ' ' + conditionValue + ' ' + regexStringValue + ' ' + filenameValue;
+		commandString = blockType + ' ' + commandParts.join(' ') + ' ' + conditionValue + ' ' + regexStringValue + ' ' + filenameValue + wildcardFilenameValue;
 	}
 
 	console.log("HANDLEBLOCK - command built:", commandString);

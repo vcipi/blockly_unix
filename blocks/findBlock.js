@@ -20,7 +20,7 @@ var findBlock = {
       parent : "..",
       grandparent : "../.." ,
       subdirs : "-maxdepth 1",
-      regPattern : "-name 'patt'",
+      // regPattern : "-name 'patt'",
       file : "-type f",
       directory : "-type d",
       both : "",
