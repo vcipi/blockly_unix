@@ -20,11 +20,9 @@ var findBlock = {
       parent : "..",
       grandparent : "../.." ,
       subdirs : "-maxdepth 1",
-      // regPattern : "-name 'patt'",
       file : "-type f",
       directory : "-type d",
       both : "",
-      exec : "-exec comman {} \\;"
 
     }
   ],
@@ -153,7 +151,7 @@ var findBlock = {
   args9: [
     {
       type: "input_value",
-      name: "regPattern",
+      name: "fileEndStart",
       check: "fileWildcard"
     }
   ],

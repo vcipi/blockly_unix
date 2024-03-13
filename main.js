@@ -96,7 +96,7 @@ replacementMap.set(/\/\'\s{1,}g/g, "/g'");
 replacementMap.set(/\s.?-k\s{1,}/g, "-k");
 
 //used for exec parameter in find
-replacementMap.set(/{}.\\;.*?\|.*/g, "{} \\;");
+replacementMap.set(/{}.\\;.*?\|.*/g, "{} \\\\;");
 
 
 replacementMap.set(/}}\'\s+END/g, "}} END");
@@ -112,6 +112,7 @@ replacementMap.set(/xargs.*-I{}.*?\|/g, "xargs -I{} ");
 
 //used for cd
 replacementMap.set(/^cd../g, "cd ./");
+
 
 
 
@@ -150,8 +151,6 @@ document.getElementById('executeButton').addEventListener('click', function onEx
         currentBlock = currentBlock.getNextBlock();
     }
 
-	// find -exec parameter
-	generatedCommand = generatedCommand.replace('comman', lastChildBlockType);
 	console.log("before command:", generatedCommand);
 	generatedCommand = replaceKeywords(generatedCommand);
 
@@ -204,24 +203,19 @@ Blockly.JavaScript.forBlock['filename'] = function(block) {
     return [JSON.stringify(filename), Blockly.JavaScript.ORDER_NONE];
 };
 
-var lastChildBlockType;
+
 
 function handleBlock(block) {
 	
     var blockType = block.type;
 	console.log("HANDLEBLOCK - Block Type:", blockType);
 
-	var wildcardFilenameValue ='';
+	var wildcardFilenameValue = '';
+	var lastFindCommand = '';
 	// get last child of find command for exec paramter
 	if (blockType === 'find'){
-		var childBlocks = block.getChildren();
-			// Check if there are child blocks
-			if (childBlocks && childBlocks.length > 0) {
-			// Access the last child block type
-			lastChildBlockType = childBlocks[0].type;
-			wildcardFilenameValue = "-name " + handleFilenamesBlocks(childBlocks[0]);
-			console.log(lastChildBlockType)
-		}
+		lastFindCommand = block.getNextBlock() ? "-exec " + block.getNextBlock().type +  " {} \\;" : '';
+		wildcardFilenameValue = block.getInputTargetBlock('fileEndStart') ? "-name " + handleFilenamesBlocks(block.getInputTargetBlock('fileEndStart')) :'';
 	};
 
 
@@ -363,9 +357,13 @@ function handleBlock(block) {
 						' ' + regexStringValue + ' ' + end + ' ' + endValue + ' ' + "'" + ' ' + filenameValue;
 		}
 	}
+	else if(blockType === "find"){
+		console.log("commands:", commandParts);
+		commandString = blockType + ' ' + commandParts.join(' ') + ' ' + conditionValue + ' ' + regexStringValue + ' ' + wildcardFilenameValue + ' ' + lastFindCommand;
+	}
 	else{
 		console.log("commands:", commandParts);
-		commandString = blockType + ' ' + commandParts.join(' ') + ' ' + conditionValue + ' ' + regexStringValue + ' ' + filenameValue + wildcardFilenameValue;
+		commandString = blockType + ' ' + commandParts.join(' ') + ' ' + conditionValue + ' ' + regexStringValue + ' ' + filenameValue;
 	}
 
 	console.log("HANDLEBLOCK - command built:", commandString);
