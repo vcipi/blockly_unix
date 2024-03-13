@@ -96,7 +96,7 @@ replacementMap.set(/\/\'\s{1,}g/g, "/g'");
 replacementMap.set(/\s.?-k\s{1,}/g, "-k");
 
 //used for exec parameter in find
-replacementMap.set(/{}.\\;.*?\|.*/g, "{} \\\\;");
+replacementMap.set(/{}.\\;.*?\|.*/g, "{} \\;");
 
 
 replacementMap.set(/}}\'\s+END/g, "}} END");
@@ -215,7 +215,7 @@ function handleBlock(block) {
 	// get last child of find command for exec paramter
 	if (blockType === 'find'){
 		lastFindCommand = block.getNextBlock() ? "-exec " + block.getNextBlock().type +  " {} \\;" : '';
-		wildcardFilenameValue = block.getInputTargetBlock('fileEndStart') ? "-name " + handleFilenamesBlocks(block.getInputTargetBlock('fileEndStart')) :'';
+		wildcardFilenameValue = block.getInputTargetBlock('fileEndStart') ? "-name " + '"' + handleFilenamesBlocks(block.getInputTargetBlock('fileEndStart')) + '"' :'';
 	};
 
 
