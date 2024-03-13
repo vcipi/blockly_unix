@@ -111,7 +111,7 @@ replacementMap.set(/xargs(?!.*-I{}).*?\|/g, "xargs ");
 replacementMap.set(/xargs.*-I{}.*?\|/g, "xargs -I{} ");
 
 //used for cd
-replacementMap.set(/^cd./g, "cd ./");
+replacementMap.set(/^cd../g, "cd ./");
 
 
 
@@ -313,7 +313,7 @@ function handleBlock(block) {
 	}
 
 	//in case of the awk the regexStringValue is already included in the command so we dont need it
-	if(blockCategory==="Data Processing"){
+	if(blockType==="awk"){
 		regexStringValue='';
 		let contains = commandParts.some(element => element && element.includes("-F'"))
 		if (!contains) {commandParts[0] = "'" + commandParts[0];}
@@ -339,7 +339,7 @@ function handleBlock(block) {
 	else if(blockType === 'variables_set'){
 		commandString = variable_name + '=' + variable_value + " |";
 	}
-	else if (blockCategory === "Data Processing") {
+	else if (blockType === "awk") {
 		let beginIndex = commandParts.indexOf('BEGIN');
 		let endIndex = commandParts.indexOf('END');
 		let inputDelimIndex = commandParts.findIndex(element => typeof element === 'string' && element.includes("-F"));
@@ -460,7 +460,7 @@ function handleRegexBlocks(block,blockDefinition,patternValue){
 		block.inputList.forEach((input) => {
 		  //console.log("handleRegexBlocks - input:", input.name);
 		  input.fieldRow.forEach((field) => {
-			//console.log("handleRegexBlocks - field:", field);
+			console.log("handleRegexBlocks - field:", field);
 			let value;
 			
 			// Handle dropdowns
@@ -497,7 +497,7 @@ function handleRegexBlocks(block,blockDefinition,patternValue){
 			  //console.log("handleRegexBlocks - commandParts:", commandParts);
 			  //specifically made for the regForBlock so value m is replaced with the infinity option(commandParts.length - 2 is used because the last part of the list is an object with an undefined value - don't know what)
 			  if (field.name === 'INFINITE' && field.getValue() === 'TRUE'){
-				commandParts[commandParts.length - 2] = ', }';
+				commandParts[commandParts.length - 2] = ',}';
 				//console.log("handleRegexBlocks - commandParts:", commandParts);
 			  }
 			}
