@@ -1,6 +1,6 @@
 # visual-development-of-data-processing-pipelines-using-Blockly
 A development environment based on **Blockly** where users can easily construct data processing pipelines by visually plugging together processing blocks. The pipeline will be implemented underneath using Unix tools.
- ![Picture1](https://github.com/vcipi/blockly_unix/assets/108274884/401207f0-5fdb-4fe6-93b6-74cbcc36aa73) ![Picture2](https://github.com/vcipi/blockly_unix/assets/108274884/8bb6be00-a88b-4145-bb61-8be70e9b5c58)
+![Picture2](https://github.com/vcipi/blockly_unix/assets/108274884/8bb6be00-a88b-4145-bb61-8be70e9b5c58)
 
 # Summary
 The purpose of this project is to present a unique framework that makes use of Blockly, a visual programming language, to represent Unix commands as graphical blocks and to convey their abstractions. Through simplifying the way of their operation and the elimination of the requirement for specialist programming expertise, this method intends to make Unix utilities more accessible to a wider audience.The thesis provides an explanation of the development of a visual programming interface that simplifies the utilization of Unix command-line tools by allowing users to design data processing pipelines by dragging and dropping components. Visual blocks are connected to Unix instructions through the use of JSON specification files, which are utilized by the system in order to facilitate the conversion process. 
@@ -16,7 +16,7 @@ The user-friendliness of data processing activities is improved as a result of t
 
 ![Picture4](https://github.com/vcipi/blockly_unix/assets/108274884/9b70b5a0-c3f0-4973-9ed4-fbbe62479835)
 
-5.Your browser should initiate the application so you can begin.
+5. Your browser should initiate the application so you can begin.
 
 ![Picture3](https://github.com/vcipi/blockly_unix/assets/108274884/67304620-7e13-4718-973e-55cf3f2e296c)
 
